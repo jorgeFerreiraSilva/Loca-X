@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
       res.status(200).json({ allUsers });
     })
     .catch((err) => {
-      res.status(404).json({ message: 'Usuário não encontrado' });
+      res.status(404).json({ message: 'Erro ao procurar usuários' });
     });
 });
 
@@ -29,7 +29,7 @@ router.get('/:id', (req, res) => {
 router.delete('/', (req, res) => {
   User.deleteOne({ _id: req.user.id })
     .then((user) => {
-      res.status(200).json({ user });
+      res.status(204).json({ user });
     })
     .catch((err) => {
       res.status(404).json({ message: 'Usuário não encontrado' });

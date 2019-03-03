@@ -45,13 +45,13 @@ app.use(cors({
   origin: ['http://localhost:3000']
 }));
 
-
-
 //Call Endpoints.
-const userEndpoint = require('../endpoints/user');
-app.use('/api/users', userEndpoint);
 const authRoutes = require('../endpoints/auth-routes');
 app.use('/api/auth', authRoutes);
+const userEndpoint = require('../endpoints/user');
+app.use('/api/users', userEndpoint);
+const adRoutes = require('../endpoints/ad');
+app.use('/api/ads', adRoutes);
 
 app.get('*', (req, res) => notFound(req, res));
 
