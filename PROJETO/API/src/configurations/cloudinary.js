@@ -10,12 +10,12 @@ cloudinary.config({
 
 const storage = cloudinaryStorage({
   cloudinary,
-  folder: 'user-photo',
+  folder: 'photos-application-aluguel',
   allowedFormats: ['jpg', 'png'],
   filename(req, file, cb) {
     console.log(file);
     
-    cb(null, file.originalname);
+    cb(null, file.signature);
   }
 });
 
