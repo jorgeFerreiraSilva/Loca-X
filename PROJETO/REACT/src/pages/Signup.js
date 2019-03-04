@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Header from '../components/Header'
 
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    margin: '20%',
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+});
 
 class Signup extends Component {
   constructor() {
@@ -32,8 +49,16 @@ class Signup extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <form onSubmit={this.handleFormSubmit}>
+      <div className={classes.root}>
+      <Grid container spacing={24}>
+        <Grid item xs></Grid>
+        <Grid item xs={6}>
+         <Paper className={classes.paper}>
+        <div>
+          <Header />
+          <form onSubmit={this.handleFormSubmit}>
         <div className="field is-horizontal">
           <div className="field-label is-normal">
             <label className="label">Name</label>
@@ -88,9 +113,19 @@ class Signup extends Component {
 
         <input type="submit" value="submit" />
       </form>
-    
+        </div>
+
+         </Paper>
+        </Grid>
+        <Grid item xs></Grid>
+       </Grid> 
+      </div>
     );
   }
 }
 
-export default Signup;
+Signup.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+export default withStyles(styles)(Signup);
+

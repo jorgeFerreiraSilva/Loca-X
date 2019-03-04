@@ -110,7 +110,7 @@ class Header extends React.Component {
                     <SearchIcon className={classes.magnifyingGlass} />
                   </div>
                   <InputBase
-                    placeholder="Filter Places..."
+                    placeholder="Buscar itens"
                     classes={{
                       root: classes.inputRoot,
                       input: classes.inputInput
@@ -120,9 +120,6 @@ class Header extends React.Component {
               </Grid>
               <Grid item className={classes.grid}>
                 <div>
-                  <Button className={classes.menubuttons} color="inherit">
-                    Help
-                  </Button>
                   <Button className={classes.menubuttons} color="inherit">
                     Sign Up
                   </Button>
