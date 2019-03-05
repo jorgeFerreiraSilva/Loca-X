@@ -25,14 +25,14 @@ const styles = theme => ({
     padding:"4px 0px"
   },
   year:{
-    backgroundColor:"#A61D55",
-    borderRadius:"3.2px", // This is the border radius Airbnb uses for their little PLUS chips
+    backgroundColor:"#DD4132",
+    borderRadius:"3.2px", 
     color:"white",
-    padding:"0 4px" // Same padding that AirBnb uses
+    padding:"0 4px" 
   },
   yearArea:{
     textTransform:"uppercase",
-    color:"#A61D55", // matching the Airbnb purple
+    color:"#DD4132", 
     fontWeight: 600,
     fontSize:12,
     lineHeight:"16px",
@@ -40,7 +40,7 @@ const styles = theme => ({
     
   },
   launchicon: {
-    fontSize:12, // I put a little icon next to the original article link
+    fontSize:12, 
   },
   articleLink:{
     textDecoration:"none",
@@ -50,7 +50,7 @@ const styles = theme => ({
 
 class MyCard extends Component {
     render() {
-      const { classes } = this.props; // destructuring props 
+      const { classes, name, description, price, image } = this.props;
    
    
       return (
@@ -59,23 +59,23 @@ class MyCard extends Component {
         <CardMedia
           component="img"
           className={classes.media}
-          image="https://cdn.cliqueinc.com/cache/posts/269360/lady-gaga-malibu-home-269360-1538670263859-main.700x0c.jpg"
+          image={image}
         />
           <CardContent className={classes.cardContentArea}>
    
             <Typography noWrap className={classes.yearArea} component="p">
-             Featured in: <span className={classes.year}>1989</span>  · <a href="#" className={classes.articleLink} target="_blank">Original Article </a>
+             Diária: <span className={classes.year}>R${price}</span>
             </Typography>
    
             <Typography variant="h6" component="h2">
-              madureira
+              {name}
             </Typography>
             <div className={classes.snippet_area}>
             <Typography className={classes.snippet_text} noWrap component="p">
-             aaa 
+             {description}
             </Typography>
             <Typography component="p">
-            <a href="#" style={{textDecoration:"none", color:"#008489", fontWeight:600, fontSize:12}} className={classes.articleLink} target="_blank">Learn More</a>
+            <a href="#" style={{textDecoration:"none", color:"#008489", fontWeight:600, fontSize:12}} className={classes.articleLink} target="_blank">Ver mais</a>
             </Typography>
             </div>
           </CardContent>
