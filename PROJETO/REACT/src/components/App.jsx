@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-class App extends Component {
-  render() {
-    return <div>Hello {this.props.name}</div>;
-  }
+function App(props) {
+  const { name } = props;
+  return (
+    <div>
+      Hello
+      {name}
+    </div>
+  );
 }
 
 export default App;
