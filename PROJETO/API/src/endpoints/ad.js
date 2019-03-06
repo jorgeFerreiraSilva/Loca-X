@@ -123,7 +123,7 @@ router.get('/:id', (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(400).json({ message: 'Insira um id de anúncio válido' });
+      res.status(404).json({ message: 'Insira um id de anúncio válido' });
     });
 });
 
@@ -138,7 +138,7 @@ router.get('/users/:id', (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(400).json({ message: 'Insira um id de usuário válido.' });
+      res.status(404).json({ message: 'Insira um id de usuário válido.' });
     });
 });
 
@@ -159,7 +159,7 @@ router.get('', (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(400).json({ message: 'Erro ao buscar o anúncio por estado.' });
+      res.status(404).json({ message: 'Erro ao buscar o anúncio por estado.' });
     });
 });
 
@@ -170,7 +170,7 @@ router.delete('/:id', (req, res) => {
       res.status(204).json();
     })
     .catch((err) => {
-      res.status(400).json({ message: 'Insira um id de anúncio válido.' });
+      res.status(404).json({ message: 'Insira um id de anúncio válido.' });
     });
 });
 
