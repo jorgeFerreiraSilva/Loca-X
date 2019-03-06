@@ -52,6 +52,10 @@ const userEndpoint = require('../endpoints/user');
 app.use('/api/users', userEndpoint);
 const adRoutes = require('../endpoints/ad');
 app.use('/api/ads', adRoutes);
+const commentRoutes = require('../endpoints/comment');
+app.use('/api/comments', commentRoutes);
+const reservationRoutes = require('../endpoints/reservation');
+app.use('/api/reservation', reservationRoutes);
 
 app.get('*', (req, res) => notFound(req, res));
 
