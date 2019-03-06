@@ -9,13 +9,10 @@ const reservationSchema = new Schema({
   pricePerDay: { type: Number, min: 1 },
   startDate: { type: Date },
   endDate: { type: Date },
-  status: { type: String, required: true, default: 'Em espera', enum: ['Em espera', 'Alugando', 'Finalizado', 'Recusado'] }
+  status: {
+    type: String, required: true, default: 'Em espera', enum: ['Em espera', 'Alugando', 'Finalizado', 'Recusado'],
+  },
 });
 
 const Reservation = mongoose.model('Reservation', reservationSchema);
 module.exports = Reservation;
-
-
-
-
-

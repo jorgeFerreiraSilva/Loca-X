@@ -8,22 +8,22 @@ router.post('/reservation/:reservationId/users/:ownerId/:hirerId', (req, res) =>
   const { text } = req.body;
   const { reservationId, ownerId, hirerId } = req.params;
 
-  let errors = {};
+  const errors = {};
 
   if (!reservationId) {
-    errors['reservationId'] = 'Obrigatório que a mensagem possua o id da reserva';
+    errors.reservationId = 'Obrigatório que a mensagem possua o id da reserva';
   }
 
   if (!ownerId) {
-    errors['ownerId'] = 'Obrigatório que a mensagem possua o id do dono';
+    errors.ownerId = 'Obrigatório que a mensagem possua o id do dono';
   }
 
   if (!hirerId) {
-    errors['hirerId'] = 'Obrigatório que a mensagem possua o id do locatário';
+    errors.hirerId = 'Obrigatório que a mensagem possua o id do locatário';
   }
 
   if (text.length < 1) {
-    errors['text'] = 'A mensagem deve ter no mínimo 1 caracter';
+    errors.text = 'A mensagem deve ter no mínimo 1 caracter';
   }
 
   if (Object.keys(errors).length !== 0) {
@@ -31,7 +31,9 @@ router.post('/reservation/:reservationId/users/:ownerId/:hirerId', (req, res) =>
     return;
   }
 
-  const newMessage = new MessageModel({ reservationId, ownerId, hirerId, text });
+  const newMessage = new MessageModel({
+    reservationId, ownerId, hirerId, text,
+  });
 
   newMessage.save()
     .then((message) => {
@@ -54,6 +56,7 @@ router.get('/reservation/:reservationId', (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).json({ message: 'Insira um id de comentário válido.' });
     });
 });

@@ -1,5 +1,4 @@
 const express = require('express');
-const cloudinary = require('cloudinary');
 
 const router = express.Router();
 const AdModel = require('../model/Ad');
@@ -7,32 +6,35 @@ const AdModel = require('../model/Ad');
 const uploader = require('../configurations/cloudinary');
 
 router.post('/users/:id',
-  uploader.fields([{ name: "image1" }, { name: "image2" }, { name: "image3" }, { name: "image4" }, { name: "image5" }]), (req, res) => {
+  uploader.fields([{ name: 'image1' }, { name: 'image2' }, { name: 'image3' }, { name: 'image4' }, { name: 'image5' }]), (req, res) => {
+    const {
+      title, description, pricePerDay, state,
+    } = req.body;
 
-    const { title, description, pricePerDay, state } = req.body;
-
-    let errors = {};
+    const errors = {};
 
     if (!req.params.id) {
-      errors['ownerId'] = 'Obrigatório que o produto possua o id do dono';
+      errors.ownerId = 'Obrigatório que o produto possua o id do dono';
     }
 
     if (title.length < 4) {
-      errors['title'] = 'O título deve conter no mínimo 4 caracteres.';
+      errors.title = 'O título deve conter no mínimo 4 caracteres.';
     }
 
     if (!description) {
-      errors['description'] = 'Digite uma descrição.';
+      errors.description = 'Digite uma descrição.';
     }
 
     if (pricePerDay < 1) {
-      errors['pricePerDay'] = 'O valor do aluguel por dia deve ser de no mínimo R$ 1.';
+      errors.pricePerDay = 'O valor do aluguel por dia deve ser de no mínimo R$ 1.';
     }
 
-    const states = { 'AC': 1, 'AL': 2, 'AP': 3, 'AM': 4, 'BA': 5, 'CE': 6, 'DF': 7, 'ES': 8, 'GO': 9, 'MA': 10, 'MT': 11, 'MS': 12, 'MG': 13, 'PA': 14, 'PB': 15, 'PR': 16, 'PE': 17, 'PI': 18, 'RJ': 19, 'RN': 20, 'RS': 21, 'RO': 22, 'RR': 23, 'SC': 24, 'SP': 25, 'SE': 26, 'TO': 27 };
+    const states = {
+      AC: 1, AL: 2, AP: 3, AM: 4, BA: 5, CE: 6, DF: 7, ES: 8, GO: 9, MA: 10, MT: 11, MS: 12, MG: 13, PA: 14, PB: 15, PR: 16, PE: 17, PI: 18, RJ: 19, RN: 20, RS: 21, RO: 22, RR: 23, SC: 24, SP: 25, SE: 26, TO: 27
+    };
 
     if (!(state in states)) {
-      errors['state'] = 'Selecione um Estado válido';
+      errors.state = 'Selecione um Estado válido';
     }
 
     if (Object.keys(errors).length !== 0) {
@@ -40,14 +42,16 @@ router.post('/users/:id',
       return;
     }
 
-    let pathPictures = [];
+    const pathPictures = [];
     if (req.files) {
-      for (let prop in req.files) {
+      for (const prop in req.files) {
         pathPictures.push(req.files[prop][0].url);
       }
     }
 
-    const newAd = new AdModel({ ownerId: req.params.id, title, description, pricePerDay, pathPictures, state });
+    const newAd = new AdModel({
+      ownerId: req.params.id, title, description, pricePerDay, pathPictures, state,
+    });
 
     newAd.save()
       .then((ad) => {
@@ -60,32 +64,35 @@ router.post('/users/:id',
   });
 
 router.put('/:id',
-  uploader.fields([{ name: "image1" }, { name: "image2" }, { name: "image3" }, { name: "image4" }, { name: "image5" }]), (req, res) => {
+  uploader.fields([{ name: 'image1' }, { name: 'image2' }, { name: 'image3' }, { name: 'image4' }, { name: 'image5' }]), (req, res) => {
+    const {
+      title, description, pricePerDay, state
+    } = req.body;
 
-    const { title, description, pricePerDay, state } = req.body;
-
-    let errors = {};
+    const errors = {};
 
     if (!req.params.id) {
-      errors['ownerId'] = 'Obrigatório que o produto possua o id do dono';
+      errors.ownerId = 'Obrigatório que o produto possua o id do dono';
     }
 
     if (title.length < 4) {
-      errors['title'] = 'O título deve conter no mínimo 4 caracteres.';
+      errors.title = 'O título deve conter no mínimo 4 caracteres.';
     }
 
     if (!description) {
-      errors['description'] = 'Digite uma descrição.';
+      errors.description = 'Digite uma descrição.';
     }
 
     if (pricePerDay < 1) {
-      errors['pricePerDay'] = 'O valor do aluguel por dia deve ser de no mínimo R$ 1.';
+      errors.pricePerDay = 'O valor do aluguel por dia deve ser de no mínimo R$ 1.';
     }
 
-    const states = { 'AC': 1, 'AL': 2, 'AP': 3, 'AM': 4, 'BA': 5, 'CE': 6, 'DF': 7, 'ES': 8, 'GO': 9, 'MA': 10, 'MT': 11, 'MS': 12, 'MG': 13, 'PA': 14, 'PB': 15, 'PR': 16, 'PE': 17, 'PI': 18, 'RJ': 19, 'RN': 20, 'RS': 21, 'RO': 22, 'RR': 23, 'SC': 24, 'SP': 25, 'SE': 26, 'TO': 27 };
+    const states = {
+      AC: 1, AL: 2, AP: 3, AM: 4, BA: 5, CE: 6, DF: 7, ES: 8, GO: 9, MA: 10, MT: 11, MS: 12, MG: 13, PA: 14, PB: 15, PR: 16, PE: 17, PI: 18, RJ: 19, RN: 20, RS: 21, RO: 22, RR: 23, SC: 24, SP: 25, SE: 26, TO: 27
+    };
 
     if (!(state in states)) {
-      errors['state'] = 'Selecione um Estado válido';
+      errors.state = 'Selecione um Estado válido';
     }
 
     if (Object.keys(errors).length !== 0) {
@@ -93,16 +100,20 @@ router.put('/:id',
       return;
     }
 
-    let pathPictures = [];
+    const pathPictures = [];
     if (req.files) {
-      for (let prop in req.files) {
+      for (const prop in req.files) {
         pathPictures.push(req.files[prop][0].url);
       }
     }
 
-    const newAd = new AdModel({ ownerId: req.params.id, title, description, pricePerDay, pathPictures, state });
+    const newAd = new AdModel({
+      ownerId: req.params.id, title, description, pricePerDay, pathPictures, state
+    });
 
-    newAd.findOneAndUpdate({ _id: req.params.id }, { ownerId: req.params.id, title, description, pricePerDay, pathPictures, state })
+    newAd.findOneAndUpdate({ _id: req.params.id }, {
+      ownerId: req.params.id, title, description, pricePerDay, pathPictures, state
+    })
       .then((ad) => {
         res.status(201).json(ad);
       })
@@ -144,7 +155,9 @@ router.get('/users/:id', (req, res) => {
 
 // Filter by State
 router.get('', (req, res) => {
-  const states = { 'AC': 1, 'AL': 2, 'AP': 3, 'AM': 4, 'BA': 5, 'CE': 6, 'DF': 7, 'ES': 8, 'GO': 9, 'MA': 10, 'MT': 11, 'MS': 12, 'MG': 13, 'PA': 14, 'PB': 15, 'PR': 16, 'PE': 17, 'PI': 18, 'RJ': 19, 'RN': 20, 'RS': 21, 'RO': 22, 'RR': 23, 'SC': 24, 'SP': 25, 'SE': 26, 'TO': 27 };
+  const states = {
+    AC: 1, AL: 2, AP: 3, AM: 4, BA: 5, CE: 6, DF: 7, ES: 8, GO: 9, MA: 10, MT: 11, MS: 12, MG: 13, PA: 14, PB: 15, PR: 16, PE: 17, PI: 18, RJ: 19, RN: 20, RS: 21, RO: 22, RR: 23, SC: 24, SP: 25, SE: 26, TO: 27
+  };
   const state = req.query.state.toUpperCase();
   if (!(state in states)) {
     res.status(422).json({ message: "A sigla do estado está errada. Tente filtrar pela sigla do estado. Exemplo: 'SP', 'RJ' ..." });
@@ -158,7 +171,7 @@ router.get('', (req, res) => {
         res.status(200).json(ads);
       }
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(404).json({ message: 'Erro ao buscar o anúncio por estado.' });
     });
 });
@@ -169,7 +182,7 @@ router.delete('/:id', (req, res) => {
     .then(() => {
       res.status(204).json();
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(404).json({ message: 'Insira um id de anúncio válido.' });
     });
 });

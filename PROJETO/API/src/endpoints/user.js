@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
     .then((allUsers) => {
       res.status(200).json({ allUsers });
     })
-    .catch((err) => {
+    .catch((error) => {
+      console.error(error);
       res.status(404).json({ message: 'Erro ao procurar usuários' });
     });
 });
@@ -22,6 +23,7 @@ router.get('/:id', (req, res) => {
       res.status(200).json({ user });
     })
     .catch((err) => {
+      console.error(err);
       res.status(404).json({ message: 'Usuário não encontrado' });
     });
 });
@@ -32,12 +34,15 @@ router.delete('/', (req, res) => {
       res.status(204).json({ user });
     })
     .catch((err) => {
+      console.error(err);
       res.status(404).json({ message: 'Usuário não encontrado' });
     });
 });
 
-router.put('/:id', uploader.single("image"), (req, res) => {
-  const { username, name, description, state } = req.body;
+router.put('/:id', uploader.single('image'), (req, res) => {
+  const {
+    username, name, description, state,
+  } = req.body;
 
   if (req.file === undefined) {
     User.findOneAndUpdate({ _id: req.params.id }, { username, name, description, state })
@@ -45,15 +50,18 @@ router.put('/:id', uploader.single("image"), (req, res) => {
         res.status(200).json({ user });
       })
       .catch((err) => {
+        console.error(err);
         res.status(404).json({ message: 'Usuário não encontrado' });
       });
-
   } else {
-    User.findOneAndUpdate({ _id: req.params.id }, { username, name, description, state, pathPicture: req.file.url })
+    User.findOneAndUpdate({ _id: req.params.id }, {
+      username, name, description, state, pathPicture: req.file.url,
+    })
       .then((user) => {
         res.status(200).json({ user });
       })
       .catch((err) => {
+        console.error(err);
         res.status(404).json({ message: 'Usuário não encontrado' });
       });
   }

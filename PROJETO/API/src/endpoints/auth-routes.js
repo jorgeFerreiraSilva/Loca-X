@@ -1,4 +1,5 @@
 const express = require('express');
+
 const authRoutes = express.Router();
 
 const passport = require('passport');
@@ -8,30 +9,34 @@ const User = require('../model/User');
 
 
 authRoutes.post('/signup', (req, res) => {
-  const { name, username, password, state } = req.body;
+  const {
+    name, username, password, state,
+  } = req.body;
 
-  let errors = {};
+  const errors = {};
 
   if (!state) {
-    errors['state'] = 'Selecione um Estado';
+    errors.state = 'Selecione um Estado';
   }
 
   if (!name) {
-    errors['name'] = 'Digite o nome';
+    errors.name = 'Digite o nome';
   }
 
   if (username.length < 6) {
-    errors['username'] = 'O seu email deve ter no mínimo 6 caracteres';
+    errors.username = 'O seu email deve ter no mínimo 6 caracteres';
   }
 
   if (password.length < 7) {
-    errors['password'] = 'A sua senha deve ter no mínimo 7 caracteres';
+    errors.password = 'A sua senha deve ter no mínimo 7 caracteres';
   }
 
-  const states = { 'AC': 1, 'AL': 2, 'AP': 3, 'AM': 4, 'BA': 5, 'CE': 6, 'DF': 7, 'ES': 8, 'GO': 9, 'MA': 10, 'MT': 11, 'MS': 12, 'MG': 13, 'PA': 14, 'PB': 15, 'PR': 16, 'PE': 17, 'PI': 18, 'RJ': 19, 'RN': 20, 'RS': 21, 'RO': 22, 'RR': 23, 'SC': 24, 'SP': 25, 'SE': 26, 'TO': 27 };
+  const states = {
+    AC: 1, AL: 2, AP: 3, AM: 4, BA: 5, CE: 6, DF: 7, ES: 8, GO: 9, MA: 10, MT: 11, MS: 12, MG: 13, PA: 14, PB: 15, PR: 16, PE: 17, PI: 18, RJ: 19, RN: 20, RS: 21, RO: 22, RR: 23, SC: 24, SP: 25, SE: 26, TO: 27,
+  };
 
   if (!(state in states)) {
-    errors['state'] = 'Selecione um Estado válido';
+    errors.state = 'Selecione um Estado válido';
   }
 
   if (Object.keys(errors).length !== 0) {
@@ -57,7 +62,7 @@ authRoutes.post('/signup', (req, res) => {
       name,
       username,
       password: hashPass,
-      state
+      state,
     });
 
     aNewUser.save((err) => {
@@ -66,9 +71,8 @@ authRoutes.post('/signup', (req, res) => {
         return;
       }
 
-      req.login(aNewUser, (err) => {
-
-        if (err) {
+      req.login(aNewUser, (error) => {
+        if (error) {
           res.status(500).json({ message: 'Não foi possível logar após o cadastro.' });
           return;
         }
@@ -92,8 +96,8 @@ authRoutes.post('/login', (req, res, next) => {
       return;
     }
 
-    req.login(theUser, (err) => {
-      if (err) {
+    req.login(theUser, (error) => {
+      if (error) {
         res.status(500).json({ message: 'Session save went bad.' });
         return;
       }

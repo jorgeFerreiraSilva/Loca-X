@@ -10,12 +10,13 @@ const cors = require('cors');
 require('../configurations/passport');
 
 // Configuration MongoDB.
+const bodyParser = require('body-parser');
 const connectionDb = require('../configurations/mongoose');
+
 connectionDb();
 
 // Middlewares imports.
 const notFound = require('../middlewares/404.js');
-const bodyParser = require('body-parser');
 
 // Port on Server configuration.
 const HTTP_PORT = process.env.PORT;
@@ -38,23 +39,23 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-//  Cors Settings
+// Cors Settings
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000']
+  origin: ['http://localhost:3000'],
 }));
 
-//Call Endpoints.
+// Call Endpoints.
 const authRoutes = require('../endpoints/auth-routes');
-app.use('/api/auth', authRoutes);
 const userEndpoint = require('../endpoints/user');
-app.use('/api/users', userEndpoint);
 const adRoutes = require('../endpoints/ad');
-app.use('/api/ads', adRoutes);
 const commentRoutes = require('../endpoints/comment');
-app.use('/api/comments', commentRoutes);
 const reservationRoutes = require('../endpoints/reservation');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userEndpoint);
+app.use('/api/ads', adRoutes);
+app.use('/api/comments', commentRoutes);
 app.use('/api/reservation', reservationRoutes);
 
 app.get('*', (req, res) => notFound(req, res));
