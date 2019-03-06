@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import App from './App';
+// import './pages/Login/Login.css';
 
-let mountNode = document.getElementById('app');
+const mountNode = document.getElementById('app');
 ReactDOM.render(<App name="Jane" />, mountNode);
