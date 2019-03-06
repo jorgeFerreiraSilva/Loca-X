@@ -50,7 +50,7 @@ const styles = theme => ({
 
 class MyCard extends Component {
     render() {
-      const { classes, name, description, price, image } = this.props;
+      const { classes, result } = this.props;
    
    
       return (
@@ -59,20 +59,20 @@ class MyCard extends Component {
         <CardMedia
           component="img"
           className={classes.media}
-          image={image}
+          image={result.image}
         />
           <CardContent className={classes.cardContentArea}>
    
             <Typography noWrap className={classes.yearArea} component="p">
-             Diária: <span className={classes.year}>R${price}</span>
+             Diária: <span className={classes.year}>R${result.price}</span>
             </Typography>
    
             <Typography variant="h6" component="h2">
-              {name}
+              {result.name}
             </Typography>
             <div className={classes.snippet_area}>
             <Typography className={classes.snippet_text} noWrap component="p">
-             {description}
+             {result.description}
             </Typography>
             <Typography component="p">
             <a href="#" style={{textDecoration:"none", color:"#008489", fontWeight:600, fontSize:12}} className={classes.articleLink} target="_blank">Ver mais</a>

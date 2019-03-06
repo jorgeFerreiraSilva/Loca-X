@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 
+
 const primary = red[900];
 
 const styles = {
@@ -26,29 +27,53 @@ const styles = {
     textTransform:"uppercase",
     fontWeight: 600,
     fontSize:25,
-    marginLeft: 40
+    margin: 5
   }
 };
 
 
-function CategoryCard(props) {
-  const { classes, item } = this.props;
-  return (
-    <Card className={classes.card}>
+class CategoryCard extends React.Component {
+  render() {
+    const { classes, category } = this.props;
+ 
+ 
+    return (
+      <Card className={classes.card}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={item.image}
+          image={category.image}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.text}>
-            {item.name}
+            {category.name}
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
-  );
+    )      
+  }
 }
+
+// function CategoryCard(props) {
+//   const { classes, category } = this.props;
+//   return (
+//     <Card className={classes.card}>
+//       <CardActionArea>
+//         <CardMedia
+//           className={classes.media}
+//           image={category.image}
+//         />
+//         <CardContent>
+//           <Typography gutterBottom variant="h5" component="h2" className={classes.text}>
+//             {category.name}
+//           </Typography>
+//         </CardContent>
+//       </CardActionArea>
+//     </Card>
+//   );
+// }
+
 
 
 CategoryCard.propTypes = {
