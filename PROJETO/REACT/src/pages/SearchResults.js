@@ -17,21 +17,7 @@ const styles = theme => ({
 // eslint-disable-next-line react/prefer-stateless-function
 class SearchResults extends Component {
   render() {
-    const { classes } = this.props;
-    const results = [
-      {
-        name: 'Lady Gaga',
-        price: '10000',
-        description: 'Oscar Winner',
-        image: 'https://cdn.cliqueinc.com/cache/posts/269360/lady-gaga-malibu-home-269360-1538670263859-main.700x0c.jpg'
-      },
-      {
-        name: 'aaa',
-        price: '30',
-        description: 'nbbbbb',
-        image: 'https://cdn.cliqueinc.com/cache/posts/269360/lady-gaga-malibu-home-269360-1538670263859-main.700x0c.jpg'
-      }
-    ];
+    const { classes, results } = this.props;
     return (
       <div className={classes.root}>
         <Grid

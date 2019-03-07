@@ -8,7 +8,8 @@ const config = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -28,7 +29,8 @@ const config = {
   devServer: {
     hot: true,
     contentBase: './dist',
-    port: 3000
+    port: 3000,
+    historyApiFallback: true
   }
 };
 
