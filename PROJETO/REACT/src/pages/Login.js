@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -10,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import classNames from 'classnames';
+
 
 const styles = theme => ({
   root: {
@@ -25,11 +27,17 @@ const styles = theme => ({
 
 class Login extends Component {
 
-  state = {
-    email: '',
-    password: '',
-    showPassword: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      password: "",
+      showPassword: false
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -40,6 +48,13 @@ class Login extends Component {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
 
+  handleFormSubmit(event) {
+    event.preventDefault();
+    console.log('mystate', this.state);
+    axios.post("http://localhost:8080/api/auth/login", this.state).then(response => {
+      console.log(response);
+    });
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -48,39 +63,36 @@ class Login extends Component {
         <Grid item xs></Grid>
         <Grid item xs={12}>
          <Paper className={classes.paper}>
-            <form>
-            <TextField
-          id="outlined-simple-start-adornment"
-          className={classNames(classes.margin, classes.textField)}
-          variant="outlined"
-          onChange={this.handleChange('email')}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">E-mail</InputAdornment>,
-          }}
-        />
+            <form onSubmit={this.handleFormSubmit}>
               <TextField
-          id="outlined-adornment-password"
-          className={classNames(classes.margin, classes.textField)}
-          variant="outlined"
-          type={this.state.showPassword ? 'text' : 'password'}
-          label="Password"
-          value={this.state.password}
-          onChange={this.handleChange('password')}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="Toggle password visibility"
-                  onClick={this.handleClickShowPassword}
-                >
-                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-                <MyButton text="Submit" /> 
-                <input type="submit" value="submit" />
+                id="outlined-simple-start-adornment"
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                onChange={this.handleChange('username')}
+                InputProps={{
+                  startAdornment: <InputAdornment position="start">E-mail</InputAdornment>,
+                }} />
+              <TextField
+                id="outlined-adornment-password"
+                className={classNames(classes.margin, classes.textField)}
+                variant="outlined"
+                type={this.state.showPassword ? 'text' : 'password'}
+                label="Password"
+                value={this.state.password}
+                onChange={this.handleChange('password')}
+                InputProps={
+                  { endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="Toggle password visibility"
+                          onClick={this.handleClickShowPassword}
+                        >
+                          {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>)}}
+              />
+              <MyButton text="Submit" /> 
+              <input type="submit" value="submit" />
             </form>
          </Paper>
         </Grid>

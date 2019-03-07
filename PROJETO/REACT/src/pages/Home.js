@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Header from '../components/Header';
 import SelectState from '../components/SelectState';
 
-
 const styles = theme => ({
     root: {
       flexGrow: 1,
