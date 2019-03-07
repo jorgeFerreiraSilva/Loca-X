@@ -8,7 +8,7 @@ const uploader = require('../configurations/cloudinary');
 router.post('/users/:id',
   uploader.fields([{ name: 'image1' }, { name: 'image2' }, { name: 'image3' }, { name: 'image4' }, { name: 'image5' }]), (req, res) => {
 
-    const { title, description, pricePerDay, state } = req.body;
+    const { title, description, pricePerDay, state, category } = req.body;
 
     const errors = {};
 
@@ -46,7 +46,7 @@ router.post('/users/:id',
       }
     }
 
-    const newAd = new AdModel({ ownerId: req.params.id, title, description, pricePerDay, pathPictures, state });
+    const newAd = new AdModel({ category, ownerId: req.params.id, title, description, pricePerDay, pathPictures, state });
 
     newAd.save()
       .then((ad) => {
