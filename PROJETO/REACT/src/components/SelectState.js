@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select from 'react-select';
@@ -13,35 +13,35 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
 const suggestions = [
-  { label: 'Acre' },
-  { label: 'Alagoas' },
-  { label: 'Amapá' },
-  { label: 'Amazonas' },
-  { label: 'Bahia' },
-  { label: 'Ceará' },
-  { label: 'Distrito Federal' },
-  { label: 'Espírito Santo' },
-  { label: 'Goiás' },
-  { label: 'Maranhão' },
-  { label: 'Mato Grosso' },
-  { label: 'Mato Grosso do Sul' },
-  { label: 'Minas Gerais' },
-  { label: 'Pará' },
-  { label: 'Paraíba' },
-  { label: 'Paraná' },
-  { label: 'Pernambuco' },
-  { label: 'Piauí' },
-  { label: 'Roraima' },
-  { label: 'Rondônia' },
-  { label: 'Rio de Janeiro' },
-  { label: 'Rio Grande do Norte' },
-  { label: 'Rio Grande do Sul' },
-  { label: 'Santa Catarina' },
-  { label: 'Sergipe' },
-  { label: 'São Paulo' },
-  { label: 'Tocantins' },
+  { label: 'AC' },
+  { label: 'AL' },
+  { label: 'AP' },
+  { label: 'AM' },
+  { label: 'BA' },
+  { label: 'CE' },
+  { label: 'DF' },
+  { label: 'ES' },
+  { label: 'GO' },
+  { label: 'MA' },
+  { label: 'MT' },
+  { label: 'MS' },
+  { label: 'MG' },
+  { label: 'PA' },
+  { label: 'PB' },
+  { label: 'PR' },
+  { label: 'PE' },
+  { label: 'PI' },
+  { label: 'RR' },
+  { label: 'RO' },
+  { label: 'RJ' },
+  { label: 'RN' },
+  { label: 'RS' },
+  { label: 'SC' },
+  { label: 'SP' },
+  { label: 'SE' },
+  { label: 'TO' }
 ].map(suggestion => ({
-  value: suggestion.label,
+  value: suggestion.value,
   label: suggestion.label,
 }));
 
@@ -200,7 +200,7 @@ const components = {
   ValueContainer,
 };
 
-class SelectState extends React.Component {
+class SelectState extends Component {
   state = {
     single: null,
     multi: null,

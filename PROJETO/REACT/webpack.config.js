@@ -2,7 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 
 const config = {
-  entry: './src/index.jsx',
+  entry: [
+    'webpack/hot/dev-server',
+    './src/index.jsx'
+  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -23,9 +26,10 @@ const config = {
     ]
   },
   devServer: {
+    hot: true,
     contentBase: './dist',
     port: 3000
   }
-}
+};
 
 module.exports = config;

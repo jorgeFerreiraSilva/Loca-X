@@ -30,7 +30,7 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
   }
 
   if (pricePerDay < 1) {
-    errors['pricePerDay'] = 'O valor do alguel deve ser superior a R$1.';
+    errors['pricePerDay'] = 'O valor do aluguel deve ser superior a R$1.';
   }
 
   if (!startDate) {

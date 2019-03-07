@@ -8,6 +8,8 @@ import {
   Typography,
   Grid
 } from '@material-ui/core';
+import DatePickers from './DatePicker';
+import MyButton from '../MyButton';
 
 const styles = theme => ({
   container: {
@@ -27,32 +29,29 @@ const styles = theme => ({
   }
 });
 
-class ProdInfoCard extends Component {
+class Details extends Component {
     render() {
       const { classes } = this.props;
       return (
   
       <MuiThemeProvider>
-        <div>
-          <Grid className={classes.container}>
-          <img className={classes.image} src={this.props.image}></img>
-          <Paper square className={classes.box}>
-          <div className={classes.boxContent}>
-          <h1>{this.props.name}</h1>
-          <hr></hr>
-          <h3>{this.props.description}</h3>
-          </div>
-          </Paper>
-          </Grid>
+        <Paper square className={classes.box}>
+        <div className={classes.boxContent}>
+          <h3>Diária: R${this.props.price}</h3>
+          <DatePickers />
+          <DatePickers />
+          <h3>Total:</h3>
+          <MyButton text="CONFIRM"/>
         </div>
+        </Paper>
       </MuiThemeProvider>
   
       );
     }
   }
-
-  ProdInfoCard.propTypes = {
+  
+  Details.propTypes = {
     classes: PropTypes.object.isRequired
   };
   
-  export default withStyles(styles)(ProdInfoCard);
+  export default withStyles(styles)(Details);
