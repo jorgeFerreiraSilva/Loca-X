@@ -12,37 +12,34 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
   const { pricePerDay, startDate, endDate } = req.body;
   const { adId, ownerId, hirerId } = req.params;
 
-  let start = moment(startDate);
-  let end = moment(endDate);
-
-  let errors = {};
+  const errors = {};
 
   if (!adId) {
-    errors['adId'] = 'Obrigatório que a reserva possua o id do anúncio';
+    errors.adId = 'Obrigatório que a reserva possua o id do anúncio';
   }
 
   if (!ownerId) {
-    errors['ownerId'] = 'Obrigatório que a reserva possua o id do dono';
+    errors.ownerId = 'Obrigatório que a reserva possua o id do dono';
   }
 
   if (!hirerId) {
-    errors['hirerId'] = 'Obrigatório que a reserva possua o id do locatário';
+    errors.hirerId = 'Obrigatório que a reserva possua o id do locatário';
   }
 
   if (pricePerDay < 1) {
-    errors['pricePerDay'] = 'O valor do alguel deve ser superior a R$1.';
+    errors.pricePerDay = 'O valor do alguel deve ser superior a R$1.';
   }
 
   if (!startDate) {
-    errors['startDate'] = 'Obrigatório a data de início';
+    errors.startDate = 'Obrigatório a data de início';
   }
 
   if (!endDate) {
-    errors['endDate'] = 'Obrigatório a data de devolução';
+    errors.endDate = 'Obrigatório a data de devolução';
   }
 
   if (endDate < startDate) {
-    errors['endDate'] = 'A data de devolução deve ser posterior a data de início';
+    errors.endDate = 'A data de devolução deve ser posterior a data de início';
   }
 
   if (Object.keys(errors).length !== 0) {
@@ -59,8 +56,9 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(422).json({ message: 'Id do anúncio inválido.' });
-    })
+    });
 
   UserModel.findOne({ _id: ownerId })
     .then((owner) => {
@@ -69,19 +67,21 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(422).json({ message: 'Id do usuário dono inválido.' });
-    })
+    });
 
   UserModel.findOne({ _id: hirerId })
     .then((hirer) => {
       if (hirer === null) {
         res.status(404).json({ message: 'O locatário não existe.' });
       }
-      res.status(200).json({ ad, owner, hirer });
+      res.status(200).json({ hirer });
     })
     .catch((err) => {
+      console.error(err);
       res.status(422).json({ message: 'Id do usuário locatário inválido.' });
-    })
+    });
 
   // const findIdAd = AdModel.findOne({ _id: adId });
   // const findIdOwner = UserModel.findOne({ _id: ownerId });
@@ -132,6 +132,7 @@ router.get('/:id', (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).json({ message: 'Insira um id de reserva válido.' });
     });
 });
@@ -147,6 +148,7 @@ router.get('/ads/:adId', (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).json({ message: 'Insira um id de anúncio válido.' });
     });
 });
@@ -162,6 +164,7 @@ router.get('/ads/:adId/status', (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).json({ message: 'Insira um id de anúncio válido.' });
     });
 });
@@ -173,6 +176,7 @@ router.delete('/:id', (req, res) => {
       res.status(204).json();
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).json({ message: 'Insira um id de comentário válido.' });
     });
 });
