@@ -49,42 +49,42 @@ const styles = theme => ({
 });
 
 class MyCard extends Component {
-    render() {
-      const { classes, result } = this.props;
+  render() {
+    const { classes, result } = this.props;
 
 
-      return (
-        <Card className={classes.card}>
+    return (
+      <Card className={classes.card}>
         <CardActionArea>
-        <CardMedia
-          component="img"
-          className={classes.media}
-          image={result.image}
-        />
+          <CardMedia
+            component="img"
+            className={classes.media}
+            image={result.pathPictures[0]}
+          />
           <CardContent className={classes.cardContentArea}>
 
             <Typography noWrap className={classes.yearArea} component="p">
-             Diária: <span className={classes.year}>R${result.price}</span>
+              Diária: <span className={classes.year}>R${result.pricePerDay}</span>
             </Typography>
 
             <Typography variant="h6" component="h2">
-              {result.name}
+              {result.title}
             </Typography>
             <div className={classes.snippet_area}>
-            <Typography className={classes.snippet_text} noWrap component="p">
-             {result.description}
-            </Typography>
-            <Typography component="p">
-            <a href="#" style={{textDecoration: 'none', color: '#008489', fontWeight: 600, fontSize: 12}} className={classes.articleLink} target="_blank">Ver mais</a>
-            </Typography>
+              <Typography className={classes.snippet_text} noWrap component="p">
+                {result.description}
+              </Typography>
+              <Typography component="p">
+                <a href="#" style={{ textDecoration: 'none', color: '#008489', fontWeight: 600, fontSize: 12 }} className={classes.articleLink} target="_blank">Ver mais</a>
+              </Typography>
             </div>
           </CardContent>
         </CardActionArea>
 
       </Card>
-      )
-    }
+    )
   }
+}
 
 
 MyCard.propTypes = {
