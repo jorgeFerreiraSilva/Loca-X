@@ -7,18 +7,18 @@ router.post('/ads/:adId/users/:ownerId', (req, res) => {
 
   const { text } = req.body;
 
-  let errors = {};
+  const errors = {};
 
   if (!req.params.adId) {
-    errors['adId'] = 'Obrigatório que o comentário possua o id do anúncio';
+    errors.adId = 'Obrigatório que o comentário possua o id do anúncio';
   }
 
   if (!req.params.ownerId) {
-    errors['ownerId'] = 'Obrigatório que o comentário possua o id do dono';
+    errors.ownerId = 'Obrigatório que o comentário possua o id do dono';
   }
 
   if (text.length < 6 || text.length > 280) {
-    errors['text'] = 'O comentário deve ter entre 6 caracteres e 280 caracteres';
+    errors.text = 'O comentário deve ter entre 6 caracteres e 280 caracteres';
   }
 
   if (Object.keys(errors).length !== 0) {
@@ -49,6 +49,7 @@ router.get('/ads/:adId', (req, res) => {
       }
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).json({ message: 'Insira um id de comentário válido.' });
     });
 });
@@ -60,6 +61,7 @@ router.delete('/:id', (req, res) => {
       res.status(204).json();
     })
     .catch((err) => {
+      console.error(err);
       res.status(400).json({ message: 'Insira um id de comentário válido.' });
     });
 });
