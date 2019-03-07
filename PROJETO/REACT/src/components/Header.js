@@ -34,7 +34,7 @@ const styles = theme => ({
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
   magnifyingGlass: {
     fontWeight: 800,
