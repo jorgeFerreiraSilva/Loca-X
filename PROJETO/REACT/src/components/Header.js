@@ -53,7 +53,6 @@ const styles = theme => ({
     borderWidth: '1px',
     borderStyle: 'solid',
     borderColor: 'rgb(235, 235, 235)',
-    borderRadius: '4px',
     marginRight: theme.spacing.unit * 2,
     marginLeft: 0,
     width: '100%',
