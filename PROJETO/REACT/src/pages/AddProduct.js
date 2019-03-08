@@ -167,6 +167,14 @@ class AddProduct extends React.Component {
     console.log(this.state)
   };
 
+  handleFormSubmit(event) {
+    event.preventDefault();
+    console.log('mystate', this.state);
+    axios.post("http://localhost:8080/api/ad", this.state).then(response => {
+      console.log(response);
+    });
+  }
+
   render() {
     const { classes } = this.props;
 
