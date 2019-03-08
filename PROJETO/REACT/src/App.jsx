@@ -38,7 +38,8 @@ class App extends Component {
 
             <Route exact path="/" render={() => <Home updateState={this.updateState} />} />
             <Route path="/itens" render={() => <SearchResults selectedState={selectedState} />} />
-
+            <Route path="/add" render={() => <AddProduct />} />
+            <Route path="/search" render={() => <Header />}/>
           </Switch>
         </div>
       </MuiThemeProvider>
