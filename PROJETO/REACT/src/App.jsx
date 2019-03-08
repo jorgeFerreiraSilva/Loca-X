@@ -30,15 +30,16 @@ class App extends Component {
 
   render() {
     const { selectedState } = this.state;
-
     return (
       <MuiThemeProvider>
         <div>
           <Switch>
 
             <Route exact path="/" render={() => <Home updateState={this.updateState} />} />
-            <Route path="/itens" render={() => <SearchResults selectedState={selectedState} />} />
-
+            <Route path="/itens" render={() => <SearchResults selectedState={selectedState} />} />  
+             <Route path="/product/:id" render={(props) => <Product {...props} />} />   
+          {/* <Login /> */}
+          {/* <Product /> */}
           </Switch>
         </div>
       </MuiThemeProvider>

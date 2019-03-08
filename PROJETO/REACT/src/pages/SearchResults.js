@@ -17,6 +17,7 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import MyCard from '../components/MyCard';
 import Header from '../components/Header';
 import MyButton from '../components/MyButton';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -217,7 +218,7 @@ class SearchResults extends Component {
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/ads?state=${this.props.selectedState}`)
+    axios.get(`http://192.168.0.41:8080/api/ads?state=${this.props.selectedState}`)
       .then((response) => {
         this.setState({ listResults: response.data });
       })
@@ -226,9 +227,19 @@ class SearchResults extends Component {
       });
   }
 
-  render() {
-    console.log(this.state);
+  // getSingleAd = (props) => {
+  //   const { params } = this.props.match;
+  //   axios.get(`http://localhost:8080/api/ads/${params.id}`, { withCredentials: true })
+  //     .then(responseFromApi => {
+  //       const theProject = responseFromApi.data;
+  //       this.setState(theProject);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  // }
 
+  render() {
     const { classes, theme } = this.props;
     const { listResults } = this.state;
     let list = [];
@@ -241,10 +252,6 @@ class SearchResults extends Component {
         },
       }),
     };
-
-    console.log('---------------------------------------');
-    console.log(list);
-    console.log('---------------------------------------');
 
     if (this.state.single !== null) {
       list = listResults.filter((item) => item.category.includes(this.state.single.value))
@@ -273,13 +280,11 @@ class SearchResults extends Component {
           justify="flex-start"
           spacing={16}
         >
-          {this.state.single === null ? console.log('aqui') : console.log('dfsahdhgbsd')}
-
-
           {list.map((result, index) => (
             <Grid key={index} item>
-              {' '}
-              <MyCard result={result} />
+              <Link to={`/product/${result._id}`}>
+                <MyCard result={result} />
+              </Link>
             </Grid>
           ))}
         </Grid>
