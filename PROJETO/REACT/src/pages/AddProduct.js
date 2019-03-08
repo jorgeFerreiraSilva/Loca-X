@@ -180,8 +180,7 @@ class AddProduct extends React.Component {
       description: '',
       category: '',
       state: '',
-      image1: '',
-      upload: null
+      image1: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -195,28 +194,27 @@ class AddProduct extends React.Component {
 
   handleFileUpload = e => {
     console.log("The file to be uploaded is: ", e.target.files[0]);
-
-    const uploadData = new FormData();
-    uploadData.append("image1", e.target.files[0]);
-    uploadData.append('title', this.state.title)
-    uploadData.append('description', this.state.description)
-    uploadData.append('pricePerDay', this.state.pricePerDay)
-    uploadData.append('state', this.state.state)
-    uploadData.append('category', this.state.category)
-    this.setState({ upload: uploadData })
-    
+    this.setState({ image1: e.target.files[0] });
  }
 
 handleSubmit = e => {
   e.preventDefault();
-  
-  service.saveNewThing(this.state.upload)
+  const uploadData = new FormData();
+  uploadData.append("image1", this.state.image1);
+  uploadData.append('title', this.state.title)
+  uploadData.append('description', this.state.description)
+  uploadData.append('pricePerDay', this.state.pricePerDay)
+  uploadData.append('state', this.state.state)
+  uploadData.append('category', this.state.category)
+
+  service.saveNewThing(uploadData)
   .then(res => {
       console.log('added: ', res);
   })
   .catch(err => {
       console.log("Error while adding the thing: ", err);
   });
+}
 
   render() {
     const { classes } = this.props;
