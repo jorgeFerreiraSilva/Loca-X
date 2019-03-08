@@ -95,6 +95,19 @@ const styles = theme => ({
 });
 
 class Header extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      input: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
+    console.log(this.state)
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -114,6 +127,7 @@ class Header extends React.Component {
                       root: classes.inputRoot,
                       input: classes.inputInput
                     }}
+                    onChange={this.handleChange('input')}
                   />
                 </div>
               </Grid>

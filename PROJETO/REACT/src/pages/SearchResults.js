@@ -217,7 +217,7 @@ class SearchResults extends Component {
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/ads?state=${this.props.selectedState}`)
+    axios.get(`http://192.168.0.41:8080/api/ads?state=${this.props.selectedState}`)
       .then((response) => {
         this.setState({ listResults: response.data });
       })
