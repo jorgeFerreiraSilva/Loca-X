@@ -14,6 +14,9 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import Grid from '@material-ui/core/Grid';
 import Header from '../components/Header';
 import MyButton from '../components/MyButton';
+import { Link } from 'react-router-dom';
+
+
 const suggestions = [
   { label: 'AC' },
   { label: 'AL' },
@@ -51,14 +54,13 @@ const styles = theme => ({
     flexGrow: 1,
   },
   selectpaper: {
-    padding: theme.spacing.unit * 2,
     margin: '20%',
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   selectroot: {
     flexGrow: 1,
-    height: 250,
+    height: 250
   },
   input: {
     display: 'flex',
@@ -113,9 +115,11 @@ function NoOptionsMessage(props) {
     </Typography>
   );
 }
+
 function inputComponent({ inputRef, ...props }) {
   return <div ref={inputRef} {...props} />;
 }
+
 function Control(props) {
   return (
     <TextField
@@ -166,9 +170,11 @@ function SingleValue(props) {
     </Typography>
   );
 }
+
 function ValueContainer(props) {
   return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
+
 function MultiValue(props) {
   return (
     <Chip
@@ -207,9 +213,9 @@ class Home extends Component {
     this.setState({
       [name]: value,
     });
-    this.props.callbackFromParent(this.state.single);
-    // this.props.updateState('olá');
+    this.props.updateState(value.label);
   };
+
   render() {
     const { classes, theme } = this.props;
     console.log(this.state)
@@ -242,9 +248,12 @@ class Home extends Component {
                       placeholder="Selecione seu estado"
                       isClearable
                     />
-                    <MyButton text="buscar" />
+                    <Link to="/itens">
+                      <MyButton text="buscar" />
+                    </Link>
                   </NoSsr>
                 </div>
+
               </Paper>
             </Grid>
             <Grid item xs></Grid>

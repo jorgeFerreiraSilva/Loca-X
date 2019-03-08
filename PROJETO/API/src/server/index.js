@@ -25,7 +25,7 @@ const HTTP_PORT = process.env.PORT;
 const app = express();
 
 // Configuration on Starter Server.
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 // Session Settings

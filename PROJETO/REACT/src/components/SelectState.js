@@ -202,8 +202,7 @@ const components = {
 
 class SelectState extends Component {
   state = {
-    single: null,
-    multi: null,
+    single: null
   };
 
   handleChange = name => value => {
@@ -238,8 +237,8 @@ class SelectState extends Component {
             placeholder="Selecione seu estado"
             isClearable
           />
-          <div className={classes.divider} />
-          <Select
+          {/* <div className={classes.divider} /> */}
+          {/* <Select
             classes={classes}
             styles={selectStyles}
             textFieldProps={{
@@ -254,7 +253,7 @@ class SelectState extends Component {
             onChange={this.handleChange('multi')}
             placeholder="Selecione vários estados"
             isMulti
-          />
+          /> */}
         </NoSsr>
       </div>
     );
