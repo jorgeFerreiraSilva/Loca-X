@@ -9,6 +9,7 @@ router.post('/users/:id',
   uploader.fields([{ name: 'image1' }, { name: 'image2' }, { name: 'image3' }, { name: 'image4' }, { name: 'image5' }]), (req, res) => {
 
     const { title, description, pricePerDay, state, category } = req.body;
+    console.log(title, description, pricePerDay, state, category);
 
     const errors = {};
 
@@ -35,6 +36,7 @@ router.post('/users/:id',
     }
 
     if (Object.keys(errors).length !== 0) {
+      console.error(errors);
       res.status(422).json(errors);
       return;
     }
