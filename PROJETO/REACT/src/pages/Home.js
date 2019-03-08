@@ -227,7 +227,6 @@ class Home extends Component {
 
   render() {
     const { classes, theme } = this.props;
-    console.log(this.state)
     const selectStyles = {
       input: base => ({
         ...base,
