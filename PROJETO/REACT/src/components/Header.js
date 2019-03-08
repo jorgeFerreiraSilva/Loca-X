@@ -95,7 +95,22 @@ const styles = theme => ({
 });
 
 class Header extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      search: null
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange = prop => event => {
+    // this.setState({ [prop]: event.target.value });
+    this.props.updateState(event.target.value);
+  };
+
   render() {
+    console.log(this.state.search);
+
     const { classes } = this.props;
     return (
       <div className={classes.root}>
@@ -110,10 +125,12 @@ class Header extends React.Component {
                   </div>
                   <InputBase
                     placeholder="Buscar itens"
+                    onChange={this.handleChange('search')}
                     classes={{
                       root: classes.inputRoot,
                       input: classes.inputInput
                     }}
+                    onChange={this.handleChange('input')}
                   />
                 </div>
               </Grid>

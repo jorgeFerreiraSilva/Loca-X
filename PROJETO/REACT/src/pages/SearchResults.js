@@ -18,6 +18,7 @@ import MyCard from '../components/MyCard';
 import Header from '../components/Header';
 import MyButton from '../components/MyButton';
 import { Link } from 'react-router-dom';
+import { HardwarePhoneAndroid } from 'material-ui/svg-icons';
 
 const styles = theme => ({
   root: {
@@ -207,11 +208,19 @@ class SearchResults extends Component {
     super();
     this.state = {
       listResults: [],
-      single: null
+      single: null,
+      search: ''
     };
+    this.updateState = this.updateState.bind(this)
   }
 
-  handleChangeCategories = name => value => {
+  updateState(obj) {
+    this.setState({
+      search: obj.toLowerCase()
+    });
+  }
+
+  handleChange = name => value => {
     this.setState({
       [name]: value,
     });
@@ -226,18 +235,6 @@ class SearchResults extends Component {
         console.error(err);
       });
   }
-
-  // getSingleAd = (props) => {
-  //   const { params } = this.props.match;
-  //   axios.get(`http://localhost:8080/api/ads/${params.id}`, { withCredentials: true })
-  //     .then(responseFromApi => {
-  //       const theProject = responseFromApi.data;
-  //       this.setState(theProject);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }
 
   render() {
     const { classes, theme } = this.props;
@@ -255,13 +252,18 @@ class SearchResults extends Component {
 
     if (this.state.single !== null) {
       list = listResults.filter((item) => item.category.includes(this.state.single.value))
+    } else if (this.state.search !== '') {
+      list = listResults.filter((item) => item.title.toLowerCase().includes(this.state.search))
     } else {
       list = listResults;
     }
 
     return (
       <div className={classes.myroot}>
-        <div className={classes.selectroot}>
+        <div>
+          <Header updateState={this.updateState} />
+        </div>
+        <div className={classes.selectroot} style={{ marginTop: '100px' }}>
           <NoSsr>
             <Select
               classes={classes}
@@ -269,7 +271,7 @@ class SearchResults extends Component {
               options={suggestions}
               components={components}
               value={this.state.single}
-              onChange={this.handleChangeCategories('single')}
+              onChange={this.handleChange('single')}
               placeholder="Categorias"
               isClearable
             />
