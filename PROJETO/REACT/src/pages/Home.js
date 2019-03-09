@@ -46,10 +46,9 @@ const suggestions = [
   { label: 'SE' },
   { label: 'TO' }
 ].map(suggestion => ({
-  value: suggestion.value,
+  value: suggestion.label,
   label: suggestion.label,
 }));
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -105,7 +104,6 @@ const styles = theme => ({
     height: theme.spacing.unit * 2,
   },
 });
-
 function NoOptionsMessage(props) {
   return (
     <Typography
@@ -139,7 +137,6 @@ function Control(props) {
     />
   );
 }
-
 function Option(props) {
   return (
     <MenuItem
@@ -155,7 +152,6 @@ function Option(props) {
     </MenuItem>
   );
 }
-
 function Placeholder(props) {
   return (
     <Typography
@@ -167,7 +163,6 @@ function Placeholder(props) {
     </Typography>
   );
 }
-
 function SingleValue(props) {
   return (
     <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
@@ -193,7 +188,6 @@ function MultiValue(props) {
     />
   );
 }
-
 function Menu(props) {
   return (
     <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
@@ -201,7 +195,6 @@ function Menu(props) {
     </Paper>
   );
 }
-
 const components = {
   Control,
   Menu,
@@ -212,12 +205,10 @@ const components = {
   SingleValue,
   ValueContainer,
 };
-
 class Home extends Component {
   state = {
     single: null
   };
-
   handleChange = name => value => {
     this.setState({
       [name]: value,
@@ -227,7 +218,6 @@ class Home extends Component {
 
   render() {
     const { classes, theme } = this.props;
-    console.log(this.state)
     const selectStyles = {
       input: base => ({
         ...base,
@@ -245,7 +235,6 @@ class Home extends Component {
             <Grid item xs></Grid>
             <Grid item xs={6}>
               <Paper className={classes.selectpaper}>
-
                 <div className={classes.selectroot}>
                   <NoSsr>
                     <Select
@@ -273,10 +262,8 @@ class Home extends Component {
     );
   }
 }
-
 Home.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
-
 export default withStyles(styles, { withTheme: true })(Home);

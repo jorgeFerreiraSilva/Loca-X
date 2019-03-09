@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Header from "../components/Header";
+import AuthService from "./auth-service";
 
 const styles = theme => ({
   root: {
@@ -30,6 +31,7 @@ class Signup extends Component {
     };
     this.updateState = this.updateState.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.service = new AuthService();
   }
 
   updateState(e) {
@@ -41,9 +43,21 @@ class Signup extends Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
-    axios.post("http://localhost:8080/api/auth/signup", this.state).then(response => {
-      console.log(response);
-    });
+    const { username, password, name, state } = this.state;
+    const { getUser } = this.props;
+    this.service.signup(username, password, name, state)
+      .then((response) => {
+        this.setState({
+          username: '',
+          password: '',
+          state: '',
+          name: ''
+        });
+        getUser(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   render() {
@@ -87,9 +101,9 @@ class Signup extends Component {
                           <input
                             className="input"
                             onChange={e => this.updateState(e)}
-                            value={this.state.location}
+                            value={this.state.state}
                             type="text"
-                            placeholder="Location"
+                            placeholder="Estado"
                             name="state"
                           />
                         </p>
@@ -107,7 +121,7 @@ class Signup extends Component {
                           <input
                             className="input"
                             onChange={e => this.updateState(e)}
-                            value={this.state.description}
+                            value={this.state.username}
                             type="text"
                             placeholder="E-mail"
                             name="username"

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -30,28 +32,52 @@ const styles = theme => ({
   }
 });
 
-const Product = ({ classes }) => (
-  <MuiThemeProvider>
-    <div>
-      <div className={classes.background} />
-      <Grid container spacing={24} className={classes.container}>
-        <Grid item xs={4} className={classes.leftContainer}>
-          <LeftContainer classes={classes} />
+class Product extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title:'',
+      description:'',
+      pathPictures:'',
+      pricePerDay:''
+    };
+    this.handleUpdateItem = this.handleUpdateItem.bind(this);
+  };
+
+  handleUpdateItem() {
+    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`, this.state).then(response => { 
+      const { title, description, pathPictures, pricePerDay } = response.data;
+      this.setState({ title, description, pathPictures, pricePerDay });
+    })
+    .catch((err) => console.log(err));
+  }
+
+  componentDidMount() {
+    this.handleUpdateItem();
+  }
+
+  render() {
+    const { classes, theme } = this.props;
+    return (
+      <MuiThemeProvider>
+      <div>
+        <div className={classes.background} />
+        <Grid container spacing={24} className={classes.container}>
+          <Grid item xs={4} className={classes.leftContainer}>
+            <ProdInfoCard image={this.state.pathPictures[0]} name={this.state.title} description={this.state.description} />  
+          </Grid>
+          <Grid item xs={4}>
+            <Details price={this.state.pricePerDay} />
+          </Grid>
         </Grid>
-        <Grid item xs={4}>
-          <RightContainer classes={classes} />
-        </Grid>
-      </Grid>
-    </div>
-  </MuiThemeProvider>
-);
+      </div>
+    </MuiThemeProvider>
+    );
+  }
+}
 
-const RightContainer = ({ classes }) => (
-  <Details price="10" />
-);
+Product.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
-const LeftContainer = ({ classes }) => (
-  <ProdInfoCard image="https://pixel.nymag.com/imgs/fashion/daily/2019/01/14/14-lady-gaga.w700.h700.jpg" name="TV" description="lalalalaal" />
-);
-
-export default withStyles(styles)(Product);
+export default withStyles(styles, { withTheme: true })(Product);

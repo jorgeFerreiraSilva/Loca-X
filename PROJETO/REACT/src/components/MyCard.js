@@ -51,8 +51,6 @@ const styles = theme => ({
 class MyCard extends Component {
   render() {
     const { classes, result } = this.props;
-
-
     return (
       <Card className={classes.card}>
         <CardActionArea>
@@ -75,7 +73,7 @@ class MyCard extends Component {
                 {result.description}
               </Typography>
               <Typography component="p">
-                <a href="#" style={{ textDecoration: 'none', color: '#008489', fontWeight: 600, fontSize: 12 }} className={classes.articleLink} target="_blank">Ver mais</a>
+                <span style={{ textDecoration: 'none', color: '#008489', fontWeight: 600, fontSize: 12 }} className={classes.articleLink} target="_blank">Ver mais</span>
               </Typography>
             </div>
           </CardContent>

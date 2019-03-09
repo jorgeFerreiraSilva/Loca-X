@@ -17,6 +17,8 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import MyCard from '../components/MyCard';
 import Header from '../components/Header';
 import MyButton from '../components/MyButton';
+import { Link } from 'react-router-dom';
+import { HardwarePhoneAndroid } from 'material-ui/svg-icons';
 
 const styles = theme => ({
   root: {
@@ -206,18 +208,26 @@ class SearchResults extends Component {
     super();
     this.state = {
       listResults: [],
-      single: null
+      single: null,
+      search: ''
     };
+    this.updateState = this.updateState.bind(this)
   }
 
-  handleChangeCategories = name => value => {
+  updateState(obj) {
+    this.setState({
+      search: obj.toLowerCase()
+    });
+  }
+
+  handleChange = name => value => {
     this.setState({
       [name]: value,
     });
   };
 
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/ads?state=${this.props.selectedState}`)
+    axios.get(`http://192.168.0.41:8080/api/ads?state=${this.props.selectedState}`)
       .then((response) => {
         this.setState({ listResults: response.data });
       })
@@ -227,8 +237,6 @@ class SearchResults extends Component {
   }
 
   render() {
-    console.log(this.state);
-
     const { classes, theme } = this.props;
     const { listResults } = this.state;
     let list = [];
@@ -242,19 +250,20 @@ class SearchResults extends Component {
       }),
     };
 
-    console.log('---------------------------------------');
-    console.log(list);
-    console.log('---------------------------------------');
-
     if (this.state.single !== null) {
       list = listResults.filter((item) => item.category.includes(this.state.single.value))
+    } else if (this.state.search !== '') {
+      list = listResults.filter((item) => item.title.toLowerCase().includes(this.state.search))
     } else {
       list = listResults;
     }
 
     return (
       <div className={classes.myroot}>
-        <div className={classes.selectroot}>
+        <div>
+          <Header updateState={this.updateState} />
+        </div>
+        <div className={classes.selectroot} style={{ marginTop: '100px' }}>
           <NoSsr>
             <Select
               classes={classes}
@@ -262,7 +271,7 @@ class SearchResults extends Component {
               options={suggestions}
               components={components}
               value={this.state.single}
-              onChange={this.handleChangeCategories('single')}
+              onChange={this.handleChange('single')}
               placeholder="Categorias"
               isClearable
             />
@@ -273,13 +282,11 @@ class SearchResults extends Component {
           justify="flex-start"
           spacing={16}
         >
-          {this.state.single === null ? console.log('aqui') : console.log('dfsahdhgbsd')}
-
-
           {list.map((result, index) => (
             <Grid key={index} item>
-              {' '}
-              <MyCard result={result} />
+              <Link to={`/product/${result._id}`}>
+                <MyCard result={result} />
+              </Link>
             </Grid>
           ))}
         </Grid>
