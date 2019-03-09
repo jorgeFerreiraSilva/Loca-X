@@ -87,7 +87,7 @@ class Signup extends Component {
                           <input
                             className="input"
                             onChange={e => this.updateState(e)}
-                            value={this.state.location}
+                            value={this.state.state}
                             type="text"
                             placeholder="Location"
                             name="state"
@@ -107,7 +107,7 @@ class Signup extends Component {
                           <input
                             className="input"
                             onChange={e => this.updateState(e)}
-                            value={this.state.description}
+                            value={this.state.username}
                             type="text"
                             placeholder="E-mail"
                             name="username"
