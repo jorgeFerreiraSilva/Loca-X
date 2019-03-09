@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
@@ -57,6 +57,11 @@ class App extends Component {
 
   render() {
     const { selectedState, loggedInUser } = this.state;
+
+    console.log('<------------- loggdeInUser --------------->');
+    console.log(loggedInUser);
+    console.log('<------------- loggdeInUser --------------->');
+
     { this.fetchUser() }
 
     if (loggedInUser) {
@@ -84,9 +89,7 @@ class App extends Component {
               <Route exact path="/itens" render={() => <SearchResults selectedState={selectedState} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
-              <ProtectedRoute user={loggedInUser} path="/adicionar" component={AddProduct} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
-
             </Switch>
           </div>
         </MuiThemeProvider>

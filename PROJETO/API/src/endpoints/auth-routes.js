@@ -8,7 +8,8 @@ const User = require('../model/User');
 
 
 authRoutes.post('/signup', (req, res) => {
-  const { name, username, password, state } = req.body;
+  const { username, password, state, name } = req.body;
+  console.log(name, username, password, state);
 
   const errors = {};
 
@@ -30,11 +31,14 @@ authRoutes.post('/signup', (req, res) => {
 
   const states = { AC: 1, AL: 2, AP: 3, AM: 4, BA: 5, CE: 6, DF: 7, ES: 8, GO: 9, MA: 10, MT: 11, MS: 12, MG: 13, PA: 14, PB: 15, PR: 16, PE: 17, PI: 18, RJ: 19, RN: 20, RS: 21, RO: 22, RR: 23, SC: 24, SP: 25, SE: 26, TO: 27 };
 
+  console.log('Região:', state);
+
   if (!(state in states)) {
     errors.state = 'Selecione um Estado válido';
   }
 
   if (Object.keys(errors).length !== 0) {
+    console.log(errors);
     res.status(422).json(errors);
     return;
   }
@@ -91,8 +95,8 @@ authRoutes.post('/login', (req, res, next) => {
       return;
     }
 
-    req.login(theUser, (error) => {
-      if (error) {
+    req.login(theUser, (err) => {
+      if (err) {
         res.status(500).json({ message: 'Session save went bad.' });
         return;
       }

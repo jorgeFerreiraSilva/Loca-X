@@ -5,24 +5,15 @@ const service = axios.create({
   // withCredentials: true // => you might need this when having the users in the app 
 });
 
-const errorHandler = err => {
-  // console.error(err);
+const errorHandler = (err) => {
   throw err;
 };
 
 export default {
   service,
 
-  handleUpload (theFile) {
-    // console.log('file in service: ', theFile)
-    return service.post('/ads/users/5c7b0456e9591c5d147a7246', theFile)
-      .then(res => res.data)
-      .catch(errorHandler);
-  },
-
-  saveNewThing (newThing) {
-    // console.log('new thing is: ', newThing)
-    return service.post('/ads/users/5c7b0456e9591c5d147a7246', newThing)
+  saveNewThing(newThing, userId) {
+    return service.post(`/ads/users/${userId}`, newThing)
       .then(res => res.data)
       .catch(errorHandler);
   }
