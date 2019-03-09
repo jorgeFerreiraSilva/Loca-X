@@ -30,7 +30,6 @@ const styles = theme => ({
   }
 });
 
-
 const Product = ({ classes }) => (
   <MuiThemeProvider>
     <div>
