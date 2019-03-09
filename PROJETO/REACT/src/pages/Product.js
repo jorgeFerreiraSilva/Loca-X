@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -36,10 +37,10 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title:'',
-      description:'',
-      pathPictures:'',
-      pricePerDay:''
+      title: '',
+      description: '',
+      pathPictures: '',
+      pricePerDay: ''
     };
     this.handleUpdateItem = this.handleUpdateItem.bind(this);
   };
@@ -67,7 +68,7 @@ class Product extends Component {
             <ProdInfoCard image={this.state.pathPictures[0]} name={this.state.title} description={this.state.description} />  
           </Grid>
           <Grid item xs={4}>
-            <Details price={this.state.pricePerDay} />
+            <Details price={this.state.pricePerDay} productID={this.props.match.params.id} />
           </Grid>
         </Grid>
       </div>

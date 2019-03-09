@@ -14,6 +14,8 @@ import CategoriesPage from './pages/CategoriesPage';
 import Product from './pages/Product';
 import ProtectedRoute from './auth/protected-route.jsx';
 import AuthService from './auth/auth-service';
+import ReservationDetails from './components/ReservationDetails';
+
 
 class App extends Component {
   constructor(props) {
@@ -75,6 +77,7 @@ class App extends Component {
               <ProtectedRoute user={loggedInUser} path="/adicionar" component={AddProduct} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
+              <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
             </Switch>
           </div>
         </MuiThemeProvider>
