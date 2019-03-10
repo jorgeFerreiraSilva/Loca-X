@@ -26,7 +26,9 @@ const styles = theme => ({
     width: '100%'
   },
   box: {
-    marginTop: '10%'
+    marginTop: '10%',
+    boxShadow: 'none',
+    border: '1px solid #e2e2e2'
   },
   boxContent: {
     padding: '10%'
@@ -65,7 +67,9 @@ class Details extends Component {
     <MuiThemeProvider>
       <Paper square className={classes.box}>
       <div className={classes.boxContent}>
+      <Typography variant="h6" component="h2">
         <h3>Diária: R${this.props.price}</h3>
+          </Typography>
         <DateRangePicker
           startDate={this.state.startDate}
           startDateId="your_unique_start_date_id" 
@@ -75,9 +79,9 @@ class Details extends Component {
           focusedInput={this.state.focusedInput}
           onFocusChange={focusedInput => this.setState({ focusedInput })}
         />
-        {/* <DatePickers />
-        <DatePickers /> */}
+        <Typography variant="h6" component="h2">
         <h3>Total:</h3>
+          </Typography>
         <MyButton text="CONFIRM"/>
         <Link to={`/newreservation/${this.props.productID}`}>
           <h3>Reservar</h3>

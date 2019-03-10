@@ -81,7 +81,6 @@ class App extends Component {
             </Switch>
           </div>
         </MuiThemeProvider>
-
       );
     } else {
       return (
@@ -96,10 +95,8 @@ class App extends Component {
             </Switch>
           </div>
         </MuiThemeProvider>
-
       );
     }
   }
 }
-
 export default App;

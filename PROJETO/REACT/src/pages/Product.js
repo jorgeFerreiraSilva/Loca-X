@@ -46,7 +46,7 @@ class Product extends Component {
   };
 
   handleUpdateItem() {
-    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`, this.state).then(response => { 
+    axios.get(`http://localhost:8080/api/ads/${this.props.match.params.id}`, this.state).then(response => { 
       const { title, description, pathPictures, pricePerDay } = response.data;
       this.setState({ title, description, pathPictures, pricePerDay });
     })

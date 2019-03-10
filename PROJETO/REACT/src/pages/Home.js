@@ -54,7 +54,8 @@ const styles = theme => ({
     flexGrow: 1,
   },
   selectpaper: {
-    margin: '20%',
+    marginTop: '30%',
+    // margin: '20%',
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
@@ -103,6 +104,28 @@ const styles = theme => ({
   divider: {
     height: theme.spacing.unit * 2,
   },
+  banner: {
+    color: 'white',
+    textAlign: 'center',
+    height: '00vh',
+    /* if you have a 70px navbar => height: calc(100vh - 70px); */
+    backgroundSize: 'cover !important',
+    display: 'flex',
+    alignItens: 'center',
+    justifyContent: 'center'
+  }
+  // .banner h1 {
+  //   fontSize: 50px;
+  //   font-weight: bold;
+  //   text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  // }
+  // .banner p {
+  //   font-size: 25px;
+  //   font-weight: lighter;
+  //   color: rgb(255, 255, 255);
+  //   opacity: 0.6;
+  //   margin-bottom: 30px;
+  // }
 });
 function NoOptionsMessage(props) {
   return (
@@ -231,8 +254,10 @@ class Home extends Component {
       <div>
         <Header />
         <div className={classes.root}>
+        <div className="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('https://kitt.lewagon.com/placeholder/cities/berlin');">
+        <div className="banner-content">
           <Grid container spacing={24}>
-            <Grid item xs></Grid>
+            {/* <Grid item xs></Grid> */}
             <Grid item xs={6}>
               <Paper className={classes.selectpaper}>
                 <div className={classes.selectroot}>
@@ -255,8 +280,10 @@ class Home extends Component {
 
               </Paper>
             </Grid>
-            <Grid item xs></Grid>
+            {/* <Grid item xs></Grid> */}
           </Grid>
+        </div>
+      </div>
         </div>
       </div>
     );

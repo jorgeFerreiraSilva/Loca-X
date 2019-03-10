@@ -38,9 +38,13 @@ class ProdInfoCard extends Component {
           <img className={classes.image} src={this.props.image}></img>
           <Paper square className={classes.box}>
           <div className={classes.boxContent}>
-          <h1>{this.props.name}</h1>
+          <Typography variant="h6" component="h2">
+            {this.props.name}
+          </Typography>
           <hr></hr>
-          <h3>{this.props.description}</h3>
+          <Typography component="p">
+            <h3>{this.props.description}</h3>
+          </Typography>
           </div>
           </Paper>
           </Grid>
