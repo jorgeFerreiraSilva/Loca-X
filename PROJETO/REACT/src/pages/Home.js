@@ -54,14 +54,16 @@ const styles = theme => ({
     flexGrow: 1,
   },
   selectpaper: {
-    marginTop: '30%',
-    // margin: '20%',
+    marginTop: '40%',
+    margin: '20%',
     textAlign: 'center',
+    height: '40%',
     color: theme.palette.text.secondary,
   },
   selectroot: {
     flexGrow: 1,
-    height: 250
+    height: 100,
+    padding: '10%'
   },
   input: {
     display: 'flex',
@@ -107,12 +109,17 @@ const styles = theme => ({
   banner: {
     color: 'white',
     textAlign: 'center',
-    height: '00vh',
+    // heigth: '00vh',
+    maxHeigth: "100%",
     /* if you have a 70px navbar => height: calc(100vh - 70px); */
-    backgroundSize: 'cover !important',
+    backgroundSize: 'cover',
     display: 'flex',
     alignItens: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundImage: "url('https://kitt.lewagon.com/placeholder/cities/berlin')",
+    backgroundRepeat: "no-repeat",
+			backgroundPosition: "center center",
+			backgroundSize: "cover",
   }
   // .banner h1 {
   //   fontSize: 50px;
@@ -126,6 +133,7 @@ const styles = theme => ({
   //   opacity: 0.6;
   //   margin-bottom: 30px;
   // }
+
 });
 function NoOptionsMessage(props) {
   return (
@@ -253,11 +261,9 @@ class Home extends Component {
     return (
       <div>
         <Header />
-        <div className={classes.root}>
-        <div className="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('https://kitt.lewagon.com/placeholder/cities/berlin');">
-        <div className="banner-content">
+        <div className={classes.banner}>
           <Grid container spacing={24}>
-            {/* <Grid item xs></Grid> */}
+            <Grid item xs></Grid>
             <Grid item xs={6}>
               <Paper className={classes.selectpaper}>
                 <div className={classes.selectroot}>
@@ -280,11 +286,9 @@ class Home extends Component {
 
               </Paper>
             </Grid>
-            {/* <Grid item xs></Grid> */}
+            <Grid item xs></Grid>
           </Grid>
-        </div>
       </div>
-        </div>
       </div>
     );
   }

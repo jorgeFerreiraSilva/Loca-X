@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -11,52 +12,45 @@ import {
 
 const styles = theme => ({
   container: {
+    width: '40%',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
-    alignContent: 'center'
+    alignContent: 'center',
+    backgroundColor: 'white'
   },
   image: {
-    width: '100%'
+    width: '90%'
   },
-  box: {
-    marginTop: '10%'
-  },
-  boxContent: {
-    padding: '10%'
+  content: {
+    width: '90%'
   }
 });
 
 class ProdInfoCard extends Component {
-    render() {
-      const { classes } = this.props;
-      return (
-  
+  render() {
+    const { classes } = this.props;
+    return (
       <MuiThemeProvider>
-        <div>
-          <Grid className={classes.container}>
-          <img className={classes.image} src={this.props.image}></img>
-          <Paper square className={classes.box}>
-          <div className={classes.boxContent}>
-          <Typography variant="h6" component="h2">
-            {this.props.name}
-          </Typography>
-          <hr></hr>
-          <Typography component="p">
-            <h3>{this.props.description}</h3>
-          </Typography>
+        <div className={classes.container}>
+          <img className={classes.image} src={this.props.image} alt="product"/>
+          <div className={classes.content}>
+            <Typography variant="h6" component="h2">
+              {this.props.name}
+            </Typography>
+            <hr />
+            <Typography component="p">
+              {this.props.description}
+            </Typography>
           </div>
-          </Paper>
-          </Grid>
         </div>
       </MuiThemeProvider>
-  
-      );
-    }
+    );
   }
+}
 
-  ProdInfoCard.propTypes = {
-    classes: PropTypes.object.isRequired
-  };
-  
-  export default withStyles(styles)(ProdInfoCard);
+ProdInfoCard.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(ProdInfoCard);
