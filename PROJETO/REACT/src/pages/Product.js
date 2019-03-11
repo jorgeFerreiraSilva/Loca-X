@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -21,8 +22,8 @@ const styles = theme => ({
     alignContent: 'space-around',
     paddingTop: '10%'
   },
-  leftContainer: {
-    flexDirection: 'column',
+  item: {
+    width: '90%',
     justifyContent: 'space-around',
     alignItems: 'space-around',
     alignContent: 'space-between'
@@ -36,7 +37,10 @@ class Product extends Component {
       title: '',
       description: '',
       pathPictures: '',
-      pricePerDay: ''
+      pricePerDay: '',
+      startDate: null,
+      endDate: null,
+      totalPrice: null
     };
     this.handleUpdateItem = this.handleUpdateItem.bind(this);
   }
@@ -44,6 +48,8 @@ class Product extends Component {
   componentDidMount() {
     this.handleUpdateItem();
   }
+
+
 
   handleUpdateItem() {
     axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`, this.state)
@@ -60,11 +66,11 @@ class Product extends Component {
       <MuiThemeProvider>
         <div>
           <Grid container spacing={24} className={classes.container}>
-            <Grid item xs={4} className={classes.leftContainer}>
+            <Grid item xs={6} className={classes.item}>
               <ProdInfoCard image={this.state.pathPictures[0]} name={this.state.title} description={this.state.description} />
             </Grid>
-            <Grid item xs={4}>
-              <Details price={this.state.pricePerDay} productID={this.props.match.params.id} />
+            <Grid item xs={6} className={classes.item}>
+              <Details priceperDay={this.state.pricePerDay} productID={this.props.match.params.id} />
             </Grid>
           </Grid>
         </div>

@@ -220,6 +220,7 @@ class SearchResults extends Component {
     });
   }
 
+  
   handleChange = name => value => {
     this.setState({
       [name]: value,

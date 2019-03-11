@@ -54,9 +54,9 @@ class App extends Component {
   }
   render() {
     const { selectedState, loggedInUser } = this.state;
-    console.log('<------------- loggdeInUser --------------->');
+    console.log('<------------- loggedInUser --------------->');
     console.log(loggedInUser);
-    console.log('<------------- loggdeInUser --------------->');
+    console.log('<------------- loggedInUser --------------->');
     { this.fetchUser() }
     if (loggedInUser) {
       return (

@@ -6,7 +6,8 @@ import {
   Typography,
   Grid,
   Card,
-  TextField
+  TextField,
+  Button
 } from '@material-ui/core';
 
 const styles = theme => ({
@@ -46,9 +47,29 @@ class ReservationDetails extends Component {
     this.setState({ [name]: value });
   }
 
+  componentDidMount() {
+    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`)
+    .then((response) => {
+      const { _id, name, description, pathPicture, state } = response.data;
+      this.setState({ _id, name, description, pathPicture, state });
+    })
+    .catch(err => console.log(err));
+    
+  axios.get(`http://192.168.0.41:8080/api/ads/users/${this.props.match.params.id}`)
+      .then((response) => {
+        const ads = response.data;
+        console.log('-------------------');
+        console.log(response.data);
+        console.log('-------------------');
+        this.setState({ ads });
+
+      });
+  }
+
+
   handleFormSubmit(event) {
     event.preventDefault();
-    axios.post("http://localhost:8080/api/reservation", this.state).then(response => {
+    axios.post("http://localhost:8080/api/ads/:adId/users/:ownerId/:hirerId", this.state).then(response => {
       console.log(response);
     });
   }
@@ -85,6 +106,9 @@ class ReservationDetails extends Component {
             }}
             onChange={ e => this.handleChange(e)}
             />
+            <Button onClick={(event) => { handleFormSubmit(event); }}>
+
+            </Button>
           </Grid>
         </Grid>
 
