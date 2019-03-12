@@ -15,6 +15,8 @@ import Grid from '@material-ui/core/Grid';
 import Header from '../components/Header';
 import MyButton from '../components/MyButton';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import queryString from 'query-string'
 
 
 const suggestions = [
@@ -206,15 +208,24 @@ const components = {
   ValueContainer,
 };
 class Home extends Component {
-  state = {
-    single: null
-  };
+  constructor() {
+    super();
+    this.state = {
+      single: 'SP'
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.searchAds = this.searchAds.bind(this);
+  }
   handleChange = name => value => {
     this.setState({
       [name]: value,
     });
     this.props.updateState(value.label);
   };
+
+  searchAds = () => {
+    this.props.updateAds(this.state.single.label);
+  }
 
   render() {
     const { classes, theme } = this.props;
@@ -247,7 +258,7 @@ class Home extends Component {
                       placeholder="Selecione seu estado"
                       isClearable
                     />
-                    <Link to="/itens">
+                    <Link to={`/itens?estado=${this.state.single.label}`}>
                       <MyButton text="buscar" />
                     </Link>
                   </NoSsr>

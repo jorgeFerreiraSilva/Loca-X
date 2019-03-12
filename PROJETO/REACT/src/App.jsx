@@ -14,6 +14,7 @@ import CategoriesPage from './pages/CategoriesPage';
 import Product from './pages/Product';
 import ProtectedRoute from './auth/protected-route.jsx';
 import AuthService from './auth/auth-service';
+import axios from 'axios';
 import ReservationDetails from './components/ReservationDetails';
 
 
@@ -22,10 +23,13 @@ class App extends Component {
     super(props);
     this.state = {
       selectedState: 'SP',
-      loggedInUser: null
+      loggedInUser: null,
+      allAdsFiltered: null
     };
     this.service = new AuthService();
     this.updateState = this.updateState.bind(this);
+    this.updateAds = this.updateAds.bind(this);
+    this.searchAdsByState = this.searchAdsByState.bind(this);
   }
 
   fetchUser() {
@@ -57,26 +61,43 @@ class App extends Component {
     });
   }
 
+  updateAds(state) {
+    this.searchAdsByState(state);
+  }
+
+  searchAdsByState(state) {
+    axios.get(`http://localhost:8080/api/ads?state=${state}`)
+      .then((response) => {
+        console.log('app');
+        console.log(response);
+        this.setState({ allAdsFiltered: response.data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   render() {
     const { selectedState, loggedInUser } = this.state;
 
     console.log('<------------- loggdeInUser --------------->');
     console.log(loggedInUser);
+    console.log(selectedState);
     console.log('<------------- loggdeInUser --------------->');
 
     { this.fetchUser() }
-
     if (loggedInUser) {
       return (
         <MuiThemeProvider>
           <div>
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} />} />
+              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
-              <Route exact path="/itens" render={() => <SearchResults selectedState={selectedState} />} />
+              <Route exact path="/itens" render={(props) =>
+                <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />} />
               <ProtectedRoute user={loggedInUser} path="/adicionar" component={AddProduct} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
-              <Route path="/product/:id" render={(props) => <Product {...props} />} />
+              <Route path="/product/:id" render={(props) => <Product {...props} filterAdById={this.filterAdById} />} />
               <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
             </Switch>
           </div>
@@ -88,8 +109,12 @@ class App extends Component {
         <MuiThemeProvider>
           <div>
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} />} />
-              <Route exact path="/itens" render={() => <SearchResults selectedState={selectedState} />} />
+              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
+
+              <Route path="/itens" render={(props) =>
+                <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />
+              } />
+
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />

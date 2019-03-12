@@ -61,7 +61,6 @@ class Details extends Component {
   render() {
     const { classes } = this.props;
     return (
-
     <MuiThemeProvider>
       <Paper square className={classes.box}>
       <div className={classes.boxContent}>
@@ -75,8 +74,6 @@ class Details extends Component {
           focusedInput={this.state.focusedInput}
           onFocusChange={focusedInput => this.setState({ focusedInput })}
         />
-        {/* <DatePickers />
-        <DatePickers /> */}
         <h3>Total:</h3>
         <MyButton text="CONFIRM"/>
         <Link to={`/newreservation/${this.props.productID}`}>
