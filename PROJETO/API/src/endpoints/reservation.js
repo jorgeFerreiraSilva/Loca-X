@@ -1,8 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-var moment = require('moment');
-// moment().format();
 const ReservationModel = require('../model/Reservation');
 const AdModel = require('../model/Ad');
 const UserModel = require('../model/User');
@@ -47,7 +45,7 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
     return;
   }
 
-  const newReservation = new ReservationModel({ adId, ownerId, hirerId, pricePerDay, startDate: moment(startDate), endDate: moment(endDate), status: 'Finalizado' });
+  const newReservation = new ReservationModel({ adId, ownerId, hirerId, pricePerDay, startDate, endDate, status: 'Finalizado' });
 
   AdModel.findOne({ _id: adId })
     .then((ad) => {

@@ -58,3 +58,5 @@ router.get('/reservation/:reservationId', (req, res) => {
       res.status(400).json({ message: 'Insira um id de comentário válido.' });
     });
 });
+
+module.exports = router;

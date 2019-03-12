@@ -52,11 +52,13 @@ const userEndpoint = require('../endpoints/user');
 const adRoutes = require('../endpoints/ad');
 const commentRoutes = require('../endpoints/comment');
 const reservationRoutes = require('../endpoints/reservation');
+const messageRoutes = require('../endpoints/message');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userEndpoint);
 app.use('/api/ads', adRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/message', messageRoutes);
 app.use('/api/reservation', reservationRoutes);
 
 app.get('*', (req, res) => notFound(req, res));
