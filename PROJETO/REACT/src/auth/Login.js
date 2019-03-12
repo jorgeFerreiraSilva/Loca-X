@@ -111,6 +111,9 @@ class Login extends Component {
             <Link to="/adicionar">
               <MyButton text="buscar" />
             </Link>
+            <Link to="/reservas/dono">
+              <MyButton text="reservas" />
+            </Link>
           </Grid>
           <Grid item xs></Grid>
         </Grid>

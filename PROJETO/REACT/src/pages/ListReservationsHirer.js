@@ -23,8 +23,7 @@ const styles = theme => ({
   }
 });
 
-
-class ListReservationsOwner extends Component {
+class ListReservationsHirer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,12 +34,10 @@ class ListReservationsOwner extends Component {
 
   componentDidMount() {
     this.setState({ userId: this.props.loggedInUser._id});
-
-    axios.get(`http://192.168.0.41:8080/api/reservation/owner/${this.props.loggedInUser._id}`)
+    axios.get(`http://192.168.0.41:8080/api/reservation/hirer/${this.props.loggedInUser.id}`)
       .then((response) => {
         const userReservations = response.data;
         this.setState({ userReservations });
-        console.log(userReservations);
       })
       .catch(err => console.log(err));
   }
@@ -53,16 +50,15 @@ class ListReservationsOwner extends Component {
           justify="flex-start"
           spacing={16}
         >
-        <h1>mari esteve aqui</h1>
           { (this.state.userReservations !== null) ?      
             (this.state.userReservations.map((item, index) => (
               <Grid key={index} item>
                 {item.title}
                 Datas: {item.startDate} -> {item.endDate}
                 Preço: {item.totalPrice}
-                Status: {item.status}
-                <Link to={{
-                pathname: `/reservas/dono/${item._id}`,
+								Status: {item.status}
+								<Link to={{
+                pathname: `/reservas/inq/${item._id}`,
                 state: {
                   adId: item.adId
                 }
@@ -79,8 +75,8 @@ class ListReservationsOwner extends Component {
   }
 }
 
-ListReservationsOwner.propTypes = {
+ListReservationsHirer.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-export default withStyles(styles)(ListReservationsOwner);
+export default withStyles(styles)(ListReservationsHirer);

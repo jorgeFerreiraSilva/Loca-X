@@ -16,6 +16,8 @@ import AuthService from './auth/auth-service';
 import ReservationDetails from './pages/ReservationDetails';
 import UserProfile from './pages/UserProfile';
 import axios from 'axios';
+import ListReservationsOwner from './pages/ListReservationsOwner';
+import ListReservationsHirer from './pages/ListReservationsHirer';
 
 class App extends Component {
   constructor(props) {
@@ -90,6 +92,8 @@ class App extends Component {
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />} />
               <ProtectedRoute user={loggedInUser} path="/adicionar" component={AddProduct} />
               <ProtectedRoute user={loggedInUser} path="/newreservation/:id" component={ReservationDetails} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/" component={ListReservationsOwner} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/" component={ListReservationsHirer} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
               <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
