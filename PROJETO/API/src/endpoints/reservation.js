@@ -47,6 +47,7 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
 
   const newReservation = new ReservationModel({ adId, ownerId, hirerId, pricePerDay, startDate, endDate, status: 'Finalizado' });
 
+  
   AdModel.findOne({ _id: adId })
     .then((ad) => {
       if (ad === null) {
