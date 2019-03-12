@@ -17,7 +17,7 @@ import MyButton from '../MyButton';
 
 const styles = theme => ({
   container: {
-    width: '40%',
+    width: '100%',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
@@ -39,13 +39,11 @@ function daysBetween(date1, date2) {
   const date1MS = date1.getTime();
   const date2MS = date2.getTime();
 
+  console.log(date1MS, date2MS);
+
   const difference = Math.abs(date1MS - date2MS);
-
+  console.log(Math.round(difference / oneDay));
   return Math.round(difference / oneDay);
-}
-
-function totalPrice(endDate, startDate, priceperDay) {
-  return daysBetween(endDate, startDate) * priceperDay;
 }
 
 
@@ -55,34 +53,59 @@ class Details extends Component {
     this.state = {
       startDate: null,
       endDate: null,
-      focusedInput: null
+      focusedInput: null,
+      priceperDay: null,
+      totalPrice: null
     };
+    this.updateState = this.updateState.bind(this);
+    this.totalPrice = this.totalPrice.bind(this);
+  }
+  
+  totalPrice(endDate, startDate, priceperDay) {
+    const result = Number(daysBetween(endDate, startDate)) * Number(priceperDay);
+    return result;
+  }
+  
+  updateState(startDate, endDate) {
+    this.setState({ startDate, endDate });
+    if (endDate !== null && startDate !== null) {
+      const totalPrice = this.totalPrice(endDate._d, startDate._d, this.props.priceperDay);
+      console.log(`startDate is ${startDate}, endDate is ${endDate}`);
+      this.setState({ totalPrice });
+    }
   }
 
   render() {
-    const { classes } = this.props;
+    console.log('asjvasdjasvdjasvdavdas');
+    console.log(this.state.totalPrice);
+
+    const { classes, productID } = this.props;
     return (
       <MuiThemeProvider>
         <div className={classes.container}>
           <Typography variant="h6" component="h2">
             Diária: R$
-            {this.props.price}
+            {this.props.priceperDay}
           </Typography>
           <DateRangePicker
             startDate={this.state.startDate}
             startDateId="your_unique_start_date_id"
             endDate={this.state.endDate}
             endDateId="your_unique_end_date_id"
-            onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+            onDatesChange={({ startDate, endDate }) => this.updateState(startDate, endDate)}
             focusedInput={this.state.focusedInput}
             onFocusChange={focusedInput => this.setState({ focusedInput })}
           />
+          {console.log(this.state)}
           <Typography variant="h6" component="h2">
-            Total:
+            Total: R$ 
+            {this.state.totalPrice}
           </Typography>
-          {/* <Link to={`/newreservation/${this.props.productID}`}>
-            <MyButton text="CONFIRMAR" />
-          </Link> */}
+          <Link to={
+            `/newreservation/${productID}`}
+          > PROXIMO
+            {/* <MyButton text="CONFIRMAR" /> */}
+          </Link>
         </div>
       </MuiThemeProvider>
     );

@@ -12,7 +12,7 @@ import {
 
 const styles = theme => ({
   container: {
-    width: '40%',
+    width: '80%',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
