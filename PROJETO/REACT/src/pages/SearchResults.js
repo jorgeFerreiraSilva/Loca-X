@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queryString from 'query-string'
 import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -228,16 +229,20 @@ class SearchResults extends Component {
   };
 
   componentDidMount() {
-    axios.get(`http://192.168.0.41:8080/api/ads?state=${this.props.selectedState}`)
-      .then((response) => {
-        this.setState({ listResults: response.data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const values = queryString.parse(this.props.location.search)
+    console.log(values.estado);
+    console.log(this.props.allAdsFiltered)
+    
+    // if (this.props.allAdsFiltered === null) {
+      this.props.updateAds(values.estado)
+    // }
   }
-
+  
   render() {
+    
+    console.log(this.props.location.estado);
+    console.log(this.props.allAdsFiltered);
+
     const { classes, theme } = this.props;
     const { listResults } = this.state;
     let list = [];
@@ -252,11 +257,11 @@ class SearchResults extends Component {
     };
 
     if (this.state.single !== null) {
-      list = listResults.filter((item) => item.category.includes(this.state.single.value))
+      list = this.props.allAdsFiltered.filter((item) => item.category.includes(this.state.single.value))
     } else if (this.state.search !== '') {
-      list = listResults.filter((item) => item.title.toLowerCase().includes(this.state.search))
+      list = this.props.allAdsFiltered.filter((item) => item.title.toLowerCase().includes(this.state.search))
     } else {
-      list = listResults;
+      list = this.props.allAdsFiltered;
     }
 
     return (
@@ -283,13 +288,17 @@ class SearchResults extends Component {
           justify="flex-start"
           spacing={16}
         >
-          {list.map((result, index) => (
-            <Grid key={index} item>
-              <Link to={`/product/${result._id}`}>
-                <MyCard result={result} />
-              </Link>
-            </Grid>
-          ))}
+
+          {(this.props.allAdsFiltered !== null) ?
+            (list.map((result, index) => (
+              <Grid key={index} item>
+                <Link to={`/product/${result._id}`}>
+                  <MyCard result={result} />
+                </Link>
+              </Grid>
+            )))
+            : false
+          }
         </Grid>
       </div>
     );
