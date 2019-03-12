@@ -115,7 +115,7 @@ class ReservationDetails extends Component {
             <h3>{this.props.description}</h3>
             </div>
           </Paper>
-          <form onSubmit={e => this.handleSubmit(e)}>
+          <form onSubmit={e => this.handleFormSubmit(e)}>
           <TextField
               id="outlined-full-width"
               name="text"
