@@ -79,7 +79,7 @@ class Details extends Component {
     console.log('asjvasdjasvdjasvdavdas');
     console.log(this.state.totalPrice);
 
-    const { classes } = this.props;
+    const { classes, productID } = this.props;
     return (
       <MuiThemeProvider>
         <div className={classes.container}>
@@ -101,8 +101,10 @@ class Details extends Component {
             Total: R$ 
             {this.state.totalPrice}
           </Typography>
-          <Link to={`/newreservation/${this.props.productID}`}>
-            <MyButton text="CONFIRMAR" />
+          <Link to={
+            `/newreservation/${productID}`}
+          > PROXIMO
+            {/* <MyButton text="CONFIRMAR" /> */}
           </Link>
         </div>
       </MuiThemeProvider>
