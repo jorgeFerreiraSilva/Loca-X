@@ -16,6 +16,10 @@ import AuthService from './auth/auth-service';
 import ReservationDetails from './pages/ReservationDetails';
 import UserProfile from './pages/UserProfile';
 import axios from 'axios';
+import ListReservationsOwner from './pages/ListReservationsOwner';
+import ListReservationsHirer from './pages/ListReservationsHirer';
+import SingleResOwner from './pages/SingleResOwner';
+
 
 class App extends Component {
   constructor(props) {
@@ -90,6 +94,9 @@ class App extends Component {
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />} />
               <ProtectedRoute user={loggedInUser} path="/adicionar" component={AddProduct} />
               <ProtectedRoute user={loggedInUser} path="/newreservation/:id" component={ReservationDetails} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/" component={ListReservationsOwner} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/" component={ListReservationsHirer} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/:id" component={SingleResOwner} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
               <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
@@ -112,7 +119,7 @@ class App extends Component {
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
               <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />
-              <Route user={loggedInUser} path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
+              {/* <Route user={loggedInUser} path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} /> */}
             </Switch>
           </div>
         </MuiThemeProvider>
