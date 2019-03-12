@@ -51,6 +51,7 @@ const authRoutes = require('../endpoints/auth-routes');
 const userEndpoint = require('../endpoints/user');
 const adRoutes = require('../endpoints/ad');
 const commentRoutes = require('../endpoints/comment');
+const commentRoutes = require('../endpoints/comment');
 const reservationRoutes = require('../endpoints/reservation');
 const messageRoutes = require('../endpoints/message');
 

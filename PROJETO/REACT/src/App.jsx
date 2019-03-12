@@ -10,12 +10,11 @@ import MyCard from './components/MyCard';
 import Confirmation from './pages/Confirmation';
 import AddProduct from './pages/AddProduct';
 import SearchResults from './pages/SearchResults';
-import CategoriesPage from './pages/CategoriesPage';
 import Product from './pages/Product';
 import ProtectedRoute from './auth/protected-route.jsx';
 import AuthService from './auth/auth-service';
-import ReservationDetails from './components/ReservationDetails';
-
+import ReservationDetails from './pages/ReservationDetails';
+import UserProfile from './pages/UserProfile';
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +26,6 @@ class App extends Component {
     this.service = new AuthService();
     this.updateState = this.updateState.bind(this);
   }
-
   fetchUser() {
     const { loggedInUser } = this.state;
     if (loggedInUser === null) {
@@ -44,28 +42,22 @@ class App extends Component {
         });
     }
   }
-
   getTheUser = (userObj) => {
     this.setState({
       loggedInUser: userObj
     })
   }
-
   updateState(obj) {
     this.setState({
       selectedState: obj
     });
   }
-
   render() {
     const { selectedState, loggedInUser } = this.state;
-
-    console.log('<------------- loggdeInUser --------------->');
+    console.log('<------------- loggedInUser --------------->');
     console.log(loggedInUser);
-    console.log('<------------- loggdeInUser --------------->');
-
+    console.log('<------------- loggedInUser --------------->');
     { this.fetchUser() }
-
     if (loggedInUser) {
       return (
         <MuiThemeProvider>
@@ -75,13 +67,13 @@ class App extends Component {
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route exact path="/itens" render={() => <SearchResults selectedState={selectedState} />} />
               <ProtectedRoute user={loggedInUser} path="/adicionar" component={AddProduct} />
+              <ProtectedRoute user={loggedInUser} path="/newreservation/:id" component={ReservationDetails} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
-              <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
+              {/* <Route user={loggedInUser} path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} /> */}
             </Switch>
           </div>
         </MuiThemeProvider>
-
       );
     } else {
       return (
@@ -93,13 +85,13 @@ class App extends Component {
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
+              <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />
+              <Route user={loggedInUser} path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
             </Switch>
           </div>
         </MuiThemeProvider>
-
       );
     }
   }
 }
-
 export default App;

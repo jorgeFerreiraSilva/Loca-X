@@ -21,7 +21,16 @@ const styles = theme => ({
   },
   textField: {
     flexBasis: 200,
-  },
+  }
+  // fileInput: {
+  //   display: 'inline-block',
+  //   textAlign: 'left',
+  //   background: '#fff',
+  //   padding: '16px',
+  //   width: '450px',
+  //   position: 'relative',
+  //   borderRadius: '3px',
+  // }
 });
 
 const categories = [
@@ -222,7 +231,7 @@ class AddProduct extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
     console.log('mystate', this.state);
-    axios.post("http://localhost:8080/api/ad", this.state).then(response => {
+    axios.post("http://192.168.0.41:8080/api/ad", this.state).then(response => {
       console.log(response);
     });
   }
@@ -300,6 +309,16 @@ class AddProduct extends React.Component {
               startAdornment: <InputAdornment position="start">R$</InputAdornment>,
             }}
           />
+
+          {/* <div className={classes.fileInput}>
+          <input label="image1"
+            name="image1"
+            type="file"
+            onChange={(e) => this.handleFileUpload(e)}>
+            <span class='button'>Choose</span>
+            <span class='label' data-js-label>No file selected</label>
+          </input>
+          </div> */}
 
           <input
             label="image1"

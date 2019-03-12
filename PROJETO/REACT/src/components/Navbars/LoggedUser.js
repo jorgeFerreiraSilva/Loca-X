@@ -118,7 +118,7 @@ class Header extends React.Component {
           <Toolbar className={classes.toolbar}>
             <Grid justify="space-between" container spacing={24}>
               <Grid item className={classes.grid}>
-                <Explore className={classes.mainIcon} />
+                {/* <Explore className={classes.mainIcon} />
                 <div className={classes.search}>
                   <div className={classes.searchIcon}>
                     <SearchIcon className={classes.magnifyingGlass} />
@@ -132,15 +132,18 @@ class Header extends React.Component {
                     }}
                     onChange={this.handleChange('input')}
                   />
-                </div>
+                </div> */}
               </Grid>
               <Grid item className={classes.grid}>
                 <div>
                   <Button className={classes.menubuttons} color="inherit">
-                    Entrar
+                    Anúncios
                   </Button>
                   <Button className={classes.menubuttons} color="inherit">
-                    Cadastro
+                    Reservas
+                  </Button>
+                  <Button className={classes.menubuttons} color="inherit">
+                    Perfil
                   </Button>
                 </div>
               </Grid>
