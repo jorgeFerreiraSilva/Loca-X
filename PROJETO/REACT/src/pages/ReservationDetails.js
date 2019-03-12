@@ -57,11 +57,11 @@ class ReservationDetails extends Component {
 
   componentDidMount() {
 
-    const startDate = 'aaaa';
-    const endDate = 'bbbb';
-    const totalPrice = 9;
+    // const startDate = 'aaaa';
+    // const endDate = 'bbbb';
+    // const totalPrice = 9;
     this.setState({ adId: this.props.match.params.id });
-    // const { startDate, endDate, totalPrice } = this.props.location.state;
+    const { startDate, endDate, totalPrice } = this.props.location.state;
     
     this.setState({ startDate, endDate, totalPrice });
     axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`)
@@ -72,13 +72,13 @@ class ReservationDetails extends Component {
       this.setState({ ownerId, pricePerDay, title, description, pathPictures, state });
       
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err));  
   }
   
   
   handleFormSubmit(event) {
     event.preventDefault();
-    axios.post(`http://192.168.0.41:8080/api/reservation/ads/${adId}/users/${ownerId}/${this.props.loggedInUser._id}`, this.state)
+    axios.post(`http://192.168.0.41:8080/api/reservation/ads/${this.state.adId}/users/${this.state.ownerId}/${this.props.loggedInUser._id}`, this.state)
     .then(response => {
       console.log(response);
       const reservationId = response.data._id;
@@ -91,7 +91,7 @@ class ReservationDetails extends Component {
   
   render() {
     const { pathPictures } = this.state;
-    console.log('test', pathPictures)
+    console.log(this.props.loggedInUser)
     console.log('bbbb',this.state);
     const { classes } = this.props;
     if(pathPictures !== null) {

@@ -102,13 +102,13 @@ class Details extends Component {
             {this.state.totalPrice}
           </Typography>
           <Link to={{
-            pathname: `/newreservation/${productID}`,
-            state: {
-              startDate: "date1",
-              endDate: "date2",
-              totalPrice: 10
-            }
-          }}
+           pathname: `/newreservation/${productID}`,
+           state: {
+             startDate: "2019-09-02",
+             endDate: "2019-10-02",
+             totalPrice: 10
+           }
+         }}
           > PROXIMO
             {/* <MyButton text="CONFIRMAR" /> */}
           </Link>
