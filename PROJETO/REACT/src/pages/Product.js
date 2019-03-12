@@ -50,7 +50,6 @@ class Product extends Component {
   }
 
 
-
   handleUpdateItem() {
     axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`, this.state)
       .then((response) => {

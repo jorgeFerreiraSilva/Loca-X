@@ -18,6 +18,8 @@ import UserProfile from './pages/UserProfile';
 import axios from 'axios';
 import ListReservationsOwner from './pages/ListReservationsOwner';
 import ListReservationsHirer from './pages/ListReservationsHirer';
+import SingleResOwner from './pages/SingleResOwner';
+
 
 class App extends Component {
   constructor(props) {
@@ -94,7 +96,7 @@ class App extends Component {
               <ProtectedRoute user={loggedInUser} path="/newreservation/:id" component={ReservationDetails} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/" component={ListReservationsOwner} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/" component={ListReservationsHirer} />
-              <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/:id" component={SingleReservationOwner} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/:id" component={SingleResOwner} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
               <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
