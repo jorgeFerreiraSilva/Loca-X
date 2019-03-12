@@ -7,7 +7,7 @@ const UserModel = require('../model/User');
 
 router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
 
-  const { pricePerDay, startDate, endDate } = req.body;
+  const { pricePerDay, startDate, endDate, totalPrice, title, pathPictures } = req.body;
   const { adId, ownerId, hirerId } = req.params;
 
   const errors = {};
@@ -36,18 +36,18 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
     errors.endDate = 'Obrigatório a data de devolução';
   }
 
-  if (endDate < startDate) {
-    errors.endDate = 'A data de devolução deve ser posterior a data de início';
-  }
+  // if (endDate < startDate) {
+  //   errors.endDate = 'A data de devolução deve ser posterior a data de início';
+  // }
 
   if (Object.keys(errors).length !== 0) {
     res.status(422).json(errors);
     return;
   }
 
-  const newReservation = new ReservationModel({ adId, ownerId, hirerId, pricePerDay, startDate, endDate, status: 'Finalizado' });
+  const newReservation = new ReservationModel({ adId, ownerId, hirerId, title, pathPictures, pricePerDay, totalPrice, startDate, endDate, status: 'Em espera' });
 
-  
+
   AdModel.findOne({ _id: adId })
     .then((ad) => {
       if (ad === null) {
@@ -81,14 +81,6 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
       console.error(err);
       res.status(422).json({ message: 'Id do usuário locatário inválido.' });
     });
-
-  // const findIdAd = AdModel.findOne({ _id: adId });
-  // const findIdOwner = UserModel.findOne({ _id: ownerId });
-  // const findIdHirer = UserModel.findOne({ _id: hirerId });
-
-  // Promise.all([findIdAd, findIdOwner, findIdHirer]).then((values) => {
-  //   console.log(values);
-  // });
 
   newReservation.save()
     .then((reservation) => {
@@ -149,6 +141,38 @@ router.get('/ads/:adId', (req, res) => {
     .catch((err) => {
       console.error(err);
       res.status(400).json({ message: 'Insira um id de anúncio válido.' });
+    });
+});
+
+// Search reservations by Hirer
+router.get('/hirer/:hirerId', (req, res) => {
+  ReservationModel.find({ hirerId: req.params.hirerId })
+    .then((reservation) => {
+      if (reservation.length) {
+        res.status(200).json(reservation);
+      } else {
+        res.status(404).json({ message: 'Este locatário não possui reservas .' });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({ message: 'Insira um id de usuário   válido.' });
+    });
+});
+
+// Search reservations by Owner
+router.get('/owner/:ownerId', (req, res) => {
+  ReservationModel.find({ ownerId: req.params.ownerId })
+    .then((reservation) => {
+      if (reservation.length) {
+        res.status(200).json(reservation);
+      } else {
+        res.status(404).json({ message: 'Este locatário não possui reservas .' });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({ message: 'Insira um id de usuário   válido.' });
     });
 });
 

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const messageSchema = new Schema({
-  adId: { type: mongoose.Schema.Types.ObjectId, ref: 'Ad', required: true },
+  reservationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Ad', required: true },
   ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   hirerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   text: { type: String, minlength: 1, required: true }

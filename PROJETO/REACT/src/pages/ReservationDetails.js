@@ -78,7 +78,8 @@ class ReservationDetails extends Component {
   
   handleFormSubmit(event) {
     event.preventDefault();
-    axios.post(`http://192.168.0.41:8080/api/reservation/ads/${this.state.adId}/users/${this.state.ownerId}/${this.props.loggedInUser._id}`, this.state)
+    const { adId, ownerId} = this.state
+    axios.post(`http://192.168.0.41:8080/api/reservation/ads/${adId}/users/${ownerId}/${this.props.loggedInUser._id}`, this.state)
     .then(response => {
       console.log(response);
       const reservationId = response.data._id;
