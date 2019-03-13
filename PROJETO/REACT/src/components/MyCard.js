@@ -13,19 +13,29 @@ import Launch from '@material-ui/icons/Launch';
 
 const styles = theme => ({
   card: {
-    width: 340,
-    boxShadow: 'none'
+    // width: 340,
+    // boxShadow: 'none',
+    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 2px 4px',
+    borderRadius: '4px',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'rgb(235, 235, 235)'
   },
   media: {
     height: 220,
-    objectFit: 'cover',
-    borderRadius: 5
+    objectFit: 'contain',
+    borderRadius: 5,
+    width: '80%',
+    margin: '0 auto'
   },
   cardContentArea: {
-    padding: '4px 0px'
+    padding: '4px 0px',
+    width: '80%',
+    margin: '0 auto 20px auto',
+    textAlign: 'center'
   },
   year: {
-    backgroundColor: '#DD4132',
+    backgroundColor: '#9c27b0',
     borderRadius: '3.2px',
     color: 'white',
     padding: '0 4px'
@@ -52,7 +62,7 @@ class MyCard extends Component {
   render() {
     const { classes, result } = this.props;
     return (
-      <Card className={classes.card}>
+      <Card className={classes.card} xs={3}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -61,20 +71,20 @@ class MyCard extends Component {
           />
           <CardContent className={classes.cardContentArea}>
 
-            <Typography noWrap className={classes.yearArea} component="p">
-              Diária: <span className={classes.year}>R${result.pricePerDay}</span>
-            </Typography>
 
-            <Typography variant="h6" component="h2">
-              {result.title}
-            </Typography>
             <div className={classes.snippet_area}>
+              <Typography variant="h6" component="h2">
+                {result.title}
+              </Typography>
               <Typography className={classes.snippet_text} noWrap component="p">
                 {result.description}
               </Typography>
-              <Typography component="p">
-                <span style={{ textDecoration: 'none', color: '#008489', fontWeight: 600, fontSize: 12 }} className={classes.articleLink} target="_blank">Ver mais</span>
+              <Typography noWrap className={classes.yearArea} component="p">
+                <span className={classes.year}>R${result.pricePerDay}</span>
               </Typography>
+              {/* <Typography component="p">
+                <span style={{ textDecoration: 'none', color: '#008489', fontWeight: 600, fontSize: 12 }} className={classes.articleLink} target="_blank">Ver mais</span>
+              </Typography> */}
             </div>
           </CardContent>
         </CardActionArea>
