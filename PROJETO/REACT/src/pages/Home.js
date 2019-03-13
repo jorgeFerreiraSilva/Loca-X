@@ -14,7 +14,9 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import Grid from '@material-ui/core/Grid';
 import Header from '../components/Header';
 import MyButton from '../components/MyButton';
+import Button from '../components/CustomButtons/Button.jsx';
 import { Link } from 'react-router-dom';
+import HomeNav from '../components/Navbars/Home';
 import axios from 'axios';
 import queryString from 'query-string'
 
@@ -111,31 +113,20 @@ const styles = theme => ({
   banner: {
     color: 'white',
     textAlign: 'center',
-    // heigth: '00vh',
-    maxHeigth: "100%",
+    heigth: '3000px',
     /* if you have a 70px navbar => height: calc(100vh - 70px); */
     backgroundSize: 'cover',
     display: 'flex',
     alignItens: 'center',
     justifyContent: 'center',
-    backgroundImage: "url('https://kitt.lewagon.com/placeholder/cities/berlin')",
+    backgroundImage: "url('https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')",
     backgroundRepeat: "no-repeat",
 			backgroundPosition: "center center",
 			backgroundSize: "cover",
+  },
+  mybutton: {
+    marginTop: '10%'
   }
-  // .banner h1 {
-  //   fontSize: 50px;
-  //   font-weight: bold;
-  //   text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
-  // }
-  // .banner p {
-  //   font-size: 25px;
-  //   font-weight: lighter;
-  //   color: rgb(255, 255, 255);
-  //   opacity: 0.6;
-  //   margin-bottom: 30px;
-  // }
-
 });
 function NoOptionsMessage(props) {
   return (
@@ -271,7 +262,7 @@ class Home extends Component {
     };
     return (
       <div>
-        <Header />
+        <HomeNav />
         <div className={classes.banner}>
           <Grid container spacing={24}>
             <Grid item xs></Grid>
@@ -290,7 +281,9 @@ class Home extends Component {
                       isClearable
                     />
                     <Link to={`/itens?estado=${this.state.single.label}`}>
-                      <MyButton text="buscar" />
+                      <Button color="primary" className={classes.mybutton}>
+                        BUSCAR
+                      </Button>
                     </Link>
                   </NoSsr>
                 </div>

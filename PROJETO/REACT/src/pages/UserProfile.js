@@ -11,6 +11,13 @@ import {
 } from '@material-ui/core';
 import MyCard from '../components/MyCard';
 import UserProfileCard from '../components/UserProfileCard';
+import Card from '../components/Card/Card';
+import CardHeader from '../components/Card/CardHeader';
+import CardAvatar from '../components/Card/CardAvatar';
+import CardBody from '../components/Card/CardBody';
+import CardFooter from '../components/Card/CardFooter';
+import GridItem from '../components/Grid/GridItem';
+import GridContainer from '../components/Grid/GridContainer';
 
 const styles = theme => ({
   container: {

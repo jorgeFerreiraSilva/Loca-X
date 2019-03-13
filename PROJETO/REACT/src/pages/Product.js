@@ -12,22 +12,23 @@ import {
 } from '@material-ui/core';
 import Details from '../components/Product/Details';
 import ProdInfoCard from '../components/Product/ProdInfoCard';
-import Card from "../components/Card/Card";
-import CardHeader from "../components/Card/CardHeader";
-import CardAvatar from "../components/Card/CardAvatar";
-import CardBody from "../components/Card/CardBody";
-import CardFooter from "../components/Card/CardFooter";
+import Card from '../components/Card/Card';
+import CardHeader from '../components/Card/CardHeader';
+import CardAvatar from '../components/Card/CardAvatar';
+import CardBody from '../components/Card/CardBody';
+import CardFooter from '../components/Card/CardFooter';
 import GridItem from '../components/Grid/GridItem';
 import GridContainer from '../components/Grid/GridContainer';
-import Button from "../components/CustomButtons/Button.jsx";
+import Button from '../components/CustomButtons/Button.jsx';
 
 const styles = theme => ({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     alignContent: 'space-around',
-    paddingTop: '10%'
+    paddingTop: '10%',
+    margin: '0 20% 0 30%'
   },
   item: {
     width: '90%',
@@ -36,20 +37,27 @@ const styles = theme => ({
     alignContent: 'space-between'
   },
   cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
-    margin: "0",
-    fontSize: "14px",
-    marginTop: "0",
-    marginBottom: "0"
+    color: 'rgba(255,255,255,.62)',
+    margin: '0',
+    fontSize: '14px',
+    marginTop: '0',
+    marginBottom: '0'
   },
   cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
+    color: '#FFFFFF',
+    marginTop: '0px',
+    minHeight: 'auto',
+    fontWeight: '300',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none"
+    marginBottom: '3px',
+    textDecoration: 'none'
+  },
+  image: {
+    maxWidth: '80%',
+    padding: '10% 20%'
+  },
+  avatar: {
+    heigth: '10px'
   }
 });
 
@@ -57,10 +65,13 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ownerId: '',
+      ownerName: '',
+      ownerPicture: '',
       title: '',
       description: '',
       pathPictures: '',
-      pricePerDay: '',
+      pricePerDay: null,
       startDate: null,
       endDate: null,
       totalPrice: null
@@ -76,8 +87,14 @@ class Product extends Component {
   handleUpdateItem() {
     axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`, this.state)
       .then((response) => {
-        const { title, description, pathPictures, pricePerDay } = response.data;
-        this.setState({ title, description, pathPictures, pricePerDay });
+        const { ownerId, title, description, pathPictures, pricePerDay } = response.data;
+        this.setState({ ownerId, title, description, pathPictures, pricePerDay });
+        axios.get(`http://192.168.0.41:8080/api/users/${ownerId}`)
+          .then((user) => {
+            const ownerName = user.data.name;
+            const ownerPicture = user.data.pathPicture;
+            this.setState({ ownerName, ownerPicture });
+          });
       })
       .catch(err => console.log(err));
   }
@@ -85,42 +102,47 @@ class Product extends Component {
   render() {
     const { classes, theme } = this.props;
     return (
-      // <MuiThemeProvider>
-      //   <div>
-      //     <Grid container spacing={24} className={classes.container}>
-      //       <Grid item xs={6} className={classes.item}>
-      //         <ProdInfoCard image={this.state.pathPictures[0]} name={this.state.title} description={this.state.description} />
-      //       </Grid>
-      //       <Grid item xs={6} className={classes.item}>
-      //         <Details priceperDay={this.state.pricePerDay} productID={this.props.match.params.id} />
-      //       </Grid>
-      //     </Grid>
-      //   </div>
-      // </MuiThemeProvider>
-
-      <div>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#pablo" onClick={e => e.preventDefault()}>
-                <img src={this.state.pathPictures[0]} alt="..." />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>{this.state.title}</h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
-              <p className={classes.description}>
-                Don't be scared of the truth because we need to restart the
-                human foundation in truth And I love you like Kanye loves Kanye
-                I love Rick Owens’ bed design but the back is...
-              </p>
-              <Button color="primary" round>
-                Follow
-              </Button>
-            </CardBody>
-          </Card>
-        </GridItem>
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <GridContainer className={classes.container}>
+            <GridItem xs={12} sm={12} md={4}>
+              <Card profile>
+                <img className={classes.image} src={this.state.pathPictures[0]} alt="product"/>
+                <CardBody profile>
+                  <h1 className={classes.cardTitle}>{this.state.title}</h1>
+                  <p className={classes.description}>
+                    {this.state.description}
+                  </p>
+                  <div>
+                    
+                  <CardAvatar profile className={classes.avatar}>
+                  <Link to={{
+                    pathname: `/users/${this.state.ownerId}`
+                  }}
+                  > 
+                    <img src={this.state.ownerPicture}alt="..." />
+                    </Link>
+                  </CardAvatar>
+                  </div>
+                  <p>
+                    Anunciado por: 
+                    {' '}
+                    {this.state.ownerName}
+                  </p>
+                      
+                      </CardBody>
+                    </Card>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card profile>
+                  <CardBody profile>
+                    <Details priceperDay={this.state.pricePerDay} productID={this.props.match.params.id} />
+                  </CardBody>
+                </Card>
+              </GridItem>
+          </GridContainer>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
