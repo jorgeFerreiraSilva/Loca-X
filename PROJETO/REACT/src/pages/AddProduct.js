@@ -10,6 +10,8 @@ import axios from 'axios';
 import service from '../api/service'
 import CameraAlt from '@material-ui/icons/CameraAlt';
 import { Redirect } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+
 
 const styles = theme => ({
   root: {
@@ -242,75 +244,76 @@ class AddProduct extends React.Component {
     return (
 
       <div className={classes.root}>
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <TextField
-            label="Título"
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            name="title"
-            value={this.state.title}
-            onChange={e => this.handleChange(e)}
-          />
+        <Grid xs={2}>
+          <form onSubmit={e => this.handleSubmit(e)}>
+            <TextField
+              label="Título"
+              className={classNames(classes.margin, classes.textField)}
+              variant="outlined"
+              name="title"
+              value={this.state.title}
+              onChange={e => this.handleChange(e)}
+            />
 
 
-          <TextField
-            label="Descrição"
-            multiline
-            rowsMax="10"
-            name="description"
-            value={this.state.description}
-            onChange={e => this.handleChange(e)}
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
+            <TextField
+              label="Descrição"
+              multiline
+              rowsMax="10"
+              name="description"
+              value={this.state.description}
+              onChange={e => this.handleChange(e)}
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+            />
 
-          <TextField
-            select
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label="Categoria"
-            value={this.state.category}
-            name="category"
-            onChange={e => this.handleChange(e)}
+            <TextField
+              select
+              className={classNames(classes.margin, classes.textField)}
+              variant="outlined"
+              label="Categoria"
+              value={this.state.category}
+              name="category"
+              onChange={e => this.handleChange(e)}
 
-          >
-            {categories.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+            >
+              {categories.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
-          <TextField
-            select
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label="Estado"
-            value={this.state.state}
-            name="state"
-            onChange={e => this.handleChange(e)}
-          >
-            {states.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+            <TextField
+              select
+              className={classNames(classes.margin, classes.textField)}
+              variant="outlined"
+              label="Estado"
+              value={this.state.state}
+              name="state"
+              onChange={e => this.handleChange(e)}
+            >
+              {states.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
-          <TextField
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label="Diária"
-            value={this.state.pricePerDay}
-            name="pricePerDay"
-            onChange={e => this.handleChange(e)}
-            InputProps={{
-              startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-            }}
-          />
+            <TextField
+              className={classNames(classes.margin, classes.textField)}
+              variant="outlined"
+              label="Diária"
+              value={this.state.pricePerDay}
+              name="pricePerDay"
+              onChange={e => this.handleChange(e)}
+              InputProps={{
+                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+              }}
+            />
 
-          {/* <div className={classes.fileInput}>
+            {/* <div className={classes.fileInput}>
           <input label="image1"
             name="image1"
             type="file"
@@ -320,13 +323,14 @@ class AddProduct extends React.Component {
           </input>
           </div> */}
 
-          <input
-            label="image1"
-            name="image1"
-            type="file"
-            onChange={(e) => this.handleFileUpload(e)} />
-          <button type="submit">Save</button>
-        </form>
+            <input
+              label="image1"
+              name="image1"
+              type="file"
+              onChange={(e) => this.handleFileUpload(e)} />
+            <button type="submit">Save</button>
+          </form>
+        </Grid>
       </div>
     );
   }
