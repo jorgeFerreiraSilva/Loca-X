@@ -8,7 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
 import Explore from '@material-ui/icons/Explore';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import Button from 'react-bootstrap/Button';
 
 const styles = theme => ({
   header: {
