@@ -69,7 +69,6 @@ class Signup extends Component {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <div>
-                <Header />
                 <form onSubmit={this.handleFormSubmit}>
                   <div className="field is-horizontal">
                     <div className="field-label is-normal">

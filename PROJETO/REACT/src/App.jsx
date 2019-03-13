@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
@@ -20,6 +22,17 @@ import ListReservationsOwner from './pages/ListReservationsOwner';
 import ListReservationsHirer from './pages/ListReservationsHirer';
 import SingleResOwner from './pages/SingleResOwner';
 import SingleResHirer from './pages/SingleResHirer';
+
+
+const styles = theme => ({
+  typography: {
+    fontFamily: "'Poppins', sans-serif",
+    fontSize:14,
+    textTransform: "none",
+    color: "#484848",
+  }
+});
+ 
 
 
 class App extends Component {
@@ -99,6 +112,7 @@ class App extends Component {
               <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/" component={ListReservationsHirer} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/:id" component={SingleResOwner} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/:id" component={SingleResHirer} />
+              <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
               <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
@@ -130,4 +144,9 @@ class App extends Component {
     }
   }
 }
-export default App;
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles, { withTheme: true })(App);

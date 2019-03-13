@@ -15,6 +15,7 @@ import {
   Grid
 } from '@material-ui/core';
 import MyButton from '../MyButton';
+import Button from '../CustomButtons/Button';
 
 const styles = theme => ({
   container: {
@@ -27,10 +28,14 @@ const styles = theme => ({
   box: {
     marginTop: '10%',
     boxShadow: 'none',
-    border: '1px solid #e2e2e2'
+    // border: '1px solid #e2e2e2'
   },
   boxContent: {
-    padding: '10%'
+    padding: '10% 20%'
+  },
+  datepicker: {
+    padding: '10% 20%',
+    border: '1px solid red'
   }
 });
 
@@ -106,6 +111,7 @@ class Details extends Component {
             Diária: R$
             {this.props.priceperDay}
           </Typography>
+          <div className={classes.datepicker}>
           <DateRangePicker
             displayFormat="DD/MM/YYYY"
             displayFormat={() => moment.localeData('fr').longDateFormat('LL')}
@@ -119,6 +125,8 @@ class Details extends Component {
             focusedInput={this.state.focusedInput}
             onFocusChange={focusedInput => this.setState({ focusedInput })}
           />
+          
+          </div>
           {console.log(this.state)}
           <Typography variant="h6" component="h2">
             Total: R$
@@ -132,8 +140,10 @@ class Details extends Component {
               totalPrice: this.state.totalPrice
             }
           }}
-          > PROXIMO
-            {/* <MyButton text="CONFIRMAR" /> */}
+          >            
+            <Button color="primary" round>
+            CONFIRMAR
+            </Button>
           </Link>
         </div>
       </MuiThemeProvider>
