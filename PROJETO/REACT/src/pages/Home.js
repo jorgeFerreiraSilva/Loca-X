@@ -14,11 +14,12 @@ import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import Grid from '@material-ui/core/Grid';
 import Header from '../components/Header';
 import MyButton from '../components/MyButton';
-import Button from '../components/CustomButtons/Button.jsx';
+// import Button from '../components/CustomButtons/Button.jsx';
 import { Link } from 'react-router-dom';
 import HomeNav from '../components/Navbars/Home';
 import axios from 'axios';
 import queryString from 'query-string'
+import Button from 'react-bootstrap/Button';
 
 
 const suggestions = [
@@ -281,9 +282,10 @@ class Home extends Component {
                       isClearable
                     />
                     <Link to={`/itens?estado=${this.state.single.label}`}>
-                      <Button color="primary" className={classes.mybutton}>
+                      {/* <Button color="primary" className={classes.mybutton}>
                         BUSCAR
-                      </Button>
+                      </Button> */}
+                      <Button variant="outline-primary">Primary</Button>
                     </Link>
                   </NoSsr>
                 </div>

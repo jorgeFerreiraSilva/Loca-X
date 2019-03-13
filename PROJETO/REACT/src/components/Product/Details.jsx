@@ -88,11 +88,6 @@ class Details extends Component {
     }
   }
 
-  // formatsDate() {
-  //   const { startDate, monthNames } = this.state; 
-  //   const formatStartDate = `${startDate._d.getDate()}/${startDate.getTime}/${monthNames[startDate._d.getMonth()]}/${startDate._d.getFullYear()}`;
-  // }
-
   render() {
     console.log('asjvasdjasvdjasvdavdas');
     if (this.state.startDate) {
