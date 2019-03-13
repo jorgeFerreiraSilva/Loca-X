@@ -37,7 +37,8 @@ const styles = theme => ({
   },
   selectroot: {
     flexGrow: 1,
-    height: 250
+    marginTop: '100px',
+    marginBottom: '35px'
   },
   input: {
     display: 'flex',
@@ -269,7 +270,7 @@ class SearchResults extends Component {
         <div>
           <Header updateState={this.updateState} />
         </div>
-        <div className={classes.selectroot} style={{ marginTop: '100px' }}>
+        <div className={classes.selectroot}>
           <NoSsr>
             <Select
               classes={classes}
@@ -291,8 +292,8 @@ class SearchResults extends Component {
 
           {(this.props.allAdsFiltered !== null) ?
             (list.map((result, index) => (
-              <Grid key={index} item>
-                <Link to={`/product/${result._id}`}>
+              <Grid xs={3} key={index} item>
+                <Link to={`/product/${result._id}`} style={{ textDecoration: 'none' }}>
                   <MyCard result={result} />
                 </Link>
               </Grid>
