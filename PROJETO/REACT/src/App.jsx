@@ -102,6 +102,7 @@ class App extends Component {
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
               <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
+              <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />           
             </Switch>
           </div>
         </MuiThemeProvider>

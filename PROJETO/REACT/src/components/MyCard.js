@@ -35,7 +35,7 @@ const styles = theme => ({
     textAlign: 'center'
   },
   year: {
-    backgroundColor: '#DD4132',
+    backgroundColor: '#9c27b0',
     borderRadius: '3.2px',
     color: 'white',
     padding: '0 4px'

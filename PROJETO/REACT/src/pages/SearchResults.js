@@ -25,6 +25,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1
   },
+  mediaquery: {
+    [theme.breakpoints.down('xs')]: { 
+      justifyContent: 'center'
+    }
+  },
   myroot: {
     padding: '0 85px',
     marginTop: 20,
@@ -285,14 +290,16 @@ class SearchResults extends Component {
           </NoSsr>
         </div>
         <Grid
+        className={classes.mediaquery}
           container
           justify="flex-start"
           spacing={16}
+          wrap='wrap'
         >
 
           {(this.props.allAdsFiltered !== null) ?
             (list.map((result, index) => (
-              <Grid xs={3} key={index} item>
+              <Grid lg={3} md={4} sm={6} key={index} item style={{'min-width': '270px'}}>
                 <Link to={`/product/${result._id}`} style={{ textDecoration: 'none' }}>
                   <MyCard result={result} />
                 </Link>
