@@ -118,7 +118,7 @@ class Product extends Component {
               <Card className="text-center margin-top-bottom-5 padding-5" >
                 <div> 
                   <Link to={{
-                    pathname: `/user/${this.state.ownerId}`
+                    pathname: `/perfil/${this.state.ownerId}`
                   }}>
                     <Image style={{ width: "130px" }} src={this.state.ownerPicture} roundedCircle />
                   </Link>

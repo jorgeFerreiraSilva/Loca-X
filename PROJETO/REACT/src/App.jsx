@@ -124,7 +124,7 @@ class App extends Component {
               <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/produto/:id" render={(props) => <Product {...props} />} />
-<!--               <Route path="/novareserva/:id" render={(props) => <ReservationDetails {...props} />} /> -->
+{/* <Route path="/novareserva/:id" render={(props) => <ReservationDetails {...props} />} /> */}
               <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} />           
             </Switch>
           </div>

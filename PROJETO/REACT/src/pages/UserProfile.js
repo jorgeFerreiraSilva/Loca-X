@@ -26,7 +26,6 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'space-around',
-    border: '2px solid red',
     margin: '1% auto'
   },
 
@@ -72,7 +71,6 @@ class UserProfile extends Component {
     const { ads } = this.state;
 
     console.log('aqui', ads);
-    // const { _id, name, description, pathPicture, state } = this.state;
     return (
     // eslint-disable-next-line react/jsx-filename-extension
       <div className={classes.myrow}>

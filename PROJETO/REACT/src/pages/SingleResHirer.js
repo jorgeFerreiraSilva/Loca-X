@@ -83,11 +83,7 @@ class SingleResHirer extends Component {
   // };
 
   render() {
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 6b2ee216f07bbcd6f52cd592baa27e6722837ee1
     const { classes } = this.props;
     return (
       <div>
