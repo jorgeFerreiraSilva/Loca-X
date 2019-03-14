@@ -21,3 +21,12 @@
 .padding-bottom-5 {
     padding-bottom: 5%;
 }
+
+.padding-5 {
+    padding: 5%;
+}
+
+.align-item {
+    display: flex;
+    align-items: center;
+}

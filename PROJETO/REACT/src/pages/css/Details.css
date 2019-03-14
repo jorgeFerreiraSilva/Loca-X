@@ -1,5 +1,4 @@
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: pink;
     font-size: 14px;
 }
 
@@ -9,4 +8,32 @@ input {
 
 .center {
     margin: 0 auto;
+}
+
+.DateInput_input {
+    font-size: 14px;
+}
+
+.DateRangePickerInput__withBorder {
+    width: 100%;
+}
+
+.DateRangePicker {
+    width: 100%;
+}
+
+.margin-top-bottom-5 {
+    margin: 5% 0 !important;
+}
+
+.padding-bottom-5 {
+    padding-bottom: 5%;
+}
+
+.padding-5 {
+    padding: 5% auto;
+}
+
+.margin-top-5{
+    margin-top: 5%;
 }
