@@ -62,9 +62,6 @@ class ReservationDetails extends Component {
 
   componentDidMount() {
 
-    // const startDate = 'aaaa';
-    // const endDate = 'bbbb';
-    // const totalPrice = 9;
     this.setState({ adId: this.props.match.params.id });
     const { startDate, endDate, totalPrice } = this.props.location.state;
     
@@ -108,6 +105,7 @@ class ReservationDetails extends Component {
 
     return (
               <div className={classes.myrow}>
+        
         <Container>
           <Row>
             <div className={classes.profile}>
@@ -138,7 +136,7 @@ class ReservationDetails extends Component {
             </Card>
               <Form onSubmit={e => this.handleFormSubmit(e)}>
               <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Example textarea</Form.Label>
+              <Form.Label>Envie uma mensagem ao proprietário</Form.Label>
               <Form.Control as="textarea" rows="5" onChange={ e => this.handleChange(e)}/>
             </Form.Group>
             <Button type="submit" >Enviar</Button>
@@ -147,6 +145,9 @@ class ReservationDetails extends Component {
             </div>
           </Row>
         </Container>
+
+
+        
       </div>
 
     );

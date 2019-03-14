@@ -122,7 +122,7 @@ class Details extends Component {
             {this.state.totalPrice}
           </Typography>
           <Link to={{
-            pathname: `/newreservation/${productID}`,
+            pathname: `/novareserva/${productID}`,
             state: {
               startDate: this.state.formatedStartDate,
               endDate: this.state.formatedEndDate,

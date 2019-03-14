@@ -47,6 +47,7 @@ class SingleResHirer extends Component {
       startDate: '',
       endDate: '',
       hirerId: '',
+      ownerId: '',
       status: '',
       itemId: ''
     };
@@ -65,9 +66,15 @@ class SingleResHirer extends Component {
       .catch(err => console.log(err));
     axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
       .then((response) => {
-        const { totalPrice, startDate, endDate, hirerId } = response.data[0];
-        this.setState({ totalPrice, startDate, endDate, hirerId });
+        const { totalPrice, startDate, endDate, hirerId, ownerId } = response.data[0];
+        this.setState({ totalPrice, startDate, endDate, hirerId, ownerId });
         console.log('RESERVATION RESPONSE', response);
+        axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
+          .then((response) => {
+              // const { name, pathPicture } = response.data[0];
+              // this.setState({ totalPrice, startDate, endDate, hirerId, ownerId });
+              console.log('OWNER DATA>>>>>', response);
+            });
       });
   }
 
@@ -85,9 +92,11 @@ class SingleResHirer extends Component {
   // };
 
   render() {
+    
     const { classes } = this.props;
     return (
       <div>
+        <h1>AQUI</h1>
       <Container>
         <Row>
           <Col>
@@ -100,7 +109,7 @@ class SingleResHirer extends Component {
                 {this.state.description}
                 </Card.Text>
                 <Link to={{
-                  pathname: `/product/${this.state.itemId}`
+                  pathname: `/produto/${this.state.itemId}`
                 }}
                 >
                 <Button variant="primary">Ver página do produto</Button>
@@ -111,8 +120,6 @@ class SingleResHirer extends Component {
           <Col>
             <Card style={{ width: '20rem' }}>
               <Card.Body>
-                {/* <Card.Title>Card Title</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
                 <Card.Text>
                     De: {this.state.startDate}<br/>
                     Até: {this.state.endDate}<br/>

@@ -107,7 +107,7 @@ class UserProfile extends Component {
                             </Card.Text>
 
                             <Link to={{
-                              pathname: `/product/${item._id}`,
+                              pathname: `/produto/${item._id}`,
                               state: {
                                 adId: item.adId
                               }

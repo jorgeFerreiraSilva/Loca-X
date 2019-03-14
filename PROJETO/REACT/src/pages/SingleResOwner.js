@@ -97,7 +97,7 @@ class SingleResOwner extends Component {
                   {this.state.description}
                   </Card.Text>
                   <Link to={{
-                    pathname: `/product/${this.state.itemId}`
+                    pathname: `/produto/${this.state.itemId}`
                   }}
                   >
                   <Button variant="primary">Ver página do produto</Button>

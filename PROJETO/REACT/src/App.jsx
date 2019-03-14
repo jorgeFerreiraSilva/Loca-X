@@ -108,16 +108,16 @@ class App extends Component {
               <Route exact path="/itens" render={(props) =>
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />} />
               <ProtectedRoute user={loggedInUser} path="/adicionar" component={AddProduct} />
-              <ProtectedRoute user={loggedInUser} path="/newreservation/:id" component={ReservationDetails} />
+              <ProtectedRoute user={loggedInUser} path="/novareserva/:id" component={ReservationDetails} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/" component={ListReservationsOwner} />
+              <ProtectedRoute user={loggedInUser} path="/reservas/inq/:id" component={SingleResHirer} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/" component={ListReservationsHirer} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/:id" component={SingleResOwner} />
-              <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/:id " component={SingleResHirer} />
-              <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />
+              <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
-              <Route path="/product/:id" render={(props) => <Product {...props} />} />
-              <Route path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} />
-              <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />           
+              <Route path="/produto/:id" render={(props) => <Product {...props} />} />
+              <Route path="/novareserva/:id" render={(props) => <ReservationDetails {...props} />} />
+              <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} />           
             </Switch>
           </div>
         </MuiThemeProvider>
@@ -136,8 +136,8 @@ class App extends Component {
 
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
-              <Route path="/product/:id" render={(props) => <Product {...props} />} />
-              <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />
+              <Route path="/produto/:id" render={(props) => <Product {...props} />} />
+              <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} />
               {/* <Route user={loggedInUser} path="/newreservation/:id" render={(props) => <ReservationDetails {...props} />} /> */}
             </Switch>
           </div>

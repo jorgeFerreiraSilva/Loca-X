@@ -19,7 +19,7 @@ class NavLogged extends React.Component {
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="item-menu"  >
-          <span>Olá</span> <Link to={`/user/${this.props.user._id}`} className="nav-item"> {this.props.user.name.toUpperCase()}</Link>
+          <span>Olá</span> <Link to={`/perfil/${this.props.user._id}`} className="nav-item"> {this.props.user.name.toUpperCase()}</Link>
         </Navbar.Text>
         <Navbar.Text className="item-menu">
             <Link to="/reservas/inq" className="nav-item" >Minhas Reservas</Link>
