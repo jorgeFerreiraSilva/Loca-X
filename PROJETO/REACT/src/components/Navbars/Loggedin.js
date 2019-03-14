@@ -2,8 +2,7 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../../../public/navStyle.css'
-import { red } from '@material-ui/core/colors';
+import '../../../public/navStyle.css';
 
 
 class NavLogged extends React.Component {
@@ -13,7 +12,6 @@ class NavLogged extends React.Component {
   
 
   render() {
-    // console.log('caraaaaaaaaaaaaaaaaaaaaaaaalho',this.props.user); 
 
   return(  
     <Navbar className="navbar">
@@ -24,10 +22,10 @@ class NavLogged extends React.Component {
           <span>Olá</span> <Link to={`/user/${this.props.user._id}`} className="nav-item"> {this.props.user.name.toUpperCase()}</Link>
         </Navbar.Text>
         <Navbar.Text className="item-menu">
-            <Link to="/reservas/dono" className="nav-item" >Minhas Reservas</Link>
+            <Link to="/reservas/inq" className="nav-item" >Minhas Reservas</Link>
         </Navbar.Text>
         <Navbar.Text className="item-menu">
-          <Link to="/reservas/inq" className="nav-item">Meus Anuncios</Link>
+          <Link to="/reservas/dono" className="nav-item">Meus Anuncios</Link>
         </Navbar.Text>
         <Navbar.Text className="item-menu">
           <Link to="#" >Logout</Link>

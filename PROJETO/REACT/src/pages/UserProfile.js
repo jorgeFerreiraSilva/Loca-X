@@ -14,13 +14,11 @@ import Figure from 'react-bootstrap/Figure';
 const styles = theme => ({
   mycol: {
     width: '75%',
-    margin: '0 auto',
-    border: '2px solid blue'
+    margin: '0 auto'
   },
 
   profile: {
-    width: '25%',
-    border: '2px solid blue'
+    width: '25%'
   },
 
   myrow: {

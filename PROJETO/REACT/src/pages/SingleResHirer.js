@@ -13,13 +13,11 @@ import Button from 'react-bootstrap/Button';
 const styles = theme => ({
   right: {
     width: '55%',
-    margin: '0 auto',
-    border: '2px solid blue'
+    margin: '0 auto'
   },
 
   left: {
-    width: '45%',
-    border: '2px solid blue'
+    width: '45%'
   },
 
   myrow: {
@@ -41,16 +39,16 @@ class SingleResHirer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: null,
-      description: null,
+      title: '',
+      description: '',
       pathPictures: '',
-      pricePerDay: null,
-      totalPrice: null,
-      startDate: null,
-      endDate: null,
-      hirerId: null,
-      status: null,
-      itemId: null
+      pricePerDay: '',
+      totalPrice: '',
+      startDate: '',
+      endDate: '',
+      hirerId: '',
+      status: '',
+      itemId: ''
     };
   }
 
@@ -69,7 +67,7 @@ class SingleResHirer extends Component {
       .then((response) => {
         const { totalPrice, startDate, endDate, hirerId } = response.data[0];
         this.setState({ totalPrice, startDate, endDate, hirerId });
-        console.log('RESERVATION RESPONSE', response)
+        console.log('RESERVATION RESPONSE', response);
       });
   }
 
@@ -89,47 +87,43 @@ class SingleResHirer extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.myrow}>
-        <Container>
-          <Row>
-            <div className={classes.left}>
-              <Col>
-              <h1>Infos do anuncio</h1>
-              <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={this.state.pathPictures[0]} />
-                <Card.Body>
-                  <Card.Title>{this.state.title}</Card.Title>
-                  <Card.Text>
-                  {this.state.description}
-                  </Card.Text>
-                  <Link to={{
-                    pathname: `/product/${this.state.itemId}`
-                  }}
-                  >
-                  <Button variant="primary">Ver página do produto</Button>
-                  </Link>
-                </Card.Body>
-              </Card>
-              </Col>
-            </div>
-            <div className={classes.right}>
-              <Col>
-                <Card style={{ width: '25rem' }}>
-                  <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                    <Card.Text>
-                      De: {this.state.startDate}
-                      Até: {this.state.endDate}
-                      Total: R${this.state.totalPrice}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>           
-            </div>
-          </Row>
-        </Container>
-      </div>
+      <div>
+      <Container>
+        <Row>
+          <Col>
+          <h1>Infos do anuncio</h1>
+            <Card style={{ width: '18rem' }}>
+              <Card.Img variant="top" src={this.state.pathPictures[0]} />
+              <Card.Body>
+                <Card.Title>{this.state.title}</Card.Title>
+                <Card.Text>
+                {this.state.description}
+                </Card.Text>
+                <Link to={{
+                  pathname: `/product/${this.state.itemId}`
+                }}
+                >
+                <Button variant="primary">Ver página do produto</Button>
+                </Link>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col>
+            <Card style={{ width: '20rem' }}>
+              <Card.Body>
+                {/* <Card.Title>Card Title</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
+                <Card.Text>
+                    De: {this.state.startDate}<br/>
+                    Até: {this.state.endDate}<br/>
+                    Total: R${this.state.totalPrice}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
     );
   }
 }

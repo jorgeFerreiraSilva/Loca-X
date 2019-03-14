@@ -106,13 +106,13 @@ class SingleResOwner extends Component {
               </Card>
             </Col>
             <Col>
-              <Card style={{ width: '18rem' }}>
+              <Card style={{ width: '20rem' }}>
                 <Card.Body>
-                  <Card.Title>Card Title</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                  {/* <Card.Title>Card Title</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
                   <Card.Text>
-                      De: {this.state.startDate}
-                      Até: {this.state.endDate}<br></br>
+                      De: {this.state.startDate}<br/>
+                      Até: {this.state.endDate}<br/>
                       Total: R${this.state.totalPrice}
                   </Card.Text>
                 </Card.Body>
