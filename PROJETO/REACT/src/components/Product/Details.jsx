@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import MyButton from '../MyButton';
 import Button from '../CustomButtons/Button';
+import '../../pages/css/Details.css';
 
 const styles = theme => ({
   container: {
@@ -32,10 +33,6 @@ const styles = theme => ({
   },
   boxContent: {
     padding: '10% 20%'
-  },
-  datepicker: {
-    padding: '10% 20%',
-    border: '1px solid red'
   }
 });
 
@@ -88,11 +85,6 @@ class Details extends Component {
     }
   }
 
-  // formatsDate() {
-  //   const { startDate, monthNames } = this.state; 
-  //   const formatStartDate = `${startDate._d.getDate()}/${startDate.getTime}/${monthNames[startDate._d.getMonth()]}/${startDate._d.getFullYear()}`;
-  // }
-
   render() {
     console.log('asjvasdjasvdjasvdavdas');
     if (this.state.startDate) {
@@ -106,26 +98,23 @@ class Details extends Component {
     const { classes, productID } = this.props;
     return (
       <MuiThemeProvider>
-        <div className={classes.container}>
-          <Typography variant="h6" component="h2">
-            Diária: R$
-            {this.props.priceperDay}
-          </Typography>
-          <div className={classes.datepicker}>
-          <DateRangePicker
-            displayFormat="DD/MM/YYYY"
-            displayFormat={() => moment.localeData('fr').longDateFormat('LL')}
-            startDatePlaceholderText='Quando?'
-            endDatePlaceholderText='Até quando?'
-            startDate={this.state.startDate}
-            startDateId="your_unique_start_date_id"
-            endDate={this.state.endDate}
-            endDateId="your_unique_end_date_id"
-            onDatesChange={({ startDate, endDate }) => this.updateState(startDate, endDate)}
-            focusedInput={this.state.focusedInput}
-            onFocusChange={focusedInput => this.setState({ focusedInput })}
-          />
-          
+        <div>
+          <div>
+            <DateRangePicker
+              className='font-size center'
+              displayFormat="DD/MM/YYYY"
+              displayFormat={() => moment.localeData('fr').longDateFormat('LL')}
+              startDatePlaceholderText='Quando?'
+              endDatePlaceholderText='Até quando?'
+              startDate={this.state.startDate}
+              startDateId="your_unique_start_date_id"
+              endDate={this.state.endDate}
+              endDateId="your_unique_end_date_id"
+              onDatesChange={({ startDate, endDate }) => this.updateState(startDate, endDate)}
+              focusedInput={this.state.focusedInput}
+              onFocusChange={focusedInput => this.setState({ focusedInput })}
+            />
+
           </div>
           {console.log(this.state)}
           <Typography variant="h6" component="h2">
@@ -140,9 +129,9 @@ class Details extends Component {
               totalPrice: this.state.totalPrice
             }
           }}
-          >            
+          >
             <Button color="primary" round>
-            CONFIRMAR
+              CONFIRMAR
             </Button>
           </Link>
         </div>

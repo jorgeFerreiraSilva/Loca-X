@@ -5,11 +5,7 @@ import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
-import Header from './components/Header';
 import Home from './pages/Home';
-import SelectState from './components/SelectState';
-import MyCard from './components/MyCard';
-import Confirmation from './pages/Confirmation';
 import AddProduct from './pages/AddProduct';
 import SearchResults from './pages/SearchResults';
 import Product from './pages/Product';
@@ -22,6 +18,9 @@ import ListReservationsOwner from './pages/ListReservationsOwner';
 import ListReservationsHirer from './pages/ListReservationsHirer';
 import SingleResOwner from './pages/SingleResOwner';
 import SingleResHirer from './pages/SingleResHirer';
+import NavLogged from '../src/components/Navbars/Loggedin.js';
+import NavLoggedOut from '../src/components/Navbars/Loggedout.js';
+
 
 
 const styles = theme => ({
@@ -97,12 +96,14 @@ class App extends Component {
     console.log(loggedInUser);
     console.log('<------------- loggedInUser --------------->');
     { this.fetchUser() }
+    const myNav = (loggedInUser) ? <NavLogged user={loggedInUser}/> : <NavLoggedOut />
     if (loggedInUser) {
       return (
         <MuiThemeProvider>
           <div>
+            {myNav}
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
+              <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route exact path="/itens" render={(props) =>
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />} />
@@ -111,7 +112,7 @@ class App extends Component {
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/" component={ListReservationsOwner} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/" component={ListReservationsHirer} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/:id" component={SingleResOwner} />
-              <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/:id" component={SingleResHirer} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/:id " component={SingleResHirer} />
               <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
@@ -125,8 +126,9 @@ class App extends Component {
       return (
         <MuiThemeProvider>
           <div>
+            {myNav}
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
+              <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
 
               <Route path="/itens" render={(props) =>
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />

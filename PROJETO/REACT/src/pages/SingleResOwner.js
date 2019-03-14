@@ -1,29 +1,10 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import axios from 'axios';
-import { withStyles } from '@material-ui/core/styles';
-import {
-  Paper,
-  Typography,
-  Grid
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import MyButton from '../components/MyButton';
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  textField: {
-    flexBasis: 200,
-  }
-});
-
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 
 class SingleResOwner extends Component {
   constructor(props) {
@@ -96,29 +77,36 @@ class SingleResOwner extends Component {
   //   .catch(err => console.log(err));
   // };
 
-  render (){
+  render () {
     return (
       <div>
-        <h1>Infos do anuncio</h1>
-        <p>
-          {this.state.title}
-          {this.state.description}
-        </p>
-        <h1>infos da reserva</h1>
-        <p>
-      Start date {this.state.startDate}
-      End date {this.state.endDate}
-        </p>
-        <button onClick={this.handleAcceptRes}>ACEITAR</button>
-        <button onClick={this.handleCancelRes}>NEGAR</button>
+        <Container>
+          <Row>
+            <Col>
+            <h1>Infos do anuncio</h1>
+              <p>
+                {this.state.title}
+                {this.state.description}
+              </p>
+            </Col>
+            <Col>
+              <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                  <Card.Title>Card Title</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                  <Card.Text>
+                    Start date {this.state.startDate}
+                    End date {this.state.endDate}
+                    Total price: {this.state.totalPrice}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </div>
-
     );
   }
 }
 
-SingleResOwner.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-  
-export default withStyles(styles)(SingleResOwner);
+export default SingleResOwner;

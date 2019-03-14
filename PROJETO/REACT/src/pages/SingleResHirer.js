@@ -1,29 +1,40 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import axios from 'axios';
-import { withStyles } from '@material-ui/core/styles';
-import {
-  Paper,
-  Typography,
-  Grid
-} from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import MyButton from '../components/MyButton';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  right: {
+    width: '55%',
+    margin: '0 auto',
+    border: '2px solid blue'
   },
-  margin: {
-    margin: theme.spacing.unit,
+
+  left: {
+    width: '45%',
+    border: '2px solid blue'
   },
-  textField: {
-    flexBasis: 200,
+
+  myrow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'space-around',
+    border: '2px solid red',
+    margin: '1% auto',
+    fontFamily: "'Poppins', sans-serif"
+  },
+
+  box: {
+    marginBottom: '5%'
   }
 });
-
 
 class SingleResHirer extends Component {
   constructor(props) {
@@ -71,27 +82,45 @@ class SingleResHirer extends Component {
   //   .catch(err => console.log(err));
   // };
 
-  render (){
+  render() {
+    const { classes } = this.props;
     return (
-      <div>
-        <h1>Infos do anuncio</h1>
-        <p>
-          {this.state.title}
-          {this.state.description}
-        </p>
-        <h1>infos da reserva</h1>
-        <p>
-      Start date {this.state.startDate}
-      End date {this.state.endDate}
-        </p>
+      <div className={classes.myrow}>
+        <Container>
+          <Row>
+            <div className={classes.left}>
+              <Col>
+                <h1>Infos do anuncio</h1>
+                <p>
+                  {this.state.title}
+                  {this.state.description}
+                </p>
+              </Col>
+            </div>
+            <div className={classes.right}>
+              <Col>
+                <Card style={{ width: '25rem' }}>
+                  <Card.Body>
+                    <Card.Title>Card Title</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                    <Card.Text>
+                      Start date {this.state.startDate}
+                      End date {this.state.endDate}
+                      Total price: {this.state.totalPrice}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>           
+            </div>
+          </Row>
+        </Container>
       </div>
-
     );
   }
 }
 
 SingleResHirer.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-  
-export default withStyles(styles)(SingleResHirer);
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles, { withTheme: true })(SingleResHirer);

@@ -1,28 +1,26 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import axios from 'axios';
-import { withStyles } from '@material-ui/core/styles';
-import {
-  Paper,
-  Typography,
-  Grid
-} from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import NavLogged from '../../src/components/Navbars/Loggedin.js'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import CardDeck from 'react-bootstrap/CardDeck';
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  mycol: {
+    width: '75%',
+    margin: '0 auto',
+    border: '2px solid blue'
   },
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  textField: {
-    flexBasis: 200,
+  box: {
+    marginBottom: '5%'
   }
 });
-
 
 class ListReservationsOwner extends Component {
   constructor(props) {
@@ -41,46 +39,60 @@ class ListReservationsOwner extends Component {
         const userReservations = response.data;
         this.setState({ userReservations });
         console.log(userReservations);
+        // console.log('caraaaai',this.props.loggedInUser);
       })
       .catch(err => console.log(err));
   }
 
-  render () {
-    return(
+  render() {
+    const { classes } = this.props;
+    return (
       <div>
-        <Grid
-          container
-          justify="flex-start"
-          spacing={16}
-        >
-        <h1>mari esteve aqui</h1>
-          { (this.state.userReservations !== null) ?      
-            (this.state.userReservations.map((item, index) => (
-              <Grid key={index} item>
-                {item.title}
-                Datas: {item.startDate} -> {item.endDate}
-                Preço: {item.totalPrice}
-                Status: {item.status}
-                <Link to={{
-                pathname: `/reservas/dono/${item._id}`,
-                state: {
-                  adId: item.adId
-                }
-              }}
-                > PROXIMO
-                </Link>
-              </Grid>
-            )))
-            : false
-        }
-        </Grid>
+        <Container>
+          <Row>
+            <div className={classes.mycol}>
+              <Col>
+                <CardDeck>
+                  { (this.state.userReservations !== null) ?      
+                    (this.state.userReservations.map((item, index) => (
+                      <div className={classes.box} key={index}>
+                        <Card style={{ width: '15rem' }}>
+                          <Card.Img variant="top" src={item.pathPictures} />
+                          <Card.Body>
+                            <Card.Title>{item.title}</Card.Title>
+                            <Card.Text>
+                            Datas: {item.startDate} => {item.endDate}<hr></hr>
+                            Preço total: {item.totalPrice}
+                            </Card.Text>
+
+                            <Link to={{
+                              pathname: `/reservas/inq/${item._id}`,
+                              state: {
+                                adId: item.adId
+                              }
+                            }}
+                            >
+                              VER MAIS
+                            </Link>
+                          </Card.Body>
+                        </Card>
+                      </div>
+                    )))
+                    : false
+                  }
+                </CardDeck>
+              </Col>
+            </div>
+          </Row>
+        </Container>
       </div>
     );
   }
 }
 
 ListReservationsOwner.propTypes = {
-    classes: PropTypes.object.isRequired,
-  };
-  
-export default withStyles(styles)(ListReservationsOwner);
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles, { withTheme: true })(ListReservationsOwner);
+

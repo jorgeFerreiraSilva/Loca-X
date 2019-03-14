@@ -8,7 +8,10 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
 import Explore from '@material-ui/icons/Explore';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+
 
 const styles = theme => ({
   header: {
@@ -112,30 +115,30 @@ class HomeNav extends React.Component {
     console.log(this.state.search);
 
     const { classes } = this.props;
-    return (
-      <div className={classes.root}>
-        <AppBar position="fixed" className={classes.header}>
-          <Toolbar className={classes.toolbar}>
-            <Grid justify="space-between" container spacing={24}>
-              <Grid item className={classes.grid}>
-                <Explore className={classes.mainIcon} />
+    // return (
+    //   // <div className={classes.root}>
+    //   //   <AppBar position="fixed" className={classes.header}>
+    //   //     <Toolbar className={classes.toolbar}>
+    //   //       <Grid justify="space-between" container spacing={24}>
+    //   //         <Grid item className={classes.grid}>
+    //   //           <Explore className={classes.mainIcon} />
 
-              </Grid>
-              <Grid item className={classes.grid}>
-                <div>
-                  <Button className={classes.menubuttons} color="inherit">
-                    <a href='/entrar'>Entrar</a>
-                  </Button>
-                  <Button className={classes.menubuttons} color="inherit">
-                    <a href='/cadastrar'>Cadastro</a>
-                  </Button>
-                </div>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
+    //   //         </Grid>
+    //   //         <Grid item className={classes.grid}>
+    //   //           <div>
+    //   //             <Button className={classes.menubuttons} color="inherit">
+    //   //               <a href='/entrar'>Entrar</a>
+    //   //             </Button>
+    //   //             <Button className={classes.menubuttons} color="inherit">
+    //   //               <a href='/cadastrar'>Cadastro</a>
+    //   //             </Button>
+    //   //           </div>
+    //   //         </Grid>
+    //   //       </Grid>
+    //   //     </Toolbar>
+    //   //   </AppBar>
+    //   // </div>
+    // );
   }
 }
 HomeNav.propTypes = {
