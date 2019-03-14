@@ -69,12 +69,10 @@ class Search extends Component {
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
-    console.log(this.state)
   };
 
   handleFormSubmit(event) {
     event.preventDefault();
-    console.log("Submited");
   }
 
   render() {

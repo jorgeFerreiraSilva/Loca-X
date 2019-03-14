@@ -46,6 +46,7 @@ class App extends Component {
     this.updateState = this.updateState.bind(this);
     this.updateAds = this.updateAds.bind(this);
     this.searchAdsByState = this.searchAdsByState.bind(this);
+    this.updateUserLog = this.updateUserLog.bind(this);
   }
   fetchUser() {
     const { loggedInUser } = this.state;
@@ -68,6 +69,13 @@ class App extends Component {
       loggedInUser: userObj
     })
   }
+
+  updateUserLog(obj) {
+    this.setState({
+      loggedInUser: obj
+    });
+  }
+
   updateState(obj) {
     this.setState({
       selectedState: obj
@@ -96,7 +104,7 @@ class App extends Component {
     console.log(loggedInUser);
     console.log('<------------- loggedInUser --------------->');
     { this.fetchUser() }
-    const myNav = (loggedInUser) ? <NavLogged user={loggedInUser}/> : <NavLoggedOut />
+    const myNav = (loggedInUser) ? <NavLogged user={loggedInUser}  updateUserLog={this.updateUserLog} /> : <NavLoggedOut />
     if (loggedInUser) {
       return (
         <MuiThemeProvider>

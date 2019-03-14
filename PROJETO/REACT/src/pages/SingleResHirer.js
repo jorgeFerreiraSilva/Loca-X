@@ -10,30 +10,30 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 
 const styles = theme => ({
-  right: {
-    width: '55%',
-    margin: '0 auto',
-    border: '2px solid blue'
-  },
+  // right: {
+  //   width: '55%',
+  //   margin: '0 auto',
+  //   border: '2px solid blue'
+  // },
 
-  left: {
-    width: '45%',
-    border: '2px solid blue'
-  },
+  // left: {
+  //   width: '45%',
+  //   border: '2px solid blue'
+  // },
+  // // exact
+  // myrow: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   alignContent: 'space-around',
+  //   border: '2px solid red',
+  //   margin: '1% auto',
+  //   fontFamily: "'Poppins', sans-serif"
+  // },
 
-  myrow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'space-around',
-    border: '2px solid red',
-    margin: '1% auto',
-    fontFamily: "'Poppins', sans-serif"
-  },
-
-  box: {
-    marginBottom: '5%'
-  }
+  // box: {
+  //   marginBottom: '5%'
+  // }
 });
 
 class SingleResHirer extends Component {
@@ -83,6 +83,7 @@ class SingleResHirer extends Component {
   // };
 
   render() {
+
     const { classes } = this.props;
     return (
       <div className={classes.myrow}>

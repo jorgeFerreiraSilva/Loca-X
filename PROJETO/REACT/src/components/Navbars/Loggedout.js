@@ -9,7 +9,7 @@ class NavLoggedOut extends React.Component {
   render() {
     return(  
       <Navbar className="navbar">
-        <Navbar.Brand className="logo-menu" href="/">ALUHGAY</Navbar.Brand>
+        <Navbar.Brand className="logo-menu" href="/">LocaX</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="item-menu">

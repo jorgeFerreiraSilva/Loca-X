@@ -82,9 +82,6 @@ class MyCard extends Component {
               <Typography noWrap className={classes.yearArea} component="p">
                 <span className={classes.year}>R${result.pricePerDay}</span>
               </Typography>
-              {/* <Typography component="p">
-                <span style={{ textDecoration: 'none', color: '#008489', fontWeight: 600, fontSize: 12 }} className={classes.articleLink} target="_blank">Ver mais</span>
-              </Typography> */}
             </div>
           </CardContent>
         </CardActionArea>
