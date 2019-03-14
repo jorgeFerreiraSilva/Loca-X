@@ -49,7 +49,9 @@ class ReservationDetails extends Component {
       title: null,
       description: null,
       pathPictures: '',
-      state: null
+      state: null,
+      reservationId: '', 
+      text: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -80,15 +82,17 @@ class ReservationDetails extends Component {
   
   handleFormSubmit(event) {
     event.preventDefault();
-    const { adId, ownerId} = this.state
+    const { adId, ownerId } = this.state
     axios.post(`http://192.168.0.41:8080/api/reservation/ads/${adId}/users/${ownerId}/${this.props.loggedInUser._id}`, this.state)
     .then(response => {
       console.log(response);
       const reservationId = response.data._id;
-      // axios.post(`http://192.168.0.41:8080/api/message/reservation/${reservationId}/users/${ownerId}/${this.props.loggedInUser._id}`, this.state)
-      // .then((response) => {
-      //   console.log(response);
-      // });
+      this.setState({ reservationId });
+      console.log('RES ID>>>>', this.state.reservationId)
+      axios.post(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.props.loggedInUser._id}`, this.state)
+      .then((response) => {
+        console.log(response);
+      });
     });
   }
   
@@ -137,7 +141,7 @@ class ReservationDetails extends Component {
               <Form onSubmit={e => this.handleFormSubmit(e)}>
               <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Envie uma mensagem ao proprietário</Form.Label>
-              <Form.Control as="textarea" rows="5" onChange={ e => this.handleChange(e)}/>
+              <Form.Control as="textarea" name="text" value={this.state.text} rows="5" onChange={ e => this.handleChange(e)}/>
             </Form.Group>
             <Button type="submit" >Enviar</Button>
             </Form>
