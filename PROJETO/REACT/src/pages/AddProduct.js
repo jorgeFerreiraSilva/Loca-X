@@ -1,5 +1,6 @@
 import React from 'react';
 import service from '../api/service'
+import NavLogged from '../../src/components/Navbars/Loggedin.js'
 import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
 
 const categories = [

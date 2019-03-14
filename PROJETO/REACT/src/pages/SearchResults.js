@@ -20,6 +20,7 @@ import Header from '../components/Header';
 import MyButton from '../components/MyButton';
 import { Link } from 'react-router-dom';
 import { HardwarePhoneAndroid } from 'material-ui/svg-icons';
+import NavLogged from '../../src/components/Navbars/Loggedin.js'
 
 const styles = theme => ({
   root: {
@@ -273,7 +274,7 @@ class SearchResults extends Component {
     return (
       <div className={classes.myroot}>
         <div>
-          <Header updateState={this.updateState} />
+          {/* <Header updateState={this.updateState} /> */}
         </div>
         <div className={classes.selectroot}>
           <NoSsr>
@@ -300,7 +301,7 @@ class SearchResults extends Component {
           {(this.props.allAdsFiltered !== null) ?
             (list.map((result, index) => (
               <Grid lg={3} md={4} sm={6} key={index} item style={{'min-width': '270px'}}>
-                <Link to={`/product/${result._id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/produto/${result._id}`} style={{ textDecoration: 'none' }}>
                   <MyCard result={result} />
                 </Link>
               </Grid>

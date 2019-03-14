@@ -3,22 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import NoSsr from '@material-ui/core/NoSsr';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
-import MenuItem from '@material-ui/core/MenuItem';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { emphasize } from '@material-ui/core/styles/colorManipulator';
-import Grid from '@material-ui/core/Grid';
-import Header from '../components/Header';
-import MyButton from '../components/MyButton';
-// import Button from '../components/CustomButtons/Button.jsx';
 import { Link } from 'react-router-dom';
-import HomeNav from '../components/Navbars/Home';
 import axios from 'axios';
-import queryString from 'query-string'
+import queryString from 'query-string';
 import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
 
 
@@ -79,7 +66,6 @@ class Home extends Component {
     console.log(this.state);
     return (
       <div>
-        <HomeNav />
         <div className="App">
           <Container>
             <Row className="justify-content-md-center">

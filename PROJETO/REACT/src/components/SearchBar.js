@@ -69,30 +69,28 @@ class Search extends Component {
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
-    console.log(this.state)
   };
 
   handleFormSubmit(event) {
     event.preventDefault();
-    console.log("Submited");
   }
 
   render() {
     const { classes } = this.props;
-    return(
+    return (
       <div className={classes.search}>
-      <form onSubmit={this.handleFormSubmit}>
-        <TextField
-          placeholder="Busque itens"
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput
-          }}
-          name="searchInput"
-          onChange={this.handleChange('searchInput')}
-        />
-        <Button type="submit" value="submit" className={classes.button}><SearchIcon className={classes.magnifyingGlass} /></Button>
-      </form>
+        <form onSubmit={this.handleFormSubmit}>
+          <TextField
+            placeholder="Busque itens"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput
+            }}
+            name="searchInput"
+            onChange={this.handleChange('searchInput')}
+          />
+          <Button type="submit" value="submit" className={classes.button}><SearchIcon className={classes.magnifyingGlass} /></Button>
+        </form>
       </div>
     );
   }
