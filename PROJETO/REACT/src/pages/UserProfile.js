@@ -2,40 +2,38 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Paper,
-  Typography,
-  Grid
-} from '@material-ui/core';
-import MyCard from '../components/MyCard';
-import UserProfileCard from '../components/UserProfileCard';
-import Card from '../components/Card/Card';
-import CardHeader from '../components/Card/CardHeader';
-import CardAvatar from '../components/Card/CardAvatar';
-import CardBody from '../components/Card/CardBody';
-import CardFooter from '../components/Card/CardFooter';
-import GridItem from '../components/Grid/GridItem';
-import GridContainer from '../components/Grid/GridContainer';
+import Card from 'react-bootstrap/Card';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Figure from 'react-bootstrap/Figure';
 
 const styles = theme => ({
-  container: {
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    alignContent: 'center'
+  mycol: {
+    width: '75%',
+    margin: '0 auto',
+    border: '2px solid blue'
   },
-  image: {
-    width: '100%'
+
+  profile: {
+    width: '25%',
+    border: '2px solid blue'
   },
+
+  myrow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'space-around',
+    border: '2px solid red',
+    margin: '1% auto'
+  },
+
   box: {
-    marginTop: '10%',
-    boxShadow: 'none',
-    border: '1px solid #e2e2e2'
-  },
-  boxContent: {
-    padding: '10%'
+    marginBottom: '5%'
   }
 });
 
@@ -43,70 +41,94 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: null,
-      name: null,
-      description: null,
-      pathPicture: null,
-      state: null,
-      ads: null,
-      adsStatus: false
+      _id: '',
+      name: '',
+      description: '',
+      pathPicture: '',
+      state: '',
+      ads: null
     };
   }
 
   componentDidMount() {
+    console.log(this.props.match.params.id)
     axios.get(`http://192.168.0.41:8080/api/users/${this.props.match.params.id}`)
-    .then((response) => {
-      const { _id, name, description, pathPicture, state } = response.data;
-      this.setState({ _id, name, description, pathPicture, state });
-    })
-    .catch(err => console.log(err));
-    
-  axios.get(`http://192.168.0.41:8080/api/ads/users/${this.props.match.params.id}`)
+      .then((response) => {
+        const { _id, name, description, pathPicture, state } = response.data;
+        this.setState({ _id, name, description, pathPicture, state });
+      })
+      .catch(err => console.log(err));
+    axios.get(`http://192.168.0.41:8080/api/ads/users/${this.props.match.params.id}`)
       .then((response) => {
         const ads = response.data;
         console.log('-------------------');
-        console.log(response.data);
+        console.log('dados', response.data);
         console.log('-------------------');
         this.setState({ ads });
-
       });
   }
 
 
   render() {
-    console.log('stateeeee', this.state);
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     const { ads } = this.state;
 
     console.log('aqui', ads);
-    const { _id, name, description, pathPicture, state } = this.state;
+    // const { _id, name, description, pathPicture, state } = this.state;
     return (
-      // eslint-disable-next-line react/jsx-filename-extension
-      <MuiThemeProvider>
-        <div>
-          <Grid container spacing={24} className={classes.container}>
-            <Grid item xs={4} className={classes.leftContainer}>
-              <UserProfileCard userId={_id} name={name} description={description} pathPicture={pathPicture} state={state} />
-            </Grid>
-            <Grid
-              container
-              justify="flex-start"
-              spacing={16}
-            >
-              { (ads !== null) ?      
-                (ads.map((result, index) => (
-                  <Grid key={index} item>
-                    <Link to={`/product/${result._id}`}>
-                      <MyCard result={result} />
-                    </Link>
-                  </Grid>
-                )))
-                : false
-            }
-            </Grid>
-          </Grid>
-        </div>
-      </MuiThemeProvider>
+    // eslint-disable-next-line react/jsx-filename-extension
+      <div className={classes.myrow}>
+        <Container>
+          <Row>
+            <div className={classes.profile}>
+            <Col>
+              <Card>
+                <Card.Img variant="top" src={this.state.pathPicture} />
+                <Card.Body>
+                  <Card.Title>{this.state.name}</Card.Title>
+                  <Card.Text>
+                    {this.state.description}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+            </div>
+            <div className={classes.mycol}>
+              <Col>
+                <CardDeck>
+                  { (ads !== null) ?      
+                    (ads.map((item, index) => (
+                      <div className={classes.box} key={index}>
+                        <Card style={{ width: '15rem' }}>
+                          <Card.Img variant="top" src={item.pathPictures} />
+                          <Card.Body>
+                            <Card.Title>{item.title}</Card.Title>
+                            <Card.Text>
+                              {item.description}<hr></hr>
+                              Preço: {item.pricePerDay}
+                            </Card.Text>
+
+                            <Link to={{
+                              pathname: `/product/${item._id}`,
+                              state: {
+                                adId: item.adId
+                              }
+                            }}
+                            >
+                                VER MAIS
+                            </Link>
+                          </Card.Body>
+                        </Card>
+                      </div>
+                    )))
+                    : false
+                  }
+                </CardDeck>
+              </Col>
+            </div>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }
@@ -116,14 +138,3 @@ UserProfile.propTypes = {
 };
 
 export default withStyles(styles, { withTheme: true })(UserProfile);
-
-
-{/* <Grid item xs={8}>
-            {ads.map((result, index) => (
-              <Grid key={index} item>
-                <Link to={`/product/${result._id}`}>
-                  <MyCard result={result} />
-                </Link>
-              </Grid>
-                ))}
-            </Grid> */}
