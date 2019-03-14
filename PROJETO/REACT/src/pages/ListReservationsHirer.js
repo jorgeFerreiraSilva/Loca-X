@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import CardDeck from 'react-bootstrap/CardDeck';
+import Button from 'react-bootstrap/Button';
 
 class ListReservationsHirer extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class ListReservationsHirer extends Component {
       .catch(err => console.log(err));
   }
 
-  render () {
+  render() {
     return(
       <div>
         <Container>
@@ -43,7 +44,7 @@ class ListReservationsHirer extends Component {
                           <Card.Title>{item.title}</Card.Title>
                           <Card.Text>
                           Datas: {item.startDate} => {item.endDate}<hr></hr>
-                          Preço total: {item.totalPrice}
+                          Preço total: R${item.totalPrice}
                           </Card.Text>
 
                           <Link to={{

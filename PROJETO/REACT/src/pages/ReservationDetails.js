@@ -2,31 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Paper,
-  Typography,
-  Grid,
-  Card,
-  TextField,
-  Button
-} from '@material-ui/core';
-import ProdInfoCard from '../components/Product/ProdInfoCard';
+import Card from 'react-bootstrap/Card';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  mycol: {
+    width: '75%',
+    margin: '0 auto'
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+
+  profile: {
+    width: '25%'
   },
-  dense: {
-    marginTop: 16,
+
+  myrow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'space-around',
+    border: '2px solid red',
+    margin: '1% auto'
   },
-  menu: {
-    width: 200,
-  },
+
+  box: {
+    marginBottom: '5%'
+  }
 });
 
 class ReservationDetails extends Component {
@@ -43,7 +48,7 @@ class ReservationDetails extends Component {
       endDate: null,
       title: null,
       description: null,
-      pathPictures: null,
+      pathPictures: '',
       state: null
     };
     this.handleChange = this.handleChange.bind(this);
@@ -57,9 +62,6 @@ class ReservationDetails extends Component {
 
   componentDidMount() {
 
-    // const startDate = 'aaaa';
-    // const endDate = 'bbbb';
-    // const totalPrice = 9;
     this.setState({ adId: this.props.match.params.id });
     const { startDate, endDate, totalPrice } = this.props.location.state;
     
@@ -92,8 +94,7 @@ class ReservationDetails extends Component {
   
   render() {
     const { pathPictures } = this.state;
-    console.log(this.props.loggedInUser)
-    console.log('bbbb',this.state);
+    console.log(this.props.loggedInUser);
     const { classes } = this.props;
     if(pathPictures !== null) {
       console.log('aqui!');
@@ -103,45 +104,52 @@ class ReservationDetails extends Component {
     
 
     return (
-      <div>
-        <Grid container spacing={24} className={classes.container}>
-          <Grid item xs={4} className={classes.leftContainer}>
-            <ProdInfoCard image={pathPictures} name={this.state.title} description={this.state.description} />  
-          </Grid>
-          <Grid item xs={4}>
-          <Paper square className={classes.box}>
-            <div className={classes.boxContent}>
-            <h1>{this.state.pricePerDay}</h1>
-            <hr></hr>
-            <h3>{this.props.description}</h3>
+              <div className={classes.myrow}>
+        
+        <Container>
+          <Row>
+            <div className={classes.profile}>
+            <Col>
+              <Card>
+                <Card.Img variant="top" src={this.state.pathPictures[0]} />
+                <Card.Body>
+                  <Card.Title>{this.state.name}</Card.Title>
+                  <Card.Text>
+                    {this.state.description}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
             </div>
-          </Paper>
-          <form onSubmit={e => this.handleFormSubmit(e)}>
-          <TextField
-              id="outlined-full-width"
-              name="text"
-              label="Label"
-              style={{ margin: 8 }}
-              placeholder="Placeholder"
-              multiline
-              rows="5"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              InputLabelProps={{
-              shrink: true
-            }}
-            onChange={ e => this.handleChange(e)}
-            />
-            {/* <Button onClick={(event) => { handleFormSubmit(event) }}>
-              SEND
-            </Button> */}
-            <button type="submit">Save</button>
-            </form>
-          </Grid>
-        </Grid>
+            <div className={classes.mycol}>
+              <Col>
+              <Card style={{ width: '20rem' }}>
+              <Card.Body>
+                {/* <Card.Title>Card Title</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
+                <Card.Text>
+                    De: {this.state.startDate}<br/>
+                    Até: {this.state.endDate}<br/>
+                    Total: R${this.state.totalPrice}
+                </Card.Text>
+              </Card.Body>
+            </Card>
+              <Form onSubmit={e => this.handleFormSubmit(e)}>
+              <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Envie uma mensagem ao proprietário</Form.Label>
+              <Form.Control as="textarea" rows="5" onChange={ e => this.handleChange(e)}/>
+            </Form.Group>
+            <Button type="submit" >Enviar</Button>
+            </Form>
+              </Col>
+            </div>
+          </Row>
+        </Container>
 
-        </div>
+
+        
+      </div>
+
     );
   }
 }

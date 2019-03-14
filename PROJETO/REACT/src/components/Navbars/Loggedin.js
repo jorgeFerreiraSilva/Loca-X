@@ -6,6 +6,7 @@ import '../../../public/navStyle.css'
 import axios from 'axios';
 import { red } from '@material-ui/core/colors';
 import AuthService from '../../auth/auth-service';
+import '../../../public/navStyle.css';
 
 
 class NavLogged extends React.Component {

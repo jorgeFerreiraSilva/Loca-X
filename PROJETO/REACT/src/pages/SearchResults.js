@@ -301,7 +301,7 @@ class SearchResults extends Component {
           {(this.props.allAdsFiltered !== null) ?
             (list.map((result, index) => (
               <Grid lg={3} md={4} sm={6} key={index} item style={{'min-width': '270px'}}>
-                <Link to={`/product/${result._id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/produto/${result._id}`} style={{ textDecoration: 'none' }}>
                   <MyCard result={result} />
                 </Link>
               </Grid>

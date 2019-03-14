@@ -2,25 +2,25 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import NavLogged from '../../src/components/Navbars/Loggedin.js'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import CardDeck from 'react-bootstrap/CardDeck';
 
 const styles = theme => ({
   mycol: {
     width: '75%',
-    margin: '0 auto',
-    border: '2px solid blue'
+    margin: '0 auto'
   },
   box: {
     marginBottom: '5%'
   }
 });
+
 
 class ListReservationsOwner extends Component {
   constructor(props) {
@@ -39,7 +39,6 @@ class ListReservationsOwner extends Component {
         const userReservations = response.data;
         this.setState({ userReservations });
         console.log(userReservations);
-        // console.log('caraaaai',this.props.loggedInUser);
       })
       .catch(err => console.log(err));
   }
@@ -52,6 +51,9 @@ class ListReservationsOwner extends Component {
           <Row>
             <div className={classes.mycol}>
               <Col>
+              <Link to="/adicionar">
+                <Button>Criar novo anúncio</Button>
+              </Link>
                 <CardDeck>
                   { (this.state.userReservations !== null) ?      
                     (this.state.userReservations.map((item, index) => (
@@ -62,11 +64,11 @@ class ListReservationsOwner extends Component {
                             <Card.Title>{item.title}</Card.Title>
                             <Card.Text>
                             Datas: {item.startDate} => {item.endDate}<hr></hr>
-                            Preço total: {item.totalPrice}
+                            Preço total: R${item.totalPrice}
                             </Card.Text>
 
                             <Link to={{
-                              pathname: `/reservas/inq/${item._id}`,
+                              pathname: `/reservas/dono/${item._id}`,
                               state: {
                                 adId: item.adId
                               }
