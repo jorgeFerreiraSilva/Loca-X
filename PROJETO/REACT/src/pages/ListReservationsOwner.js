@@ -2,10 +2,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import CardDeck from 'react-bootstrap/CardDeck';
+
+const styles = theme => ({
+  mycol: {
+    width: '75%',
+    margin: '0 auto',
+    border: '2px solid blue'
+  },
+  box: {
+    marginBottom: '5%'
+  }
+});
 
 class ListReservationsOwner extends Component {
   constructor(props) {
@@ -29,44 +43,54 @@ class ListReservationsOwner extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <Container>
           <Row>
-            { (this.state.userReservations !== null) ?      
-              (this.state.userReservations.map((item, index) => (              
-                <Col>
-                  <div key={index}>
-                    <Card style={{ width: '18rem' }}>
-                      <Card.Img variant="top" src={item.pathPictures} />
-                      <Card.Body>
-                        <Card.Title>{item.title}</Card.Title>
-                        <Card.Text>
-                        Datas: {item.startDate} => {item.endDate}<hr></hr>
-                        Preço total: {item.totalPrice}
-                        </Card.Text>
+            <div className={classes.mycol}>
+              <Col>
+                <CardDeck>
+                  { (this.state.userReservations !== null) ?      
+                    (this.state.userReservations.map((item, index) => (
+                      <div className={classes.box} key={index}>
+                        <Card style={{ width: '15rem' }}>
+                          <Card.Img variant="top" src={item.pathPictures} />
+                          <Card.Body>
+                            <Card.Title>{item.title}</Card.Title>
+                            <Card.Text>
+                            Datas: {item.startDate} => {item.endDate}<hr></hr>
+                            Preço total: {item.totalPrice}
+                            </Card.Text>
 
-                        <Link to={{
-                          pathname: `/reservas/inq/${item._id}`,
-                          state: {
-                            adId: item.adId
-                          }
-                        }}
-                        >
-                          VER MAIS
-                        </Link>
-                      </Card.Body>
-                    </Card>
-                  </div>
-                </Col>
-              )))
-              : false
-        }
+                            <Link to={{
+                              pathname: `/reservas/inq/${item._id}`,
+                              state: {
+                                adId: item.adId
+                              }
+                            }}
+                            >
+                              VER MAIS
+                            </Link>
+                          </Card.Body>
+                        </Card>
+                      </div>
+                    )))
+                    : false
+                  }
+                </CardDeck>
+              </Col>
+            </div>
           </Row>
         </Container>
       </div>
     );
   }
 }
- 
-export default ListReservationsOwner;
+
+ListReservationsOwner.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles, { withTheme: true })(ListReservationsOwner);
+
