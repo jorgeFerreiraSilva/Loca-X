@@ -39,10 +39,6 @@ class Login extends Component {
     const password = this.state.password;
     this.service.login(username, password)
       .then(response => {
-        console.log('<-------------------- RESPONSE -------------------->');
-        console.log(response);
-        console.log('<-------------------- RESPONSE -------------------->');
-
         this.setState({ username: "", password: "" });
         this.props.getUser(response);
         this.setState({ redirect: <Redirect to='/' /> })
@@ -54,42 +50,42 @@ class Login extends Component {
     const r = this.state.redirect !== null ? this.state.redirect : false;
     return (
       < div className='App' >
-      { r }
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col md="auto">
-            <Card>
-              <div className='w-75 mx-auto margin-top-bottom-20'>
-              <h5 className='text-center'>Entrar</h5>
-                <form onSubmit={this.handleFormSubmit} >
-                  <div className="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input onChange={this.handleChange('username')} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="insira o email" />
-                  </div>
-                  <div className="form-group">
-                    <label for="exampleInputPassword1">Senha</label>
-                    <input onChange={this.handleChange('password')} type="password" className="form-control" id="exampleInputPassword1" placeholder="insira a senha" />
-                  </div>
-                  <div className='text-center'>
-                    <Button type='submit'>Entrar</Button>
-                  </div>
-                </form>
-              </div>
-            </Card>
+        {r}
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <Card>
+                <div className='w-75 mx-auto margin-top-bottom-20'>
+                  <h5 className='text-center'>Entrar</h5>
+                  <form onSubmit={this.handleFormSubmit} >
+                    <div className="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input onChange={this.handleChange('username')} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="insira o email" />
+                    </div>
+                    <div className="form-group">
+                      <label for="exampleInputPassword1">Senha</label>
+                      <input onChange={this.handleChange('password')} type="password" className="form-control" id="exampleInputPassword1" placeholder="insira a senha" />
+                    </div>
+                    <div className='text-center'>
+                      <Button type='submit'>Entrar</Button>
+                    </div>
+                  </form>
+                </div>
+              </Card>
 
-          </Col>
-        </Row>
-      </Container>
+            </Col>
+          </Row>
+        </Container>
 
-      <Link to="/adicionar">
-        <Button>buscar</Button>
-      </Link>
-      <Link to="/reservas/dono">
-        <Button> reservas dono</Button>
-      </Link>
-      <Link to="/reservas/inq">
-        <Button>reservas inquilino</Button>
-      </Link>
+        <Link to="/adicionar">
+          <Button>buscar</Button>
+        </Link>
+        <Link to="/reservas/dono">
+          <Button> reservas dono</Button>
+        </Link>
+        <Link to="/reservas/inq">
+          <Button>reservas inquilino</Button>
+        </Link>
 
       </div >
     );
