@@ -246,7 +246,6 @@ class SearchResults extends Component {
   }
   
   render() {
-    
     console.log(this.props.location.estado);
     console.log(this.props.allAdsFiltered);
 
