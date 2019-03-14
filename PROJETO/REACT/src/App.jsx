@@ -98,7 +98,7 @@ class App extends Component {
         <MuiThemeProvider>
           <div>
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
+              <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route exact path="/itens" render={(props) =>
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />} />
@@ -122,7 +122,7 @@ class App extends Component {
         <MuiThemeProvider>
           <div>
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
+              <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
 
               <Route path="/itens" render={(props) =>
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />

@@ -1,24 +1,8 @@
 import React, { Component } from "react";
-import axios from 'axios';
-
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Header from "../components/Header";
+import { Redirect } from 'react-router-dom';
 import AuthService from "./auth-service";
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    margin: "20%",
-    textAlign: "center",
-    color: theme.palette.text.secondary
-  }
-});
+import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
+import './Card.css';
 
 class Signup extends Component {
   constructor() {
@@ -27,7 +11,8 @@ class Signup extends Component {
       name: "",
       state: "",
       username: "",
-      password: ""
+      password: "",
+      redirect: null
     };
     this.updateState = this.updateState.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -54,6 +39,7 @@ class Signup extends Component {
           name: ''
         });
         getUser(response);
+        this.setState({ redirect: <Redirect to="/entrar" /> });
       })
       .catch((error) => {
         console.error(error);
@@ -61,108 +47,74 @@ class Signup extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const r = this.state.redirect !== null ? this.state.redirect : false;
     return (
-      <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs />
-          <Grid item xs={6}>
-            <Paper className={classes.paper}>
-              <div>
-                <form onSubmit={this.handleFormSubmit}>
-                  <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                      <label className="label">Name</label>
-                    </div>
-                    <div className="field-body">
-                      <div className="field">
-                        <p className="control">
-                          <input
-                            className="input"
-                            onChange={e => this.updateState(e)}
-                            value={this.state.name}
-                            type="text"
-                            placeholder="Name"
-                            name="name"
-                          />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+      <div className="App">
+        {r}
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <Card>
 
-                  <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                      <label className="label">Região</label>
+                <div className='w-75 mx-auto margin-top-bottom-20'>
+                  <h5 className='text-center'>Cadastrar-se</h5>
+                  <form onSubmit={this.handleFormSubmit} >
+                    <div className="form-group">
+                      <label for="">Nome</label>
+                      <input onChange={e => this.updateState(e)} value={this.state.name} type="text" placeholder="Name" name="name" />
                     </div>
-                    <div className="field-body">
-                      <div className="field">
-                        <p className="control">
-                          <input
-                            className="input"
-                            onChange={e => this.updateState(e)}
-                            value={this.state.state}
-                            type="text"
-                            placeholder="Estado"
-                            name="state"
-                          />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                      <label className="label">E-mail</label>
+                    <div className="form-group">
+                      <label for="">Estado</label>
+                      <input
+                        className="input"
+                        onChange={e => this.updateState(e)}
+                        value={this.state.state}
+                        type="text"
+                        placeholder="Estado"
+                        name="state"
+                      />
                     </div>
-                    <div className="field-body">
-                      <div className="field">
-                        <p className="control">
-                          <input
-                            className="input"
-                            onChange={e => this.updateState(e)}
-                            value={this.state.username}
-                            type="text"
-                            placeholder="E-mail"
-                            name="username"
-                          />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                      <label className="label">Password</label>
-                    </div>
-                    <div className="field-body">
-                      <div className="field">
-                        <p className="control">
-                          <input
-                            className="input"
-                            onChange={e => this.updateState(e)}
-                            value={this.state.password}
-                            type="text"
-                            placeholder="Password"
-                            name="password"
-                          />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                    <div className="form-group">
+                      <label for="">E-mail</label>
 
-                  <input type="submit" value="submit" />
-                </form>
-              </div>
-            </Paper>
-          </Grid>
-          <Grid item xs />
-        </Grid>
-      </div>
+                      <input
+                        className="input"
+                        onChange={e => this.updateState(e)}
+                        value={this.state.username}
+                        type="email"
+                        placeholder="E-mail"
+                        name="username"
+                      />
+                    </div>
+
+
+
+                    <div className="form-group">
+                      <label for="exampleInputPassword1">Senha</label>
+                      <input
+                        className="input"
+                        onChange={e => this.updateState(e)}
+                        value={this.state.password}
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                      />
+                    </div>
+                    <div className='text-center'>
+                      <Button type='submit'>Entrar</Button>
+                    </div>
+                  </form>
+                </div>
+              </Card>
+
+            </Col>
+          </Row>
+        </Container>
+      </div >
     );
   }
 }
 
-Signup.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-export default withStyles(styles)(Signup);
+export default Signup;

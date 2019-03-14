@@ -1,37 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import axios from 'axios';
 import service from '../api/service'
-import CameraAlt from '@material-ui/icons/CameraAlt';
-import { Redirect } from 'react-router-dom';
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  textField: {
-    flexBasis: 200,
-  }
-  // fileInput: {
-  //   display: 'inline-block',
-  //   textAlign: 'left',
-  //   background: '#fff',
-  //   padding: '16px',
-  //   width: '450px',
-  //   position: 'relative',
-  //   borderRadius: '3px',
-  // }
-});
+import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
 
 const categories = [
   {
@@ -193,8 +162,8 @@ class AddProduct extends React.Component {
       image1: ''
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFileUpload = this.handleFileUpload.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = e => {
@@ -228,112 +197,91 @@ class AddProduct extends React.Component {
       });
   }
 
-  handleFormSubmit(event) {
-    event.preventDefault();
-    console.log('mystate', this.state);
-    axios.post("http://192.168.0.41:8080/api/ad", this.state).then(response => {
-      console.log(response);
-    });
-  }
-
   render() {
-    const { classes } = this.props;
+    console.log(this.state);
 
     return (
+      <div className="App">
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <Card>
 
-      <div className={classes.root}>
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <TextField
-            label="Título"
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            name="title"
-            value={this.state.title}
-            onChange={e => this.handleChange(e)}
-          />
+                <div className='w-75 mx-auto margin-top-bottom-20'>
+                  <h5 className='text-center'>Dados do Anúncio</h5>
+                  <form onSubmit={e => this.handleSubmit(e)} >
+                    <div className="form-group">
+                      <label for="">Título</label>
+                      <input name="title"
+                        value={this.state.title} onChange={e => this.handleChange(e)} type="text" placeholder="Bicicleta Xks Aro 29" />
+                    </div>
 
+                    <div className="form-group">
+                      <label for="">Descrição</label>
+                      <input
+                        className="input"
+                        name="description"
+                        value={this.state.description}
+                        onChange={e => this.handleChange(e)}
+                        type="text"
+                        placeholder="Freios à Disco"
+                      />
+                    </div>
 
-          <TextField
-            label="Descrição"
-            multiline
-            rowsMax="10"
-            name="description"
-            value={this.state.description}
-            onChange={e => this.handleChange(e)}
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-          />
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                      <Form.Label>Categoria</Form.Label>
+                      <Form.Control as="select" value={this.state.category}
+                        name="category"
+                        onChange={e => this.handleChange(e)} >
+                        {categories.map(option => (
+                          <option>{option.value}</option>
+                        ))}
+                      </Form.Control>
+                    </Form.Group>
 
-          <TextField
-            select
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label="Categoria"
-            value={this.state.category}
-            name="category"
-            onChange={e => this.handleChange(e)}
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                      <Form.Label>Estado</Form.Label>
+                      <Form.Control as="select" value={this.state.state}
+                        name="state"
+                        onChange={e => this.handleChange(e)}>
+                        {states.map(option => (
+                          <option>{option.value}</option>
+                        ))}
+                      </Form.Control>
+                    </Form.Group>
 
-          >
-            {categories.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+                    <div className="form-group">
+                      <label for="">Diária</label>
+                      <input
+                        className="input"
+                        value={this.state.pricePerDay}
+                        name="pricePerDay"
+                        onChange={e => this.handleChange(e)}
+                        type="number"
+                        placeholder="R$"
+                      />
+                    </div>
 
-          <TextField
-            select
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label="Estado"
-            value={this.state.state}
-            name="state"
-            onChange={e => this.handleChange(e)}
-          >
-            {states.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+                    <div className="form-group">
+                      <input
+                        label="image1"
+                        name="image1"
+                        type="file"
+                        onChange={(e) => this.handleFileUpload(e)} />
+                    </div>
 
-          <TextField
-            className={classNames(classes.margin, classes.textField)}
-            variant="outlined"
-            label="Diária"
-            value={this.state.pricePerDay}
-            name="pricePerDay"
-            onChange={e => this.handleChange(e)}
-            InputProps={{
-              startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-            }}
-          />
-
-          {/* <div className={classes.fileInput}>
-          <input label="image1"
-            name="image1"
-            type="file"
-            onChange={(e) => this.handleFileUpload(e)}>
-            <span class='button'>Choose</span>
-            <span class='label' data-js-label>No file selected</label>
-          </input>
-          </div> */}
-
-          <input
-            label="image1"
-            name="image1"
-            type="file"
-            onChange={(e) => this.handleFileUpload(e)} />
-          <button type="submit">Save</button>
-        </form>
-      </div>
+                    <div className='text-center'>
+                      <Button type='submit'>Anunciar</Button>
+                    </div>
+                  </form>
+                </div>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div >
     );
   }
 }
 
-AddProduct.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(AddProduct);
+export default AddProduct;

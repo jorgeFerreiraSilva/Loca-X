@@ -1,39 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import MyButton from '../components/MyButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import classNames from 'classnames';
 import AuthService from './auth-service';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
+import './Card.css';
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    margin: '20%',
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-});
 
 class Login extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
       showPassword: false,
+      redirect: null
     };
     this.service = new AuthService();
     this.handleChange = this.handleChange.bind(this);
@@ -56,80 +39,58 @@ class Login extends Component {
     const password = this.state.password;
     this.service.login(username, password)
       .then(response => {
-        console.log('<-------------------- RESPONSE -------------------->');
-        console.log(response);
-        console.log('<-------------------- RESPONSE -------------------->');
-
         this.setState({ username: "", password: "" });
-        this.props.getUser(response)
+        this.props.getUser(response);
+        this.setState({ redirect: <Redirect to='/' /> })
       })
       .catch(error => console.log(error))
   }
 
   render() {
-    const { classes } = this.props;
+    const r = this.state.redirect !== null ? this.state.redirect : false;
     return (
-      <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs></Grid>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <form onSubmit={this.handleFormSubmit}>
-                <TextField
-                  id="outlined-simple-start-adornment"
-                  className={classNames(classes.margin, classes.textField)}
-                  variant="outlined"
-                  onChange={this.handleChange('username')}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">E-mail</InputAdornment>,
-                  }} />
-                <TextField
-                  id="outlined-adornment-password"
-                  className={classNames(classes.margin, classes.textField)}
-                  variant="outlined"
-                  type={this.state.showPassword ? 'text' : 'password'}
-                  label="Password"
-                  value={this.state.password}
-                  onChange={this.handleChange('password')}
-                  InputProps={
-                    {
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="Toggle password visibility"
-                            onClick={this.handleClickShowPassword}
-                          >
-                            {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>)
-                    }}
-                />
-                <MyButton text="Submit" />
-                <input type="submit" value="submit" />
-              </form>
-            </Paper>
-            <Link to="/adicionar">
-              <MyButton text="buscar" />
-            </Link>
-            <Link to="/reservas/dono">
-              <MyButton text="reservas dono" />
-            </Link>
-            <Link to="/reservas/inq">
-              <MyButton text="reservas inquilino" />
-            </Link>
-            <Link to="/user/5c841808a4d1b52e327bb042">
-              <MyButton text="profile" />
-            </Link>
-          </Grid>
-          <Grid item xs></Grid>
-        </Grid>
-      </div>
+      < div className='App' >
+        {r}
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <Card>
+                <div className='w-75 mx-auto margin-top-bottom-20'>
+                  <h5 className='text-center'>Entrar</h5>
+                  <form onSubmit={this.handleFormSubmit} >
+                    <div className="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input onChange={this.handleChange('username')} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="insira o email" />
+                    </div>
+                    <div className="form-group">
+                      <label for="exampleInputPassword1">Senha</label>
+                      <input onChange={this.handleChange('password')} type="password" className="form-control" id="exampleInputPassword1" placeholder="insira a senha" />
+                    </div>
+                    <div className='text-center'>
+                      <Button type='submit'>Entrar</Button>
+                    </div>
+                  </form>
+                </div>
+              </Card>
+
+            </Col>
+          </Row>
+        </Container>
+
+        <Link to="/adicionar">
+          <Button>buscar</Button>
+        </Link>
+        <Link to="/reservas/dono">
+          <Button> reservas dono</Button>
+        </Link>
+        <Link to="/reservas/inq">
+          <Button>reservas inquilino</Button>
+        </Link>
+
+      </div >
     );
   }
 }
 
-Login.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-export default withStyles(styles)(Login);
+export default Login;
 
