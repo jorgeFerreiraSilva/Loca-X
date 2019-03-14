@@ -98,28 +98,28 @@ class UserProfile extends Component {
                 <CardDeck>
                   { (ads !== null) ?      
                     (ads.map((item, index) => (
-                        <div className={classes.box} key={index}>
-                          <Card style={{ width: '15rem' }}>
-                            <Card.Img variant="top" src={item.pathPictures} />
-                            <Card.Body>
-                              <Card.Title>{item.title}</Card.Title>
-                              <Card.Text>
+                      <div className={classes.box} key={index}>
+                        <Card style={{ width: '15rem' }}>
+                          <Card.Img variant="top" src={item.pathPictures} />
+                          <Card.Body>
+                            <Card.Title>{item.title}</Card.Title>
+                            <Card.Text>
                               {item.description}<hr></hr>
                               Preço: {item.pricePerDay}
-                              </Card.Text>
+                            </Card.Text>
 
-                              <Link to={{
-                                pathname: `/product/${item._id}`,
-                                state: {
-                                  adId: item.adId
-                                }
-                              }}
-                              >
+                            <Link to={{
+                              pathname: `/product/${item._id}`,
+                              state: {
+                                adId: item.adId
+                              }
+                            }}
+                            >
                                 VER MAIS
-                              </Link>
-                            </Card.Body>
-                          </Card>
-                        </div>
+                            </Link>
+                          </Card.Body>
+                        </Card>
+                      </div>
                     )))
                     : false
                   }

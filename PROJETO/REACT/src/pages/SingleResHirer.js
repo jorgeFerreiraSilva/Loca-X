@@ -27,7 +27,8 @@ const styles = theme => ({
     alignItems: 'center',
     alignContent: 'space-around',
     border: '2px solid red',
-    margin: '1% auto'
+    margin: '1% auto',
+    fontFamily: "'Poppins', sans-serif"
   },
 
   box: {
@@ -109,7 +110,7 @@ class SingleResHirer extends Component {
                     </Card.Text>
                   </Card.Body>
                 </Card>
-              </Col>            
+              </Col>           
             </div>
           </Row>
         </Container>
