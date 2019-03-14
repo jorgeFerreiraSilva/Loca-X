@@ -32,7 +32,7 @@ const styles = theme => ({
     // border: '1px solid #e2e2e2'
   },
   boxContent: {
-    padding: '10% 20%'
+    // padding: '10% 20%'
   }
 });
 
@@ -101,7 +101,7 @@ class Details extends Component {
         <div>
           <div>
             <DateRangePicker
-              className='font-size center'
+              className='size center'
               displayFormat="DD/MM/YYYY"
               displayFormat={() => moment.localeData('fr').longDateFormat('LL')}
               startDatePlaceholderText='Quando?'

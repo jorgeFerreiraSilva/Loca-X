@@ -87,22 +87,23 @@ class Product extends Component {
     return (
       <div className='app'>
         <Container>
-          <Row  className="justify-content">
-              <Col xs={12} md={6}>
-                <Card className='margin-bottom-5 padding-bottom-5 border-shadow'>
-                  <Card.Img variant="top" src={this.state.pathPictures[0]} alt="product" />
-                </Card>
+          <Row className="justify-content">
 
-                <Card>
-                  <Card.Header>Descrição</Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      {this.state.description}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            <Col xs={6} md={4}>
+            <Col xs={12} md={6}>
+              <Card className='margin-bottom-5 align-item padding-5 border-shadow'>
+                <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} alt="product" />
+              </Card>
+              <Card>
+                <Card.Header>Descrição</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    {this.state.description}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col xs={12} md={4} className="mt-2">
               <Card>
                 <Card.Header><b>{this.state.title}</b></Card.Header>
                 <Card.Body>
@@ -113,6 +114,7 @@ class Product extends Component {
                 </Card.Body>
               </Card>
             </Col>
+
           </Row>
         </Container>
       </div>

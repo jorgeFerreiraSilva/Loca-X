@@ -1,5 +1,4 @@
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: pink;
     font-size: 14px;
 }
 
@@ -9,4 +8,8 @@ input {
 
 .center {
     margin: 0 auto;
+}
+
+.DateInput_input {
+    font-size: 14px;
 }
