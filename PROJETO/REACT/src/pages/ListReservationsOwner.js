@@ -9,6 +9,8 @@ import {
   Grid
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import NavLogged from '../../src/components/Navbars/Loggedin.js'
+
 
 const styles = theme => ({
   root: {
@@ -41,6 +43,7 @@ class ListReservationsOwner extends Component {
         const userReservations = response.data;
         this.setState({ userReservations });
         console.log(userReservations);
+        // console.log('caraaaai',this.props.loggedInUser);
       })
       .catch(err => console.log(err));
   }
@@ -48,6 +51,7 @@ class ListReservationsOwner extends Component {
   render () {
     return(
       <div>
+        <NavLogged />
         <Grid
           container
           justify="flex-start"

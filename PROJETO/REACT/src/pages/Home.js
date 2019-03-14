@@ -20,6 +20,7 @@ import HomeNav from '../components/Navbars/Home';
 import axios from 'axios';
 import queryString from 'query-string'
 import Button from 'react-bootstrap/Button';
+import NavLogged from '../components/Navbars/Loggedin.js'
 
 
 const suggestions = [
@@ -263,7 +264,8 @@ class Home extends Component {
     };
     return (
       <div>
-        <HomeNav />
+        {/* <HomeNav /> */}
+        {/* <NavLogged /> */}
         <div className={classes.banner}>
           <Grid container spacing={24}>
             <Grid item xs></Grid>
@@ -280,12 +282,12 @@ class Home extends Component {
                       onChange={this.handleChange('single')}
                       placeholder="Selecione seu estado"
                       isClearable
-                    />
+                      />
                     <Link to={`/itens?estado=${this.state.single.label}`}>
                       {/* <Button color="primary" className={classes.mybutton}>
                         BUSCAR
                       </Button> */}
-                      <Button variant="outline-primary">Primary</Button>
+                      <Button variant="outline-primary">Buscar</Button>
                     </Link>
                   </NoSsr>
                 </div>

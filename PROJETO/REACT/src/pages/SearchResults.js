@@ -20,6 +20,7 @@ import Header from '../components/Header';
 import MyButton from '../components/MyButton';
 import { Link } from 'react-router-dom';
 import { HardwarePhoneAndroid } from 'material-ui/svg-icons';
+import NavLogged from '../../src/components/Navbars/Loggedin.js'
 
 const styles = theme => ({
   root: {
@@ -273,7 +274,7 @@ class SearchResults extends Component {
     return (
       <div className={classes.myroot}>
         <div>
-          <Header updateState={this.updateState} />
+          {/* <Header updateState={this.updateState} /> */}
         </div>
         <div className={classes.selectroot}>
           <NoSsr>

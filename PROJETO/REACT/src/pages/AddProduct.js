@@ -10,6 +10,7 @@ import axios from 'axios';
 import service from '../api/service'
 import CameraAlt from '@material-ui/icons/CameraAlt';
 import { Redirect } from 'react-router-dom';
+import NavLogged from '../../src/components/Navbars/Loggedin.js'
 
 const styles = theme => ({
   root: {
@@ -240,7 +241,8 @@ class AddProduct extends React.Component {
     const { classes } = this.props;
 
     return (
-
+      <div>
+      <NavLogged />
       <div className={classes.root}>
         <form onSubmit={e => this.handleSubmit(e)}>
           <TextField
@@ -327,6 +329,7 @@ class AddProduct extends React.Component {
             onChange={(e) => this.handleFileUpload(e)} />
           <button type="submit">Save</button>
         </form>
+      </div>
       </div>
     );
   }

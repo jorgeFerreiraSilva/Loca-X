@@ -22,6 +22,9 @@ import ListReservationsOwner from './pages/ListReservationsOwner';
 import ListReservationsHirer from './pages/ListReservationsHirer';
 import SingleResOwner from './pages/SingleResOwner';
 import SingleResHirer from './pages/SingleResHirer';
+import NavLogged from '../src/components/Navbars/Loggedin.js';
+import NavLoggedOut from '../src/components/Navbars/Loggedout.js';
+
 
 
 const styles = theme => ({
@@ -97,10 +100,12 @@ class App extends Component {
     console.log(loggedInUser);
     console.log('<------------- loggedInUser --------------->');
     { this.fetchUser() }
+    const myNav = (loggedInUser) ? <NavLogged user={loggedInUser}/> : <NavLoggedOut />
     if (loggedInUser) {
       return (
         <MuiThemeProvider>
           <div>
+            {myNav}
             <Switch>
               <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
@@ -111,7 +116,7 @@ class App extends Component {
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/" component={ListReservationsOwner} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/" component={ListReservationsHirer} />
               <ProtectedRoute user={loggedInUser} exact path="/reservas/dono/:id" component={SingleResOwner} />
-              <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/:id" component={SingleResHirer} />
+              <ProtectedRoute user={loggedInUser} exact path="/reservas/inq/:id " component={SingleResHirer} />
               <Route path="/user/:id" render={(props) => <UserProfile {...props} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/product/:id" render={(props) => <Product {...props} />} />
@@ -125,6 +130,7 @@ class App extends Component {
       return (
         <MuiThemeProvider>
           <div>
+            {myNav}
             <Switch>
               <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
 

@@ -104,8 +104,10 @@ class Login extends Component {
                         </InputAdornment>)
                     }}
                 />
-                <MyButton text="Submit" />
-                <input type="submit" value="submit" />
+                <MyButton text="oloco" />
+                
+                  <input type="submit" value="submit" href="/" />
+                <Link to="/"></Link>
               </form>
             </Paper>
             <Link to="/adicionar">
