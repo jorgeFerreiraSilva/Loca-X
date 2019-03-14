@@ -105,7 +105,7 @@ class UserProfile extends Component {
                             <Card.Title>{item.title}</Card.Title>
                             <Card.Text>
                               {item.description}<hr></hr>
-                              Preço: {item.pricePerDay}
+                              Diária: <strong>R${item.pricePerDay}</strong>
                             </Card.Text>
 
                             <Link to={{

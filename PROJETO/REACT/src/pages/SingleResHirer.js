@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 const styles = theme => ({
   right: {
@@ -42,13 +43,14 @@ class SingleResHirer extends Component {
     this.state = {
       title: null,
       description: null,
-      pathPictures: null,
+      pathPictures: '',
       pricePerDay: null,
       totalPrice: null,
       startDate: null,
       endDate: null,
       hirerId: null,
-      status: null
+      status: null,
+      itemId: null
     };
   }
 
@@ -58,6 +60,8 @@ class SingleResHirer extends Component {
       .then((response) => {
         const { title, description, pathPictures, pricePerDay } = response.data;
         this.setState({ title, description, pathPictures, pricePerDay });
+        const itemId = response.data._id;
+        this.setState({ itemId });
         console.log('AD RESPONSE', response);
       })
       .catch(err => console.log(err));
@@ -90,11 +94,22 @@ class SingleResHirer extends Component {
           <Row>
             <div className={classes.left}>
               <Col>
-                <h1>Infos do anuncio</h1>
-                <p>
-                  {this.state.title}
+              <h1>Infos do anuncio</h1>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={this.state.pathPictures[0]} />
+                <Card.Body>
+                  <Card.Title>{this.state.title}</Card.Title>
+                  <Card.Text>
                   {this.state.description}
-                </p>
+                  </Card.Text>
+                  <Link to={{
+                    pathname: `/product/${this.state.itemId}`
+                  }}
+                  >
+                  <Button variant="primary">Ver página do produto</Button>
+                  </Link>
+                </Card.Body>
+              </Card>
               </Col>
             </div>
             <div className={classes.right}>
@@ -104,9 +119,9 @@ class SingleResHirer extends Component {
                     <Card.Title>Card Title</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
                     <Card.Text>
-                      Start date {this.state.startDate}
-                      End date {this.state.endDate}
-                      Total price: {this.state.totalPrice}
+                      De: {this.state.startDate}
+                      Até: {this.state.endDate}
+                      Total: R${this.state.totalPrice}
                     </Card.Text>
                   </Card.Body>
                 </Card>
