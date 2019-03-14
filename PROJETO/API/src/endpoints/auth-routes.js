@@ -106,14 +106,15 @@ authRoutes.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-authRoutes.post('/logout', (req, res) => {
+authRoutes.get('/logout', (req, res) => {
+  console.log(req.user);
   req.logout();
   res.status(200).json({ message: 'O usuário foi deslogado!' });
 });
 
-
 authRoutes.get('/loggedin', (req, res) => {
   if (req.isAuthenticated()) {
+    console.log(req.user);
     res.status(200).json(req.user);
     return;
   }

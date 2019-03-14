@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
+import { Button, Form, Card, Container, Row, Col, Image } from 'react-bootstrap';
 import './css/Product.css';
 import Details from '../components/Product/Details';
 
@@ -89,7 +90,7 @@ class Product extends Component {
         <Container>
           <Row className="justify-content">
 
-            <Col xs={12} md={6}>
+            <Col xs={12} md={6} className="margin-bottom-5">
               <Card className='margin-bottom-5 align-item padding-5 border-shadow'>
                 <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} alt="product" />
               </Card>
@@ -103,21 +104,35 @@ class Product extends Component {
               </Card>
             </Col>
 
-            <Col xs={12} md={4} className="mt-2">
+            <Col xs={12} md={4}>
               <Card>
                 <Card.Header><b>{this.state.title}</b></Card.Header>
                 <Card.Body>
                   <div className="margin-bottom-5 padding-bottom-5 border-bottom">
-                    <Card.Text>Diária R$ {this.state.pricePerDay}</Card.Text>
+                    <Card.Text><strong>R$ {this.state.pricePerDay}</strong>  <span style={{ "font-size": '12px' }}> por dia</span></Card.Text>
                   </div>
                   <Details priceperDay={this.state.pricePerDay} productID={this.props.match.params.id} />
                 </Card.Body>
+              </Card>
+
+              <Card className="text-center margin-top-bottom-5 padding-5" >
+                <div> 
+                  <Link to={{
+                    pathname: `/user/${this.state.ownerId}`
+                  }}>
+                    <Image style={{ width: "130px" }} src={this.state.ownerPicture} roundedCircle />
+                  </Link>
+                </div>
+                <div>
+                  <Card.Text>Anunciado por:{' '} {this.state.ownerName}
+                  </Card.Text>
+                </div>
               </Card>
             </Col>
 
           </Row>
         </Container>
-      </div>
+      </div >
     );
   }
 }
