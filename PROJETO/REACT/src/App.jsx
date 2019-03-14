@@ -5,11 +5,7 @@ import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
-import Header from './components/Header';
 import Home from './pages/Home';
-import SelectState from './components/SelectState';
-import MyCard from './components/MyCard';
-import Confirmation from './pages/Confirmation';
 import AddProduct from './pages/AddProduct';
 import SearchResults from './pages/SearchResults';
 import Product from './pages/Product';
@@ -107,7 +103,7 @@ class App extends Component {
           <div>
             {myNav}
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
+              <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
               <Route exact path="/itens" render={(props) =>
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />} />
@@ -132,7 +128,7 @@ class App extends Component {
           <div>
             {myNav}
             <Switch>
-              <Route exact path="/" render={() => <Home updateState={this.updateState} updateAds={this.updateAds} />} />
+              <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
 
               <Route path="/itens" render={(props) =>
                 <SearchResults {...props} allAdsFiltered={this.state.allAdsFiltered} updateAds={this.updateAds} selectedState={selectedState} />

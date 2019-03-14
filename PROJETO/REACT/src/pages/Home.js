@@ -19,8 +19,9 @@ import { Link } from 'react-router-dom';
 import HomeNav from '../components/Navbars/Home';
 import axios from 'axios';
 import queryString from 'query-string'
-import Button from 'react-bootstrap/Button';
 import NavLogged from '../components/Navbars/Loggedin.js'
+import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
+
 
 
 const suggestions = [
@@ -55,182 +56,7 @@ const suggestions = [
   value: suggestion.label,
   label: suggestion.label,
 }));
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  selectpaper: {
-    marginTop: '40%',
-    margin: '20%',
-    textAlign: 'center',
-    height: '40%',
-    color: theme.palette.text.secondary,
-  },
-  selectroot: {
-    flexGrow: 1,
-    height: 100,
-    padding: '10%'
-  },
-  input: {
-    display: 'flex',
-    padding: 0,
-  },
-  valueContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    flex: 1,
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-  },
-  chipFocused: {
-    backgroundColor: emphasize(
-      theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-      0.08,
-    ),
-  },
-  noOptionsMessage: {
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-  },
-  singleValue: {
-    fontSize: 16,
-  },
-  placeholder: {
-    position: 'absolute',
-    left: 2,
-    fontSize: 16,
-  },
-  paper: {
-    position: 'absolute',
-    zIndex: 1,
-    marginTop: theme.spacing.unit,
-    left: 0,
-    right: 0,
-  },
-  divider: {
-    height: theme.spacing.unit * 2,
-  },
-  banner: {
-    color: 'white',
-    textAlign: 'center',
-    heigth: '3000px',
-    /* if you have a 70px navbar => height: calc(100vh - 70px); */
-    backgroundSize: 'cover',
-    display: 'flex',
-    alignItens: 'center',
-    justifyContent: 'center',
-    backgroundImage: "url('https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')",
-    backgroundRepeat: "no-repeat",
-			backgroundPosition: "center center",
-			backgroundSize: "cover",
-  },
-  mybutton: {
-    marginTop: '10%'
-  }
-});
-function NoOptionsMessage(props) {
-  return (
-    <Typography
-      color="textSecondary"
-      className={props.selectProps.classes.noOptionsMessage}
-      {...props.innerProps}
-    >
-      {props.children}
-    </Typography>
-  );
-}
 
-function inputComponent({ inputRef, ...props }) {
-  return <div ref={inputRef} {...props} />;
-}
-
-function Control(props) {
-  return (
-    <TextField
-      fullWidth
-      InputProps={{
-        inputComponent,
-        inputProps: {
-          className: props.selectProps.classes.input,
-          inputRef: props.innerRef,
-          children: props.children,
-          ...props.innerProps,
-        },
-      }}
-      {...props.selectProps.textFieldProps}
-    />
-  );
-}
-function Option(props) {
-  return (
-    <MenuItem
-      buttonRef={props.innerRef}
-      selected={props.isFocused}
-      component="div"
-      style={{
-        fontWeight: props.isSelected ? 500 : 400,
-      }}
-      {...props.innerProps}
-    >
-      {props.children}
-    </MenuItem>
-  );
-}
-function Placeholder(props) {
-  return (
-    <Typography
-      color="textSecondary"
-      className={props.selectProps.classes.placeholder}
-      {...props.innerProps}
-    >
-      {props.children}
-    </Typography>
-  );
-}
-function SingleValue(props) {
-  return (
-    <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
-      {props.children}
-    </Typography>
-  );
-}
-
-function ValueContainer(props) {
-  return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
-}
-
-function MultiValue(props) {
-  return (
-    <Chip
-      tabIndex={-1}
-      label={props.children}
-      className={classNames(props.selectProps.classes.chip, {
-        [props.selectProps.classes.chipFocused]: props.isFocused,
-      })}
-      onDelete={props.removeProps.onClick}
-      deleteIcon={<CancelIcon {...props.removeProps} />}
-    />
-  );
-}
-function Menu(props) {
-  return (
-    <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
-      {props.children}
-    </Paper>
-  );
-}
-const components = {
-  Control,
-  Menu,
-  MultiValue,
-  NoOptionsMessage,
-  Option,
-  Placeholder,
-  SingleValue,
-  ValueContainer,
-};
 class Home extends Component {
   constructor() {
     super();
@@ -240,69 +66,50 @@ class Home extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.searchAds = this.searchAds.bind(this);
   }
-  handleChange = name => value => {
-    this.setState({
-      [name]: value,
-    });
-    this.props.updateState(value.label);
-  };
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
 
   searchAds = () => {
-    this.props.updateAds(this.state.single.label);
+    this.props.updateAds(this.state.single);
   }
 
   render() {
-    const { classes, theme } = this.props;
-    const selectStyles = {
-      input: base => ({
-        ...base,
-        color: theme.palette.text.primary,
-        '& input': {
-          font: 'inherit',
-        },
-      }),
-    };
+    console.log(this.state);
     return (
       <div>
-        {/* <HomeNav /> */}
-        {/* <NavLogged /> */}
-        <div className={classes.banner}>
-          <Grid container spacing={24}>
-            <Grid item xs></Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.selectpaper}>
-                <div className={classes.selectroot}>
-                  <NoSsr>
-                    <Select
-                      classes={classes}
-                      styles={selectStyles}
-                      options={suggestions}
-                      components={components}
-                      value={this.state.single}
-                      onChange={this.handleChange('single')}
-                      placeholder="Selecione seu estado"
-                      isClearable
-                      />
-                    <Link to={`/itens?estado=${this.state.single.label}`}>
-                      {/* <Button color="primary" className={classes.mybutton}>
-                        BUSCAR
-                      </Button> */}
-                      <Button variant="outline-primary">Buscar</Button>
-                    </Link>
-                  </NoSsr>
-                </div>
-
-              </Paper>
-            </Grid>
-            <Grid item xs></Grid>
-          </Grid>
-      </div>
-      </div>
+        <div className="App">
+          <Container>
+            <Row className="justify-content-md-center">
+              <Col md="auto">
+                <Card>
+                  <div className='w-75 mx-auto margin-top-bottom-20'>
+                    <h5 className='text-center'>Selecione um Estado</h5>
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                      <Form.Control as="select" value={this.state.single}
+                        name="single"
+                        onChange={e => this.handleChange(e)} >
+                        {suggestions.map(option => (
+                          <option>{option.value}</option>
+                        ))}
+                      </Form.Control>
+                    </Form.Group>
+                    <div className="text-center">
+                      <Link to={`/itens?estado=${this.state.single}`}>
+                        <Button type='submit'>Pesquisar</Button>
+                      </Link>
+                    </div>
+                  </div>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div >
+      </div >
     );
   }
 }
-Home.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-};
-export default withStyles(styles, { withTheme: true })(Home);
+
+export default Home;

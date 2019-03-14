@@ -1,0 +1,12 @@
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: pink;
+    font-size: 14px;
+}
+
+input {
+    font-size: 10px;
+}
+
+.center {
+    margin: 0 auto;
+}
