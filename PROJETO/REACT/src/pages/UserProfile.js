@@ -14,13 +14,11 @@ import Figure from 'react-bootstrap/Figure';
 const styles = theme => ({
   mycol: {
     width: '75%',
-    margin: '0 auto',
-    border: '2px solid blue'
+    margin: '0 auto'
   },
 
   profile: {
-    width: '25%',
-    border: '2px solid blue'
+    width: '25%'
   },
 
   myrow: {
@@ -105,11 +103,11 @@ class UserProfile extends Component {
                             <Card.Title>{item.title}</Card.Title>
                             <Card.Text>
                               {item.description}<hr></hr>
-                              Preço: {item.pricePerDay}
+                              Diária: <strong>R${item.pricePerDay}</strong>
                             </Card.Text>
 
                             <Link to={{
-                              pathname: `/product/${item._id}`,
+                              pathname: `/produto/${item._id}`,
                               state: {
                                 adId: item.adId
                               }

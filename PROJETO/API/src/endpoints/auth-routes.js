@@ -106,7 +106,7 @@ authRoutes.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-authRoutes.post('/logout', (req, res) => {
+authRoutes.get('/logout', (req, res) => {
   req.logout();
   res.status(200).json({ message: 'O usuário foi deslogado!' });
 });

@@ -237,23 +237,6 @@ class SelectState extends Component {
             placeholder="Selecione seu estado"
             isClearable
           />
-          {/* <div className={classes.divider} /> */}
-          {/* <Select
-            classes={classes}
-            styles={selectStyles}
-            textFieldProps={{
-              label: 'Label',
-              InputLabelProps: {
-                shrink: true,
-              },
-            }}
-            options={suggestions}
-            components={components}
-            value={this.state.multi}
-            onChange={this.handleChange('multi')}
-            placeholder="Selecione vários estados"
-            isMulti
-          /> */}
         </NoSsr>
       </div>
     );
