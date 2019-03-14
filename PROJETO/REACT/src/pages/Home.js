@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import HomeNav from '../components/Navbars/Home';
 import axios from 'axios';
 import queryString from 'query-string'
+import NavLogged from '../components/Navbars/Loggedin.js'
 import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
 
 
@@ -79,7 +80,6 @@ class Home extends Component {
     console.log(this.state);
     return (
       <div>
-        <HomeNav />
         <div className="App">
           <Container>
             <Row className="justify-content-md-center">

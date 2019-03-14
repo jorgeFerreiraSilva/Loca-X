@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import NavLogged from '../../src/components/Navbars/Loggedin.js'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from 'react-bootstrap/Card';
@@ -38,6 +39,7 @@ class ListReservationsOwner extends Component {
         const userReservations = response.data;
         this.setState({ userReservations });
         console.log(userReservations);
+        // console.log('caraaaai',this.props.loggedInUser);
       })
       .catch(err => console.log(err));
   }
