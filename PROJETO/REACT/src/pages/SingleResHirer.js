@@ -22,6 +22,13 @@ const styles = theme => ({
 
   left: {
     width: '45%'
+  },
+
+  cardSpacing: {
+    marginBottom: '3%'
+  },
+  leftSide: {
+    marginTop: '3%'
   }
 });
 
@@ -139,27 +146,7 @@ class SingleResHirer extends Component {
               </Card.Body>
             </Card>
 
-            {/* FORM DE MENSAGEM */}
-            <Form onSubmit = { e => this.handleMessageSubmit(e) }>
-          <Form.Group controlId = "exampleForm.ControlTextarea1" >
-          <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
-          <Form.Control as = "textarea"
-          name = "text"
-          value = {
-            this.state.text
-          }
-          rows = "5"
-          onChange = {  e => this.handleChange(e) }/> 
-          </Form.Group> 
-          <Button type = "submit" > Enviar </Button> 
-          </Form>
-
-          </Col>
-
-          
-
-          <Col xs={12} md={4}>
-            <Card>
+            <Card className={classes.leftSide}>
               <Card.Header><b>Informações da reserva</b></Card.Header>
               <Card.Body>
                 <div className="margin-bottom-5 padding-bottom-5 border-bottom">
@@ -171,6 +158,12 @@ class SingleResHirer extends Component {
                 </div>
               </Card.Body>
             </Card>
+
+          </Col>
+
+          
+
+          <Col xs={12} md={4}>
 
             <Card className="text-center margin-top-bottom-5 padding-5" >
               <div> 
@@ -187,11 +180,26 @@ class SingleResHirer extends Component {
               </div>
             </Card>
 
+                        {/* FORM DE MENSAGEM */}
+                        <Form className={classes.cardSpacing} onSubmit = { e => this.handleMessageSubmit(e) }>
+          <Form.Group controlId = "exampleForm.ControlTextarea1" >
+          <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
+          <Form.Control as = "textarea"
+          name = "text"
+          value = {
+            this.state.text
+          }
+          rows = "5"
+          onChange = {  e => this.handleChange(e) }/> 
+          </Form.Group> 
+          <Button type = "submit" > Enviar </Button> 
+          </Form>
+
             { (reverseMsg !== null) ?      
               (reverseMsg.map((item, index) => (
                 <div key={index}>
 
-                  <Card>
+                  <Card className={classes.cardSpacing}>
                     {(item.sender == this.state.hirerId) ? 
                     (<Card.Header><b>{this.state.hirerName}</b></Card.Header>) : (<Card.Header><b>{this.state.ownerName}</b></Card.Header>)}
                     <Card.Body>

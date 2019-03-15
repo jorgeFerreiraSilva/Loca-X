@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
@@ -10,6 +12,26 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
 import './css/Product.css';
+
+const styles = theme => ({
+  
+  right: {
+    width: '55%',
+    margin: '0 auto'
+  },
+
+  left: {
+    width: '45%'
+  },
+
+  cardSpacing: {
+    marginBottom: '3%'
+  },
+  leftSide: {
+    marginTop: '3%'
+  }
+});
+
 
 class SingleResOwner extends Component {
   constructor(props) {
@@ -124,6 +146,7 @@ class SingleResOwner extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const { messages, hirerId, ownerId, ownerName } = this.state;
     let reverseMsg = null;
     if (messages !== null) {
@@ -148,26 +171,9 @@ class SingleResOwner extends Component {
             </Card>
 
 
-            {/* FORM DE MENSAGEM */}
-            <Form onSubmit = { e => this.handleMessageSubmit(e) }>
-          <Form.Group controlId = "exampleForm.ControlTextarea1" >
-          <Form.Label > Envie uma mensagem ao inquilino </Form.Label> 
-          <Form.Control as = "textarea"
-          name = "text"
-          value = {
-            this.state.text
-          }
-          rows = "5"
-          onChange = {  e => this.handleChange(e) }/> 
-          </Form.Group> 
-          <Button type = "submit" > Enviar </Button> 
-          </Form>
 
 
-          </Col>
-
-            <Col xs={12} md={4}>
-              <Card>
+              <Card className={classes.leftSide}>
                 <Card.Header><b>Informações da reserva</b></Card.Header>
                 <Card.Body>
                   <div className="">
@@ -202,6 +208,9 @@ class SingleResOwner extends Component {
                   </div>
                 </Card.Body>
               </Card>
+          </Col>
+
+            <Col xs={12} md={4}>
 
             <Card className="text-center margin-top-bottom-5 padding-5">
               <div>
@@ -221,12 +230,26 @@ class SingleResOwner extends Component {
                 </Card.Text>
               </div>
             </Card>
+            {/* FORM DE MENSAGEM */}
+            <Form className={classes.cardSpacing} onSubmit = { e => this.handleMessageSubmit(e) }>
+          <Form.Group controlId = "exampleForm.ControlTextarea1" >
+          <Form.Label > Envie uma mensagem ao inquilino </Form.Label> 
+          <Form.Control as = "textarea"
+          name = "text"
+          value = {
+            this.state.text
+          }
+          rows = "5"
+          onChange = {  e => this.handleChange(e) }/> 
+          </Form.Group> 
+          <Button type = "submit" > Enviar </Button> 
+          </Form>
 
             { (reverseMsg !== null) ?      
               (reverseMsg.map((item, index) => (
                 <div key={index}>
 
-                  <Card>
+                  <Card className={classes.cardSpacing}>
                     {(item.sender == this.state.hirerId) ? 
                     (<Card.Header><b>{this.state.hirerName}</b></Card.Header>) : (<Card.Header><b>{this.state.ownerName}</b></Card.Header>)}
                     <Card.Body>
@@ -251,4 +274,8 @@ class SingleResOwner extends Component {
   }
 }
 
-export default SingleResOwner;
+SingleResOwner.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles, { withTheme: true })(SingleResOwner);
