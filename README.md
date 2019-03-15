@@ -6,7 +6,8 @@ For our final project at Ironhack we decided to create an app where you can rent
 ## Getting started
 
 The application is deployed at Heroku and you can access it anytime.
-[LINK]
+[LINK]  
+
 You can search from itens by location (for now, only Brazilian states) and then by category or keywords. If you find a product you like, you can view the details and make a reservation. 
 You can also create and ad and see who is interested in renting your product.
 
