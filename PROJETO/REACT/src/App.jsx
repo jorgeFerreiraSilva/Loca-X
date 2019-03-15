@@ -111,7 +111,7 @@ class App extends Component {
         <MuiThemeProvider>
           <div>
             {myNav}
-            <hr></hr>
+            {/* <hr></hr> */}
             <Switch>
               <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
