@@ -125,7 +125,6 @@ class SingleResHirer extends Component {
       <div className='app'>
       <Container>
         <Row className="justify-content">
-
           <Col xs={12} md={6} className="margin-bottom-5">
             <Card className='margin-bottom-5 align-item padding-5 border-shadow'>
               <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} alt="product" />
