@@ -107,7 +107,6 @@ class HomeNav extends React.Component {
   }
 
   handleChange = prop => event => {
-    // this.setState({ [prop]: event.target.value });
     this.props.updateState(event.target.value);
   };
 
@@ -115,30 +114,7 @@ class HomeNav extends React.Component {
     console.log(this.state.search);
 
     const { classes } = this.props;
-    // return (
-    //   // <div className={classes.root}>
-    //   //   <AppBar position="fixed" className={classes.header}>
-    //   //     <Toolbar className={classes.toolbar}>
-    //   //       <Grid justify="space-between" container spacing={24}>
-    //   //         <Grid item className={classes.grid}>
-    //   //           <Explore className={classes.mainIcon} />
 
-    //   //         </Grid>
-    //   //         <Grid item className={classes.grid}>
-    //   //           <div>
-    //   //             <Button className={classes.menubuttons} color="inherit">
-    //   //               <a href='/entrar'>Entrar</a>
-    //   //             </Button>
-    //   //             <Button className={classes.menubuttons} color="inherit">
-    //   //               <a href='/cadastrar'>Cadastro</a>
-    //   //             </Button>
-    //   //           </div>
-    //   //         </Grid>
-    //   //       </Grid>
-    //   //     </Toolbar>
-    //   //   </AppBar>
-    //   // </div>
-    // );
   }
 }
 HomeNav.propTypes = {

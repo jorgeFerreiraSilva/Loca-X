@@ -21,9 +21,6 @@ const styles = theme => ({
     width: '45%'
   },
 
-  // box: {
-  //   marginBottom: '5%'
-  // }
 });
 
 class SingleResHirer extends Component {
