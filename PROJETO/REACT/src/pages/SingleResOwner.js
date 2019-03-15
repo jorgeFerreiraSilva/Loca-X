@@ -29,6 +29,16 @@ const styles = theme => ({
   },
   leftSide: {
     marginTop: '3%'
+  },
+  spaceEvenly: {
+    margin: '5%',
+    display: "flex",
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignContent: 'center'
+  },
+  cont: {
+    marginTop: '3%'
   }
 });
 
@@ -154,7 +164,7 @@ class SingleResOwner extends Component {
     }
     return (
       <div className="app">
-        <Container>
+        <Container className={classes.cont}>
           <Row className="justify-content">
 
           <Col xs={12} md={6} className="margin-bottom-5">
@@ -197,7 +207,7 @@ class SingleResOwner extends Component {
                       <hr />
 
                       {(this.state.status === 'Em espera') ?
-                        <div className="space-evenly">
+                        <div className={classes.spaceEvenly}>
                           <Button variant="success" onClick={this.handleAcceptRes}>aceitar</Button>
                           <Button variant="danger" onClick={this.handleCancelRes}>recusar</Button>
                         </div>
