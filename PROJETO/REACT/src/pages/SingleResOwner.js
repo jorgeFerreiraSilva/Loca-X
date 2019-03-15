@@ -207,7 +207,7 @@ class SingleResOwner extends Component {
                       <hr />
 
                       {(this.state.status === 'Em espera') ?
-                        <div className={classes.spaceEvenly}>
+                        <div>
                           <Button variant="success" onClick={this.handleAcceptRes}>aceitar</Button>
                           <Button variant="danger" onClick={this.handleCancelRes}>recusar</Button>
                         </div>

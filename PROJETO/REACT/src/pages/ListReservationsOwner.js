@@ -54,7 +54,7 @@ class ListReservationsOwner extends Component {
             <div className={classes.mycol}>
               <Col>
                 <Link to="/adicionar">
-                  <Button>Criar novo anúncio</Button>
+                  <Button className="mb-5">Criar novo anúncio</Button>
                 </Link>
                 <CardDeck>
                   {(this.state.userReservations !== null) ?

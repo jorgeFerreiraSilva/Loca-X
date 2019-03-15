@@ -39,9 +39,8 @@ class Login extends Component {
     const password = this.state.password;
     this.service.login(username, password)
       .then(response => {
-        this.setState({ username: "", password: "" });
+        this.setState({ username: "", password: "", redirect: <Redirect to='/' /> });
         this.props.getUser(response);
-        this.setState({ redirect: <Redirect to='/' /> })
       })
       .catch(error => console.log(error))
   }
