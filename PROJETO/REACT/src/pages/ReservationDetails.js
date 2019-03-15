@@ -29,7 +29,6 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'space-around',
-    border: '2px solid red',
     margin: '1% auto'
   },
 
