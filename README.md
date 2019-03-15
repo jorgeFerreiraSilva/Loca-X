@@ -12,7 +12,15 @@ You can search from itens by location (for now, only Brazilian states) and then 
 You can also create and ad and see who is interested in renting your product.
 
 ## Stack
-This project was made with React, Node.js, MongoDB and Express
+For this project, we used:
+- React
+- Node.js
+- MongoDB
+- Express
+- CORS
+- Bcrypt
+- Multer
+- Passport
 
 ## Future
 - Improve the design for a better user experience 
