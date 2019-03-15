@@ -5,7 +5,7 @@ const MessageModel = require('../model/Message');
 
 router.post('/reservation/:reservationId/users/:ownerId/:hirerId', (req, res) => {
 
-  const { text } = req.body;
+  const { text, sender } = req.body;
   const { reservationId, ownerId, hirerId } = req.params;
 
   const errors = {};
@@ -31,7 +31,7 @@ router.post('/reservation/:reservationId/users/:ownerId/:hirerId', (req, res) =>
     return;
   }
 
-  const newMessage = new MessageModel({ reservationId, ownerId, hirerId, text });
+  const newMessage = new MessageModel({ reservationId, ownerId, hirerId, text, sender });
 
   newMessage.save()
     .then((message) => {

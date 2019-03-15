@@ -108,8 +108,8 @@ class SingleResOwner extends Component {
     axios.patch(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`, { status: 'Recusado' })
       .then((response) => {
         const { status } = response.data;
-        // this.setState({ status });
-        console.log('Recusado');
+        this.setState({ status: 'Recusado' });
+        console.log('O pedido foi recusado!');
       })
       .catch(err => console.log(err));
   }
@@ -119,8 +119,8 @@ class SingleResOwner extends Component {
     axios.patch(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`, { status: 'Alugando' })
       .then((response) => {
         const { status } = response.data;
-        // this.setState({ status });
-        console.log('Alugado');
+        this.setState({ status: 'Alugando' });
+        console.log('O pedido foi alugado');
       })
       .catch(err => console.log(err));
   }
@@ -143,7 +143,7 @@ class SingleResOwner extends Component {
     return (
       <div className="app">
         <Container>
-        <Row className="justify-content">
+          <Row className="justify-content">
 
           <Col xs={12} md={6} className="margin-bottom-5">
             <Card className="margin-bottom-5 align-item padding-5 border-shadow">
@@ -176,32 +176,75 @@ class SingleResOwner extends Component {
 
 
           </Col>
-
-          <Col xs={12} md={4}>
-            <Card>
-              <Card.Header><b>Informações da reserva</b></Card.Header>
-              <Card.Body>
-                <div className="margin-bottom-5 padding-bottom-5 border-bottom">
+            <Col xs={12} md={6} className="margin-bottom-5">
+              <Card className="margin-bottom-5 align-item padding-5 border-shadow">
+                <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} alt="product" />
+              </Card>
+              <Card>
+                <Card.Header><b>{this.state.title}</b></Card.Header>
+                <Card.Body>
                   <Card.Text>
-                    <span style={{ 'font-size': '16px' }}> Status: </span> 
+                    {this.state.description}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col xs={12} md={4}>
+              <Card>
+                <Card.Header><b>Informações da reserva</b></Card.Header>
+                <Card.Body>
+                  <div className="">
+                    <Card.Text>
+                      <span style={{ 'font-size': '16px' }}> Status: </span>
+                      {' '}
+                      <strong>{this.state.status}</strong>
+                      <hr />
+                      <span style={{ 'font-size': '16px' }}> Início: </span>
+                      {' '}
+                      <strong>{this.state.startDate}</strong>
+                      <br />
+                      <span style={{ 'font-size': '16px' }}> Término: </span>
+                      {' '}
+                      <strong>{this.state.endDate}</strong>
+                      <hr />
+                      <span style={{ 'font-size': '16px' }}> Total: </span>
+                      {' '}
+                      <strong>R$ {this.state.totalPrice}</strong>
+                      {' '}
+                      <hr />
+
+                      {(this.state.status === 'Em espera') ?
+                        <div className="space-evenly">
+                          <Button variant="success" onClick={this.handleAcceptRes}>aceitar</Button>
+                          <Button variant="danger" onClick={this.handleCancelRes}>recusar</Button>
+                        </div>
+                        : false
+                      }
+
+                    </Card.Text>
+                  </div>
+                </Card.Body>
+              </Card>
+
+              <Card className="text-center margin-top-bottom-5 padding-5">
+                <div>
+                  <Link to={{
+                    pathname: `/perfil/${this.state.hirerId}`
+                  }}
+                  >
+                    <Image style={{ width: '130px' }} src={this.state.hirerPic} roundedCircle />
+                  </Link>
+                </div>
+                <div>
+                  <Card.Text>
+                    Reservado por:
+                  {' '}
                     {' '}
-                    <strong>{this.state.status}</strong>
-                    <hr/>
-                    <span style={{ 'font-size': '16px' }}> Início: </span> 
-                    {' '}
-                    <strong>{this.state.startDate}</strong>
-                    <br/>
-                    <span style={{ 'font-size': '16px' }}> Término: </span> 
-                    {' '}
-                    <strong>{this.state.endDate}</strong>
-                    <hr/>
-                    <span style={{ 'font-size': '16px' }}> Total: </span> 
-                    {' '}
-                    <strong>R$ {this.state.totalPrice}</strong>
-                    {' '}
-                    
+                    {this.state.hirerName}
                   </Card.Text>
                 </div>
+<<<<<<< HEAD
               </Card.Body>
             </Card>
 
@@ -245,10 +288,14 @@ class SingleResOwner extends Component {
 
 
           </Col>
+=======
+              </Card>
+            </Col>
+>>>>>>> 29b745afc409fc83772c802df91a2ce75e4555f6
 
-        </Row>
-      </Container>
-      </div>
+          </Row>
+        </Container>
+      </div >
     );
   }
 }
