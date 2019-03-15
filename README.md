@@ -31,7 +31,7 @@ For this project, we used:
 - More specific regions
 
 ## Authors
-- [Jorge Ferreira] (https://github.com/jorgeFerreiraSilva/)
-- [Marianna Dobal] (https://github.com/mmdobal)
-- [Matheus Barbieri] (https://github.com/barbierimatheus)
+- [Jorge Ferreira](https://github.com/jorgeFerreiraSilva/)
+- [Marianna Dobal](https://github.com/mmdobal)
+- [Matheus Barbieri](https://github.com/barbierimatheus)
 
