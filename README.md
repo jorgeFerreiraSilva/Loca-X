@@ -1,6 +1,8 @@
 # Loca X
 
-For our final project at Ironhack we decided to create an app where you can rent anything. For example, if you need a tent for a camping trip that lasts a couple of days, you don't have to spend a lot of money buying one: you can rent from someone at LocaX. You can also make your own itens avaiable for other people to rent and make money from stuff you already have and don't use everyday. 
+For our final project at Ironhack we decided to create an app where you can rent anything.  
+For example, if you need a tent for a camping trip that lasts a couple of days, you don't have to spend a lot of money buying one: you can rent from someone at LocaX. 
+You can also make your own itens avaiable for other people to rent and make money from stuff you already have and don't use everyday. 
 
 
 ## Getting started
