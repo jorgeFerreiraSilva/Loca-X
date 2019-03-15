@@ -5,8 +5,8 @@ const MessageModel = require('../model/Message');
 
 router.post('/reservation/:reservationId/users/:ownerId/:hirerId', (req, res) => {
 
-  const { text } = req.body;
-  const { reservationId, ownerId, hirerId, sender } = req.params;
+  const { text, sender } = req.body;
+  const { reservationId, ownerId, hirerId } = req.params;
 
   const errors = {};
 

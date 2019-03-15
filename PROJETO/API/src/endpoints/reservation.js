@@ -75,7 +75,6 @@ router.post('/ads/:adId/users/:ownerId/:hirerId', (req, res) => {
       if (hirer === null) {
         res.status(404).json({ message: 'O locatário não existe.' });
       }
-      res.status(200).json({ hirer });
     })
     .catch((err) => {
       console.error(err);
