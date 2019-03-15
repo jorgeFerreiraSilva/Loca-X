@@ -92,7 +92,7 @@ class Details extends Component {
     const { totalPrice } = this.state;
     const button = totalPrice !== null ?
       <Link to={{
-        pathname: `/newreservation/${productID}`,
+        pathname: `/novareserva/${productID}`,
         state: {
           startDate: this.state.formatedStartDate,
           endDate: this.state.formatedEndDate,
@@ -105,7 +105,7 @@ class Details extends Component {
       </Button>
       </Link> :
       <Link to={{
-        pathname: `/newreservation/${productID}`,
+        pathname: `/novareserva/${productID}`,
         state: {
           startDate: this.state.formatedStartDate,
           endDate: this.state.formatedEndDate,
