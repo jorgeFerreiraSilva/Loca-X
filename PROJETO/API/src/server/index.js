@@ -58,7 +58,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userEndpoint);
 app.use('/api/ads', adRoutes);
 app.use('/api/comments', commentRoutes);
-app.use('/api/message', messageRoutes);
+app.use('/api/messages', messageRoutes);
 app.use('/api/reservation', reservationRoutes);
 
 app.get('*', (req, res) => notFound(req, res));

@@ -55,26 +55,6 @@ class CategoryCard extends React.Component {
   }
 }
 
-// function CategoryCard(props) {
-//   const { classes, category } = this.props;
-//   return (
-//     <Card className={classes.card}>
-//       <CardActionArea>
-//         <CardMedia
-//           className={classes.media}
-//           image={category.image}
-//         />
-//         <CardContent>
-//           <Typography gutterBottom variant="h5" component="h2" className={classes.text}>
-//             {category.name}
-//           </Typography>
-//         </CardContent>
-//       </CardActionArea>
-//     </Card>
-//   );
-// }
-
-
 
 CategoryCard.propTypes = {
   classes: PropTypes.object.isRequired,
