@@ -17,3 +17,4 @@ This project was made with React, Node.js, MongoDB and Express
 - Improve the design for a better user experience 
 - Make it possible for users to comment on an item
 - Add more pictures when creating and ad
+- More specific regions
