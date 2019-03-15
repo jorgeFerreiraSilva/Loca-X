@@ -52,14 +52,12 @@ class SingleResHirer extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.location.state);
     axios.get(`http://192.168.0.41:8080/api/ads/${this.props.location.state.adId}`)
       .then((response) => {
         const { title, description, pathPictures, pricePerDay } = response.data;
         this.setState({ title, description, pathPictures, pricePerDay });
         const itemId = response.data._id;
         this.setState({ itemId });
-        // console.log('AD RESPONSE', response);
       })
       .catch(err => console.log(err));
     axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
@@ -72,21 +70,16 @@ class SingleResHirer extends Component {
           .then((response) => {
             const hirerName = response.data.name;
             this.setState({ hirerName });
-            // console.log('HIRERNAME', this.state.hirerName);
           });
         axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
           .then((response) => {
             const ownerName = response.data.name;
             const ownerPic = response.data.pathPicture;
             this.setState({ ownerName, ownerPic });
-            // console.log('OWNER DATA>>>>>', response.data);
             axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
               .then((response) => {
-                console.log('OI');
                 const messages = response.data;
-                // console.log('MESSAGESSS', response.data);
                 this.setState({ messages });
-                console.log('state messages', this.state.messages);
               });
           });
       });
@@ -110,29 +103,24 @@ class SingleResHirer extends Component {
     })
     .then((response) => {
       console.log(response);
+      axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+      .then((response) => {
+        const messages = response.data;
+        this.setState({ messages });
+        this.setState({ text: ''});
+      });
     });
   }
-
-  // onItemClick: function(event) {
-
-  //   event.currentTarget.style.backgroundColor = '#ccc';
-  //   axios.patch(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`, { status: 'Recusado' })
-  //   .then((response) => {
-  //     console.log('reject');
-  //     const { status } = response.data;
-  //     this.setState({ status });
-  //     console.log(status);
-  //   })
-  //   .catch(err => console.log(err));
-  // };
 
 
   render() {
     
     const { classes } = this.props;
     const { messages, hirerId, ownerId, ownerName } = this.state;
-    console.log('RENDER EMSSAGES', messages);
-    console.log(this.state.text);
+    let reverseMsg = null;
+    if (messages !== null) {
+      reverseMsg = messages.slice().reverse();
+    }
     return (
       <div className='app'>
       <Container>
@@ -199,8 +187,8 @@ class SingleResHirer extends Component {
               </div>
             </Card>
 
-            { (messages !== null) ?      
-              (messages.reverse().map((item, index) => (
+            { (reverseMsg !== null) ?      
+              (reverseMsg.map((item, index) => (
                 <div key={index}>
 
                   <Card>
