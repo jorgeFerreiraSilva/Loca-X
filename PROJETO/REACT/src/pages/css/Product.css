@@ -30,3 +30,8 @@
     display: flex;
     align-items: center;
 }
+
+.space-evenly {
+    display: flex;
+    justify-content: space-evenly
+}
