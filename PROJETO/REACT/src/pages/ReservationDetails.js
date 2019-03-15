@@ -34,6 +34,9 @@ const styles = theme => ({
 
   box: {
     marginBottom: '5%'
+  },
+  textbutton: {
+    textDecoration: 'none'
   }
 });
 
@@ -217,7 +220,7 @@ class ReservationDetails extends Component {
         e => this.handleChange(e)
       }
       /> </Form.Group> 
-      <Button type = "submit" > <a href='/'>Enviar</a> </Button> 
+      <Button type = "submit" > <a className={classes.textbutton}href='/'>Enviar</a> </Button> 
       </Form> </Col> </div> </Row> </Container>
 
 
