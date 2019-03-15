@@ -8,7 +8,6 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import Form from 'react-bootstrap/Form';
 import './css/Product.css';
 
 class SingleResOwner extends Component {
