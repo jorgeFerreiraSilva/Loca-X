@@ -13,7 +13,7 @@ class Telaconfirmacao extends React.Component {
 
   render() {
     return (
-      <div><img className='confirm-img' src={require('./../../public/img/check02.gif')} />
+      <div><img className='confirm-img' src="https://cdn.dribbble.com/users/1751799/screenshots/5512482/check02.gif" />
       <button type="button" class="btn btn-success">Reservado com sucesso</button>
       </div>
   );

@@ -37,7 +37,6 @@ class SingleResOwner extends Component {
     this.handleAcceptRes = this.handleAcceptRes.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
-    // this.onItemClick = this.onItemClick.bind(this);
   }
 
   componentDidMount() {
@@ -48,7 +47,6 @@ class SingleResOwner extends Component {
         this.setState({ title, description, pathPictures, pricePerDay });
         const itemId = response.data._id;
         this.setState({ itemId });
-        console.log('AD RESPONSE', response);
       })
       .catch(err => console.log(err));
     axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
@@ -56,27 +54,21 @@ class SingleResOwner extends Component {
         const { totalPrice, startDate, endDate, hirerId, status, ownerId } = response.data[0];
         this.setState({ totalPrice, startDate, endDate, hirerId, status, ownerId });
         this.setState({ reservationId: this.props.match.params.id});
-        console.log('RESERVATION RESPONSE', response);
         axios.get(`http://192.168.0.41:8080/api/users/${this.state.hirerId}`)
           .then((response) => {
             const hirerName = response.data.name;
             const hirerPic = response.data.pathPicture;
             this.setState({ hirerName, hirerPic });
-            console.log('OWNER DATA>>>>>', response.data);
           });
           axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
           .then((response) => {
             const ownerName = response.data.name;
             const ownerPic = response.data.pathPicture;
             this.setState({ ownerName, ownerPic });
-            // console.log('OWNER DATA>>>>>', response.data);
             axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
               .then((response) => {
-                console.log('OI');
                 const messages = response.data;
-                // console.log('MESSAGESSS', response.data);
                 this.setState({ messages });
-                console.log('state messages', this.state.messages);
               });
           });
       });
@@ -100,6 +92,12 @@ class SingleResOwner extends Component {
     })
     .then((response) => {
       console.log(response);
+      axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+      .then((response) => {
+        const messages = response.data;
+        this.setState({ messages });
+        this.setState({ text: ''});
+      });
     });
   }
 
@@ -125,21 +123,12 @@ class SingleResOwner extends Component {
       .catch(err => console.log(err));
   }
 
-  // onItemClick: function(event) {
-
-  //   event.currentTarget.style.backgroundColor = '#ccc';
-  //   axios.patch(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`, { status: 'Recusado' })
-  //   .then((response) => {
-  //     console.log('reject');
-  //     const { status } = response.data;
-  //     this.setState({ status });
-  //     console.log(status);
-  //   })
-  //   .catch(err => console.log(err));
-  // };
-
   render() {
     const { messages, hirerId, ownerId, ownerName } = this.state;
+    let reverseMsg = null;
+    if (messages !== null) {
+      reverseMsg = messages.slice().reverse();
+    }
     return (
       <div className="app">
         <Container>
@@ -176,19 +165,6 @@ class SingleResOwner extends Component {
 
 
           </Col>
-            <Col xs={12} md={6} className="margin-bottom-5">
-              <Card className="margin-bottom-5 align-item padding-5 border-shadow">
-                <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} alt="product" />
-              </Card>
-              <Card>
-                <Card.Header><b>{this.state.title}</b></Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    {this.state.description}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
 
             <Col xs={12} md={4}>
               <Card>
@@ -227,27 +203,6 @@ class SingleResOwner extends Component {
                 </Card.Body>
               </Card>
 
-              <Card className="text-center margin-top-bottom-5 padding-5">
-                <div>
-                  <Link to={{
-                    pathname: `/perfil/${this.state.hirerId}`
-                  }}
-                  >
-                    <Image style={{ width: '130px' }} src={this.state.hirerPic} roundedCircle />
-                  </Link>
-                </div>
-                <div>
-                  <Card.Text>
-                    Reservado por:
-                  {' '}
-                    {' '}
-                    {this.state.hirerName}
-                  </Card.Text>
-                </div>
-<<<<<<< HEAD
-              </Card.Body>
-            </Card>
-
             <Card className="text-center margin-top-bottom-5 padding-5">
               <div>
                 <Link to={{
@@ -267,8 +222,8 @@ class SingleResOwner extends Component {
               </div>
             </Card>
 
-            { (messages !== null) ?      
-              (messages.reverse().map((item, index) => (
+            { (reverseMsg !== null) ?      
+              (reverseMsg.map((item, index) => (
                 <div key={index}>
 
                   <Card>
@@ -288,10 +243,6 @@ class SingleResOwner extends Component {
 
 
           </Col>
-=======
-              </Card>
-            </Col>
->>>>>>> 29b745afc409fc83772c802df91a2ce75e4555f6
 
           </Row>
         </Container>
