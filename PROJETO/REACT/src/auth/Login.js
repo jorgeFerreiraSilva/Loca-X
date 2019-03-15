@@ -76,17 +76,6 @@ class Login extends Component {
             </Col>
           </Row>
         </Container>
-
-        <Link to="/adicionar">
-          <Button>buscar</Button>
-        </Link>
-        <Link to="/reservas/dono">
-          <Button> reservas dono</Button>
-        </Link>
-        <Link to="/reservas/inq">
-          <Button>reservas inquilino</Button>
-        </Link>
-
       </div >
     );
   }

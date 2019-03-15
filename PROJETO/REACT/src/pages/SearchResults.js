@@ -22,10 +22,59 @@ import { Link } from 'react-router-dom';
 import { HardwarePhoneAndroid } from 'material-ui/svg-icons';
 import NavLogged from '../../src/components/Navbars/Loggedin.js'
 import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+
 
 const styles = theme => ({
   root: {
     flexGrow: 1
+  },
+  search: {
+    boxShadow: 'rgba(0, 0, 0, 0.1) 0px 2px 4px',
+    position: 'relative',
+    borderRadius: '4px',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'rgb(235, 235, 235)',
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: 20,
+      width: 'auto'
+    }
+  },
+  searchIcon: {
+    width: '50px',
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  magnifyingGlass: {
+    fontWeight: 800,
+    color: 'black'
+  },
+  inputRoot: {
+    color: 'inherit',
+    width: '100%'
+  },
+  inputInput: {
+    paddingTop: '12px',
+    paddingRight: '8px',
+    paddingBottom: '12px',
+    paddingLeft: '50px',
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: 350
+    },
+    '&::placeholder': {
+      color: 'black',
+      fontWeight: 600
+    }
   },
   mediaquery: {
     [theme.breakpoints.down('xs')]: {
@@ -44,7 +93,7 @@ const styles = theme => ({
   },
   selectroot: {
     flexGrow: 1,
-    marginTop: '100px',
+    marginTop: '10px',
     marginBottom: '35px'
   },
   input: {
@@ -269,7 +318,7 @@ class SearchResults extends Component {
 
     if (this.state.single !== null && this.state.search !== null) {
       list = this.props.allAdsFiltered.filter((item) => item.category.includes(this.state.single.value) && item.title.toLowerCase().includes(this.state.search))
-    }else if (this.state.single !== null) {
+    } else if (this.state.single !== null) {
       list = this.props.allAdsFiltered.filter((item) => item.category.includes(this.state.single.value))
     } else if (this.state.search !== '') {
       list = this.props.allAdsFiltered.filter((item) => item.title.toLowerCase().includes(this.state.search))
@@ -279,32 +328,40 @@ class SearchResults extends Component {
 
     return (
       <div className={classes.myroot}>
-        <div className='w-25'>
-          <div className="form-group">
-            <InputBase
-              placeholder="Buscar itens"
-              onChange={this.handleChangeSearch('search')}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-            />
-          </div>
+        <div className='' style={{'margin-left': '0px !important', 'display': 'flex', "flex-wrap": 'wrap' }}>
+          <span>
 
-          <div className={classes.selectroot}>
-            <NoSsr>
-              <Select
-                classes={classes}
-                styles={selectStyles}
-                options={suggestions}
-                components={components}
-                value={this.state.single}
-                onChange={this.handleChange('single')}
-                placeholder="Categorias"
-                isClearable
+            <div className={classes.search} style={{width: '280px'}}>
+              <div className={classes.searchIcon}>
+                <SearchIcon className={classes.magnifyingGlass} />
+              </div>
+              <InputBase
+                placeholder="Buscar itens"
+                onChange={this.handleChangeSearch('search')}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
               />
-            </NoSsr>
-          </div>
+            </div>
+          </span>
+          <span>
+
+            <div className={classes.selectroot} style={{ "margin-left": "20px", width:'200px', "pading-bottom": '-2px' }}>
+              <NoSsr>
+                <Select
+                  classes={classes}
+                  styles={selectStyles}
+                  options={suggestions}
+                  components={components}
+                  value={this.state.single}
+                  onChange={this.handleChange('single')}
+                  placeholder="Categorias"
+                  isClearable
+                />
+              </NoSsr>
+            </div>
+          </span>
         </div>
 
         <Grid

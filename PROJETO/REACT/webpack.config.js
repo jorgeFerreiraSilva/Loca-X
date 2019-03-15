@@ -14,7 +14,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/, 
+        test: /\.(js|jsx)$/,
         use: 'babel-loader',
         exclude: /node_modules/
       },
@@ -22,6 +22,7 @@ const config = {
         test: /\.(css|less)$/,
         use: ['style-loader', 'css-loader']
       },
+
       {
         test: /\.(gif|svg|jpg|png)$/,
         loader: "file-loader",

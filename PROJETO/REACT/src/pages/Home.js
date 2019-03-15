@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import queryString from 'query-string';
 import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
+import './css/Home.css';
 
 
 
@@ -65,36 +66,37 @@ class Home extends Component {
   render() {
     console.log(this.state);
     return (
-      <div>
-        <div className="App">
-          <Container>
-            <Row className="justify-content-md-center">
-              <Col md="auto">
-                <Card>
+      <div className="home">
+        <div className='texts'>
 
-                  <div className='w-75 mx-auto margin-top-bottom-20'>
-                    <h5 className='text-center'>Selecione um Estado</h5>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
-                      <Form.Control as="select" value={this.state.single}
-                        name="single"
-                        onChange={e => this.handleChange(e)} >
-                        {suggestions.map(option => (
-                          <option>{option.value}</option>
-                        ))}
-                      </Form.Control>
-                    </Form.Group>
+          <div style={{width: "30%"}} className='margin-top-bottom-20 bg-white seletor'>
+          <div className='margin-top-bottom-20 texto'>
+            <div>
+              <h1 style={{"font-size": "30px"}}>NOVOS SERVIÇOS</h1>
+              <h1 style={{"font-size": "24px"}}>PARA NOVAS NECESSIDADES</h1>
 
-                    <div className="text-center">
-                      <Link to={`/itens?estado=${this.state.single}`}>
-                        <Button type='submit'>Pesquisar</Button>
-                      </Link>
-                    </div>
+            </div>
+          </div>
 
-                  </div>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
+
+            <h5 className='text-center' style={{"font-family": 'Lora'}}>Selecione um Estado</h5>
+            <Form.Group controlId="exampleForm.ControlSelect1">
+              <Form.Control as="select" value={this.state.single}
+                name="single"
+                onChange={e => this.handleChange(e)} >
+                {suggestions.map(option => (
+                  <option>{option.value}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+
+            <div className="text-center">
+              <Link to={`/itens?estado=${this.state.single}`}>
+                <Button type='submit' className='bg-dark'>Pesquisar</Button>
+              </Link>
+            </div>
+          </div>
+
         </div >
       </div >
     );
