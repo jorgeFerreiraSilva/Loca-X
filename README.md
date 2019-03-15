@@ -29,3 +29,9 @@ For this project, we used:
 - Make it possible for users to comment on an item
 - Add more pictures when creating and ad
 - More specific regions
+
+## Authors
+- [Jorge Ferreira] (https://github.com/jorgeFerreiraSilva/)
+- [Marianna Dobal] (https://github.com/mmdobal)
+- [Matheus Barbieri] (https://github.com/barbierimatheus)
+
