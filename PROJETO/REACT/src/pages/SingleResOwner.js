@@ -8,27 +8,35 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
+import Form from 'react-bootstrap/Form';
 import './css/Product.css';
 
 class SingleResOwner extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: null,
-      description: null,
+      reservationId: '',
+      text: '',
+      title: '',
+      description: '',
       pathPictures: '',
-      pricePerDay: null,
-      totalPrice: null,
-      startDate: null,
-      endDate: null,
-      hirerId: null,
+      pricePerDay: '',
+      totalPrice: '',
+      startDate: '',
+      endDate: '',
+      hirerId: '',
       hirerName: '',
-      hirerPic: '',
-      status: null,
-      itemId: null
+      ownerId: '',
+      ownerName: '',
+      ownerPic: '',
+      status: '',
+      itemId: '',
+      messages: null
     };
     this.handleCancelRes = this.handleCancelRes.bind(this);
     this.handleAcceptRes = this.handleAcceptRes.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
     // this.onItemClick = this.onItemClick.bind(this);
   }
 
@@ -45,8 +53,9 @@ class SingleResOwner extends Component {
       .catch(err => console.log(err));
     axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
       .then((response) => {
-        const { totalPrice, startDate, endDate, hirerId, status } = response.data[0];
-        this.setState({ totalPrice, startDate, endDate, hirerId, status });
+        const { totalPrice, startDate, endDate, hirerId, status, ownerId } = response.data[0];
+        this.setState({ totalPrice, startDate, endDate, hirerId, status, ownerId });
+        this.setState({ reservationId: this.props.match.params.id});
         console.log('RESERVATION RESPONSE', response);
         axios.get(`http://192.168.0.41:8080/api/users/${this.state.hirerId}`)
           .then((response) => {
@@ -55,7 +64,43 @@ class SingleResOwner extends Component {
             this.setState({ hirerName, hirerPic });
             console.log('OWNER DATA>>>>>', response.data);
           });
+          axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
+          .then((response) => {
+            const ownerName = response.data.name;
+            const ownerPic = response.data.pathPicture;
+            this.setState({ ownerName, ownerPic });
+            // console.log('OWNER DATA>>>>>', response.data);
+            axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+              .then((response) => {
+                console.log('OI');
+                const messages = response.data;
+                // console.log('MESSAGESSS', response.data);
+                this.setState({ messages });
+                console.log('state messages', this.state.messages);
+              });
+          });
       });
+  }
+
+  handleChange = e => {
+    const {
+      name,
+      value
+    } = e.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleMessageSubmit(event) {
+    event.preventDefault();
+    axios.post(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.state.hirerId}`, {
+      text: this.state.text,
+      sender: this.state.ownerId
+    })
+    .then((response) => {
+      console.log(response);
+    });
   }
 
   handleCancelRes() {
@@ -94,6 +139,7 @@ class SingleResOwner extends Component {
   // };
 
   render() {
+    const { messages, hirerId, ownerId, ownerName } = this.state;
     return (
       <div className="app">
         <Container>
@@ -111,6 +157,24 @@ class SingleResOwner extends Component {
                 </Card.Text>
               </Card.Body>
             </Card>
+
+
+            {/* FORM DE MENSAGEM */}
+            <Form onSubmit = { e => this.handleMessageSubmit(e) }>
+          <Form.Group controlId = "exampleForm.ControlTextarea1" >
+          <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
+          <Form.Control as = "textarea"
+          name = "text"
+          value = {
+            this.state.text
+          }
+          rows = "5"
+          onChange = {  e => this.handleChange(e) }/> 
+          </Form.Group> 
+          <Button type = "submit" > Enviar </Button> 
+          </Form>
+
+
           </Col>
 
           <Col xs={12} md={4}>
@@ -159,6 +223,27 @@ class SingleResOwner extends Component {
                 </Card.Text>
               </div>
             </Card>
+
+            { (messages !== null) ?      
+              (messages.reverse().map((item, index) => (
+                <div key={index}>
+
+                  <Card>
+                    {(item.sender == this.state.hirerId) ? 
+                    (<Card.Header><b>{this.state.hirerName}</b></Card.Header>) : (<Card.Header><b>{this.state.ownerName}</b></Card.Header>)}
+                    <Card.Body>
+                      <Card.Text>
+                        {item.text}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              )))
+              : false
+            }
+
+
+
           </Col>
 
         </Row>
