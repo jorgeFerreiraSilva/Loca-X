@@ -71,6 +71,7 @@ class Home extends Component {
             <Row className="justify-content-md-center">
               <Col md="auto">
                 <Card>
+
                   <div className='w-75 mx-auto margin-top-bottom-20'>
                     <h5 className='text-center'>Selecione um Estado</h5>
                     <Form.Group controlId="exampleForm.ControlSelect1">
@@ -82,11 +83,13 @@ class Home extends Component {
                         ))}
                       </Form.Control>
                     </Form.Group>
+
                     <div className="text-center">
                       <Link to={`/itens?estado=${this.state.single}`}>
                         <Button type='submit'>Pesquisar</Button>
                       </Link>
                     </div>
+
                   </div>
                 </Card>
               </Col>
