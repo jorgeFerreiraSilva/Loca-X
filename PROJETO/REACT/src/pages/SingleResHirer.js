@@ -28,6 +28,7 @@ class SingleResHirer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      reservationId: '',
       title: '',
       description: '',
       pathPictures: '',
@@ -40,7 +41,8 @@ class SingleResHirer extends Component {
       ownerName: '',
       ownerPic: '',
       status: '',
-      itemId: ''
+      itemId: '',
+      messages: ''
     };
   }
 
@@ -59,6 +61,7 @@ class SingleResHirer extends Component {
       .then((response) => {
         const { totalPrice, startDate, endDate, hirerId, ownerId, status } = response.data[0];
         this.setState({ totalPrice, startDate, endDate, hirerId, ownerId, status });
+        this.setState({ reservationId: this.props.match.params.id});
         console.log('RESERVATION RESPONSE', response);
         axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
           .then((response) => {
@@ -66,6 +69,13 @@ class SingleResHirer extends Component {
             const ownerPic = response.data.pathPicture;
             this.setState({ ownerName, ownerPic });
             console.log('OWNER DATA>>>>>', response.data);
+            axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+              .then((response) => {
+                console.log('OI');
+                const messages = response.data;
+                console.log('MESSAGESSS', response.data);
+                this.setState({ messages });
+              });
           });
       });
   }
@@ -134,7 +144,6 @@ class SingleResHirer extends Component {
               </div>
             </Card>
           </Col>
-
         </Row>
       </Container>
     </div >
