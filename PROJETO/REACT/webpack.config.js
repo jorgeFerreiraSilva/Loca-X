@@ -14,14 +14,25 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/, 
+        test: /\.(js|jsx)$/,
         use: 'babel-loader',
         exclude: /node_modules/
       },
       {
         test: /\.(css|less)$/,
         use: ['style-loader', 'css-loader']
+      },
+
+      // Load images.
+      {
+        test: /\.(gif|jp?g|png)$/,
+        loader: 'url-loader?limit=25000',
+        query: {
+          limit: 10000,
+          name: '/public/images/[name].[hash:8].[ext]'
+        }
       }
+
     ]
   },
   resolve: {

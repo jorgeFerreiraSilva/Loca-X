@@ -30,8 +30,8 @@ class NavLogged extends React.Component {
     console.log('trutaaaaaa', this.props);
 
     return (
-      <Navbar className="navbar">
-        <Navbar.Brand className="logo-menu" href="/">LocaX</Navbar.Brand>
+      <Navbar className="navbar" style={{ "background-color": '#f9f9f9'}}>
+        <Navbar.Brand className="logo-menu" href="/">Loca X</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="item-menu"  >
@@ -41,7 +41,7 @@ class NavLogged extends React.Component {
             <Link to="/reservas/inq" className="nav-item" >Minhas Reservas</Link>
           </Navbar.Text>
           <Navbar.Text className="item-menu">
-            <Link to="/reservas/dono" className="nav-item">Meus Anuncios</Link>
+            <Link to="/reservas/dono" className="nav-item">Negociações</Link>
           </Navbar.Text>
           <Navbar.Text className="item-menu">
             <Link onClick={this.userlogout} to="/" >Logout</Link>
