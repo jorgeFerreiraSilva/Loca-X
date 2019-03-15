@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../../../public/navStyle.css'
+import '../../../public/navStyle.css';
 
 
 class NavLoggedOut extends React.Component {

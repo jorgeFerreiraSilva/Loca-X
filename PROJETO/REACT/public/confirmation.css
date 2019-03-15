@@ -1,0 +1,15 @@
+.confirm-img {
+  width: 47%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  background-repeat: no-repeat;
+}
+
+.btn.btn-success {
+  display: block;
+  margin: 0 auto;
+  border-radius: 35px;
+  
+  
+}

@@ -27,8 +27,6 @@ class NavLogged extends React.Component {
 
   render() {
 
-    console.log('trutaaaaaa', this.props);
-
     return (
       <Navbar className="navbar" style={{ "background-color": '#f9f9f9'}}>
         <Navbar.Brand className="logo-menu" href="/">Loca X</Navbar.Brand>
