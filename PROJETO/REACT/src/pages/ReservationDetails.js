@@ -162,79 +162,53 @@ class ReservationDetails extends Component {
     console.log(this.state);
 
 
-    return ( <
-      div className = {
+    return ( <div className = {
         classes.myrow
       } >
 
-      <
-      Container >
-      <
-      Row >
-      <
-      div className = {
+      <Container>
+      <Row>
+      <div className = {
         classes.profile
-      } >
-      <
-      Col >
-      <
-      Card >
-      <
-      Card.Img variant = "top"
+      }>
+      <Col>
+      <Card >
+      <Card.Img variant = "top"
       src = {
         this.state.pathPictures[0]
-      }
-      /> <
-      Card.Body >
-      <
-      Card.Title > {
+      }/> <Card.Body >
+      <Card.Title > {
         this.state.name
-      } < /Card.Title> <
-      Card.Text > {
+      } </Card.Title> <Card.Text > {
         this.state.description
-      } <
-      /Card.Text> <
-      /Card.Body> <
-      /Card> <
-      /Col> <
-      /div> <
-      div className = {
+      } </Card.Text> </Card.Body> </Card> </Col> </div> <div className = {
         classes.mycol
       } >
-      <
-      Col >
-      <
-      Card style = {
+      <Col >
+      <Card style = {
         {
           width: '20rem'
         }
       } >
-      <
-      Card.Body > {
+      <Card.Body > {
         /* <Card.Title>Card Title</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */
-      } <
-      Card.Text >
+      } <Card.Text>
       De: {
         this.state.startDate
-      } < br / >
+      } < br/>
       Até: {
         this.state.endDate
-      } < br / >
+      } < br/>
       Total: R$ {
         this.state.totalPrice
-      } <
-      /Card.Text> <
-      /Card.Body> <
-      /Card> <
-      Form onSubmit = {
+      } </Card.Text> </Card.Body> </Card> 
+      <Form onSubmit = {
         e => this.handleFormSubmit(e)
       } >
-      <
-      Form.Group controlId = "exampleForm.ControlTextarea1" >
-      <
-      Form.Label > Envie uma mensagem ao proprietário < /Form.Label> <
-      Form.Control as = "textarea"
+      <Form.Group controlId = "exampleForm.ControlTextarea1" >
+      <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
+      <Form.Control as = "textarea"
       name = "text"
       value = {
         this.state.text
@@ -243,19 +217,13 @@ class ReservationDetails extends Component {
       onChange = {
         e => this.handleChange(e)
       }
-      /> <
-      /Form.Group> <
-      Button type = "submit" > Enviar < /Button> <
-      /Form> <
-      /Col> <
-      /div> <
-      /Row> <
-      /Container>
+      /> </Form.Group> 
+      <Button type = "submit" > Enviar </Button> 
+      </Form> </Col> </div> </Row> </Container>
 
 
 
-      <
-      /div>
+      </div>
 
     );
   }

@@ -37,24 +37,26 @@ class SingleResHirer extends Component {
       startDate: '',
       endDate: '',
       hirerId: '',
+      hirerName: '',
       ownerId: '',
       ownerName: '',
       ownerPic: '',
       status: '',
       itemId: '',
-      messages: ''
+      messages: null,
+      sortedMessages: ''
     };
   }
 
   componentDidMount() {
-    console.log(this.props.location.state);
+    // console.log(this.props.location.state);
     axios.get(`http://192.168.0.41:8080/api/ads/${this.props.location.state.adId}`)
       .then((response) => {
         const { title, description, pathPictures, pricePerDay } = response.data;
         this.setState({ title, description, pathPictures, pricePerDay });
         const itemId = response.data._id;
         this.setState({ itemId });
-        console.log('AD RESPONSE', response);
+        // console.log('AD RESPONSE', response);
       })
       .catch(err => console.log(err));
     axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
@@ -63,18 +65,25 @@ class SingleResHirer extends Component {
         this.setState({ totalPrice, startDate, endDate, hirerId, ownerId, status });
         this.setState({ reservationId: this.props.match.params.id});
         console.log('RESERVATION RESPONSE', response);
+        axios.get(`http://192.168.0.41:8080/api/users/${this.state.hirerId}`)
+          .then((response) => {
+            const hirerName = response.data.name;
+            this.setState({ hirerName });
+            // console.log('HIRERNAME', this.state.hirerName);
+          });
         axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
           .then((response) => {
             const ownerName = response.data.name;
             const ownerPic = response.data.pathPicture;
             this.setState({ ownerName, ownerPic });
-            console.log('OWNER DATA>>>>>', response.data);
+            // console.log('OWNER DATA>>>>>', response.data);
             axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
               .then((response) => {
                 console.log('OI');
                 const messages = response.data;
-                console.log('MESSAGESSS', response.data);
+                // console.log('MESSAGESSS', response.data);
                 this.setState({ messages });
+                console.log('state messages', this.state.messages);
               });
           });
       });
@@ -93,9 +102,12 @@ class SingleResHirer extends Component {
   //   .catch(err => console.log(err));
   // };
 
+
   render() {
     
     const { classes } = this.props;
+    const { messages, hirerId, ownerId, ownerName } = this.state;
+    console.log('RENDER EMSSAGES', messages);
     return (
       <div className='app'>
       <Container>
@@ -114,6 +126,8 @@ class SingleResHirer extends Component {
               </Card.Body>
             </Card>
           </Col>
+
+          
 
           <Col xs={12} md={4}>
             <Card>
@@ -143,6 +157,25 @@ class SingleResHirer extends Component {
                 </Card.Text>
               </div>
             </Card>
+
+            { (messages !== null) ?      
+              (messages.map((item, index) => (
+                <div key={index}>
+
+                  <Card>
+                    {(item.sender == this.state.hirerId) ? 
+                    (<Card.Header><b>{this.state.hirerName}</b></Card.Header>) : (<Card.Header><b>{this.state.ownerName}</b></Card.Header>)}
+                    <Card.Body>
+                      <Card.Text>
+                        {item.text}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              )))
+              : false
+            }
+
           </Col>
         </Row>
       </Container>
