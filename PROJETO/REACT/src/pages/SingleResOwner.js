@@ -151,7 +151,7 @@ class SingleResOwner extends Component {
             {/* FORM DE MENSAGEM */}
             <Form onSubmit = { e => this.handleMessageSubmit(e) }>
           <Form.Group controlId = "exampleForm.ControlTextarea1" >
-          <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
+          <Form.Label > Envie uma mensagem ao inquilino </Form.Label> 
           <Form.Control as = "textarea"
           name = "text"
           value = {
