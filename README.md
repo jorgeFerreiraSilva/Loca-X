@@ -7,8 +7,7 @@ You can also make your own itens avaiable for other people to rent and make mone
 
 ## Getting started
 
-The application is deployed at Heroku and you can access it anytime.
-[LINK]  
+The application is deployed at [Surge](http://locax.surge.sh/) and you can access it anytime.
 
 You can search from itens by location (for now, only Brazilian states) and then by category or keywords. If you find a product you like, you can view the details and make a reservation. 
 You can also create and ad and see who is interested in renting your product.
