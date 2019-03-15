@@ -217,7 +217,7 @@ class ReservationDetails extends Component {
         e => this.handleChange(e)
       }
       /> </Form.Group> 
-      <Button type = "submit" > Enviar </Button> 
+      <Button type = "submit" > <a href='/'>Enviar</a> </Button> 
       </Form> </Col> </div> </Row> </Container>
 
 
