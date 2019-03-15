@@ -21,13 +21,14 @@ import MyButton from '../components/MyButton';
 import { Link } from 'react-router-dom';
 import { HardwarePhoneAndroid } from 'material-ui/svg-icons';
 import NavLogged from '../../src/components/Navbars/Loggedin.js'
+import InputBase from '@material-ui/core/InputBase';
 
 const styles = theme => ({
   root: {
     flexGrow: 1
   },
   mediaquery: {
-    [theme.breakpoints.down('xs')]: { 
+    [theme.breakpoints.down('xs')]: {
       justifyContent: 'center'
     }
   },
@@ -228,7 +229,11 @@ class SearchResults extends Component {
     });
   }
 
-  
+  handleChangeSearch = prop => event => {
+    this.setState({ search: event.target.value });
+  };
+
+
   handleChange = name => value => {
     this.setState({
       [name]: value,
@@ -239,15 +244,15 @@ class SearchResults extends Component {
     const values = queryString.parse(this.props.location.search)
     console.log(values.estado);
     console.log(this.props.allAdsFiltered)
-    
-    // if (this.props.allAdsFiltered === null) {
-      this.props.updateAds(values.estado)
-    // }
+
+    this.props.updateAds(values.estado)
   }
-  
+
   render() {
     console.log(this.props.location.estado);
     console.log(this.props.allAdsFiltered);
+    console.log(this.state);
+
 
     const { classes, theme } = this.props;
     const { listResults } = this.state;
@@ -262,7 +267,9 @@ class SearchResults extends Component {
       }),
     };
 
-    if (this.state.single !== null) {
+    if (this.state.single !== null && this.state.search !== null) {
+      list = this.props.allAdsFiltered.filter((item) => item.category.includes(this.state.single.value) && item.title.toLowerCase().includes(this.state.search))
+    }else if (this.state.single !== null) {
       list = this.props.allAdsFiltered.filter((item) => item.category.includes(this.state.single.value))
     } else if (this.state.search !== '') {
       list = this.props.allAdsFiltered.filter((item) => item.title.toLowerCase().includes(this.state.search))
@@ -272,34 +279,44 @@ class SearchResults extends Component {
 
     return (
       <div className={classes.myroot}>
-        <div>
-          {/* <Header updateState={this.updateState} /> */}
-        </div>
-        <div className={classes.selectroot}>
-          <NoSsr>
-            <Select
-              classes={classes}
-              styles={selectStyles}
-              options={suggestions}
-              components={components}
-              value={this.state.single}
-              onChange={this.handleChange('single')}
-              placeholder="Categorias"
-              isClearable
+        <div className='w-25'>
+          <div className="form-group">
+            <InputBase
+              placeholder="Buscar itens"
+              onChange={this.handleChangeSearch('search')}
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
             />
-          </NoSsr>
+          </div>
+
+          <div className={classes.selectroot}>
+            <NoSsr>
+              <Select
+                classes={classes}
+                styles={selectStyles}
+                options={suggestions}
+                components={components}
+                value={this.state.single}
+                onChange={this.handleChange('single')}
+                placeholder="Categorias"
+                isClearable
+              />
+            </NoSsr>
+          </div>
         </div>
+
         <Grid
-        className={classes.mediaquery}
+          className={classes.mediaquery}
           container
           justify="flex-start"
           spacing={16}
           wrap='wrap'
         >
-
           {(this.props.allAdsFiltered !== null) ?
             (list.map((result, index) => (
-              <Grid lg={3} md={4} sm={6} key={index} item style={{'min-width': '270px'}}>
+              <Grid lg={3} md={4} sm={6} key={index} item style={{ 'min-width': '270px' }}>
                 <Link to={`/produto/${result._id}`} style={{ textDecoration: 'none' }}>
                   <MyCard result={result} />
                 </Link>
