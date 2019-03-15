@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
+import Form from 'react-bootstrap/Form';
 import './css/Product.css';
 
 const styles = theme => ({
@@ -29,6 +30,7 @@ class SingleResHirer extends Component {
     super(props);
     this.state = {
       reservationId: '',
+      text: '',
       title: '',
       description: '',
       pathPictures: '',
@@ -43,9 +45,10 @@ class SingleResHirer extends Component {
       ownerPic: '',
       status: '',
       itemId: '',
-      messages: null,
-      sortedMessages: ''
+      messages: null
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -89,6 +92,27 @@ class SingleResHirer extends Component {
       });
   }
 
+  handleChange = e => {
+    const {
+      name,
+      value
+    } = e.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleMessageSubmit(event) {
+    event.preventDefault();
+    axios.post(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.state.hirerId}`, {
+      text: this.state.text,
+      sender: this.state.hirerId
+    })
+    .then((response) => {
+      console.log(response);
+    });
+  }
+
   // onItemClick: function(event) {
 
   //   event.currentTarget.style.backgroundColor = '#ccc';
@@ -108,6 +132,7 @@ class SingleResHirer extends Component {
     const { classes } = this.props;
     const { messages, hirerId, ownerId, ownerName } = this.state;
     console.log('RENDER EMSSAGES', messages);
+    console.log(this.state.text);
     return (
       <div className='app'>
       <Container>
@@ -125,6 +150,22 @@ class SingleResHirer extends Component {
                 </Card.Text>
               </Card.Body>
             </Card>
+
+            {/* FORM DE MENSAGEM */}
+            <Form onSubmit = { e => this.handleMessageSubmit(e) }>
+          <Form.Group controlId = "exampleForm.ControlTextarea1" >
+          <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
+          <Form.Control as = "textarea"
+          name = "text"
+          value = {
+            this.state.text
+          }
+          rows = "5"
+          onChange = {  e => this.handleChange(e) }/> 
+          </Form.Group> 
+          <Button type = "submit" > Enviar </Button> 
+          </Form>
+
           </Col>
 
           
@@ -159,7 +200,7 @@ class SingleResHirer extends Component {
             </Card>
 
             { (messages !== null) ?      
-              (messages.map((item, index) => (
+              (messages.reverse().map((item, index) => (
                 <div key={index}>
 
                   <Card>
