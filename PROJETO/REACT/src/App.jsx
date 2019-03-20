@@ -88,7 +88,7 @@ class App extends Component {
   }
 
   searchAdsByState(state) {
-    axios.get(`http://192.168.0.41:8080/api/ads?state=${state}`)
+    axios.get(`http://locax.herokuapp.com/api/ads?state=${state}`)
       .then((response) => {
         console.log('app');
         console.log(response);
@@ -139,7 +139,7 @@ class App extends Component {
         <MuiThemeProvider>
           <div>
             {myNav}
-            <hr></hr>
+            {/* <hr></hr> */}
             <Switch>
               <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
 

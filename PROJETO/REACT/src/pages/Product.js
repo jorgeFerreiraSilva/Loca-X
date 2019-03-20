@@ -68,11 +68,11 @@ class Product extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`, this.state)
+    axios.get(`http://locax.herokuapp.com/api/ads/${this.props.match.params.id}`, this.state)
       .then((response) => {
         const { ownerId, title, description, pathPictures, pricePerDay, category } = response.data;
         this.setState({ ownerId, title, description, pathPictures, pricePerDay, category });
-        axios.get(`http://192.168.0.41:8080/api/users/${ownerId}`)
+        axios.get(`http://locax.herokuapp.com/api/users/${ownerId}`)
           .then((user) => {
             const ownerName = user.data.name;
             const ownerPicture = user.data.pathPicture;

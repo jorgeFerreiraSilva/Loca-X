@@ -73,7 +73,7 @@ class SingleResOwner extends Component {
 
   componentDidMount() {
     console.log(this.props.location.state);
-    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.location.state.adId}`)
+    axios.get(`http://locax.herokuapp.com/api/ads/${this.props.location.state.adId}`)
       .then((response) => {
         const { title, description, pathPictures, pricePerDay } = response.data;
         this.setState({ title, description, pathPictures, pricePerDay });
@@ -81,23 +81,23 @@ class SingleResOwner extends Component {
         this.setState({ itemId });
       })
       .catch(err => console.log(err));
-    axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
+    axios.get(`http://locax.herokuapp.com/api/reservation/${this.props.match.params.id}`)
       .then((response) => {
         const { totalPrice, startDate, endDate, hirerId, status, ownerId } = response.data[0];
         this.setState({ totalPrice, startDate, endDate, hirerId, status, ownerId });
         this.setState({ reservationId: this.props.match.params.id});
-        axios.get(`http://192.168.0.41:8080/api/users/${this.state.hirerId}`)
+        axios.get(`http://locax.herokuapp.com/api/users/${this.state.hirerId}`)
           .then((response) => {
             const hirerName = response.data.name;
             const hirerPic = response.data.pathPicture;
             this.setState({ hirerName, hirerPic });
           });
-          axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
+          axios.get(`http://locax.herokuapp.com/api/users/${this.state.ownerId}`)
           .then((response) => {
             const ownerName = response.data.name;
             const ownerPic = response.data.pathPicture;
             this.setState({ ownerName, ownerPic });
-            axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+            axios.get(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}`)
               .then((response) => {
                 const messages = response.data;
                 this.setState({ messages });
@@ -118,13 +118,13 @@ class SingleResOwner extends Component {
 
   handleMessageSubmit(event) {
     event.preventDefault();
-    axios.post(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.state.hirerId}`, {
+    axios.post(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.state.hirerId}`, {
       text: this.state.text,
       sender: this.state.ownerId
     })
     .then((response) => {
       console.log(response);
-      axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+      axios.get(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}`)
       .then((response) => {
         const messages = response.data;
         this.setState({ messages });
@@ -135,7 +135,7 @@ class SingleResOwner extends Component {
 
   handleCancelRes() {
     console.log('reject');
-    axios.patch(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`, { status: 'Recusado' })
+    axios.patch(`http://locax.herokuapp.com/api/reservation/${this.props.match.params.id}`, { status: 'Recusado' })
       .then((response) => {
         const { status } = response.data;
         this.setState({ status: 'Recusado' });
@@ -146,7 +146,7 @@ class SingleResOwner extends Component {
 
   handleAcceptRes() {
     console.log('accept');
-    axios.patch(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`, { status: 'Alugando' })
+    axios.patch(`http://locax.herokuapp.com/api/reservation/${this.props.match.params.id}`, { status: 'Alugando' })
       .then((response) => {
         const { status } = response.data;
         this.setState({ status: 'Alugando' });
@@ -208,8 +208,8 @@ class SingleResOwner extends Component {
 
                       {(this.state.status === 'Em espera') ?
                         <div>
-                          <Button variant="success" onClick={this.handleAcceptRes}>aceitar</Button>
-                          <Button variant="danger" onClick={this.handleCancelRes}>recusar</Button>
+                          <Button style={{ float: 'left', "margin-left": '20%'}} variant="success" onClick={this.handleAcceptRes}>aceitar</Button>
+                          <Button style={{ float: 'right', "margin-right": '20%', "border-radius":'20px'}} variant="danger" onClick={this.handleCancelRes}>recusar</Button>
                         </div>
                         : false
                       }
@@ -222,7 +222,7 @@ class SingleResOwner extends Component {
 
             <Col xs={12} md={4}>
 
-            <Card className="text-center margin-top-bottom-5 padding-5">
+            <Card className="text-center margin-bottom-5 padding-5">
               <div>
                 <Link to={{
                   pathname: `/perfil/${this.state.hirerId}`

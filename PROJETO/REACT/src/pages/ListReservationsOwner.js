@@ -34,7 +34,7 @@ class ListReservationsOwner extends Component {
   componentDidMount() {
     this.setState({ userId: this.props.loggedInUser._id });
 
-    axios.get(`http://192.168.0.41:8080/api/reservation/owner/${this.props.loggedInUser._id}`)
+    axios.get(`http://locax.herokuapp.com/api/reservation/owner/${this.props.loggedInUser._id}`)
       .then((response) => {
         const userReservations = response.data;
         this.setState({ userReservations });
