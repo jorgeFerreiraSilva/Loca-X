@@ -69,12 +69,11 @@ class Home extends Component {
       <div className="home">
         <div className='texts'>
 
-          <div style={{width: "30%"}} className='margin-top-bottom-20 bg-white seletor'>
+          <div className='margin-top-bottom-20 bg-white seletor'>
           <div className='margin-top-bottom-20 texto'>
             <div>
-              <h1 style={{"font-size": "30px"}}>NOVOS SERVIÇOS</h1>
-              <h1 style={{"font-size": "24px"}}>PARA NOVAS NECESSIDADES</h1>
-
+              <h1 style={{"font-size": "24px"}}>NOVOS SERVIÇOS</h1>
+              <h2 style={{"font-size": "23px"}}>PARA NOVAS NECESSIDADES</h2>
             </div>
           </div>
 

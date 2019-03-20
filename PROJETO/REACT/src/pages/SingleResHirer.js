@@ -59,7 +59,7 @@ class SingleResHirer extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.location.state.adId}`)
+    axios.get(`http://locax.herokuapp.com/api/ads/${this.props.location.state.adId}`)
       .then((response) => {
         const { title, description, pathPictures, pricePerDay } = response.data;
         this.setState({ title, description, pathPictures, pricePerDay });
@@ -67,23 +67,23 @@ class SingleResHirer extends Component {
         this.setState({ itemId });
       })
       .catch(err => console.log(err));
-    axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
+    axios.get(`http://locax.herokuapp.com/api/reservation/${this.props.match.params.id}`)
       .then((response) => {
         const { totalPrice, startDate, endDate, hirerId, ownerId, status } = response.data[0];
         this.setState({ totalPrice, startDate, endDate, hirerId, ownerId, status });
         this.setState({ reservationId: this.props.match.params.id});
         console.log('RESERVATION RESPONSE', response);
-        axios.get(`http://192.168.0.41:8080/api/users/${this.state.hirerId}`)
+        axios.get(`http://locax.herokuapp.com/api/users/${this.state.hirerId}`)
           .then((response) => {
             const hirerName = response.data.name;
             this.setState({ hirerName });
           });
-        axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
+        axios.get(`http://locax.herokuapp.com/api/users/${this.state.ownerId}`)
           .then((response) => {
             const ownerName = response.data.name;
             const ownerPic = response.data.pathPicture;
             this.setState({ ownerName, ownerPic });
-            axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+            axios.get(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}`)
               .then((response) => {
                 const messages = response.data;
                 this.setState({ messages });
@@ -104,13 +104,13 @@ class SingleResHirer extends Component {
 
   handleMessageSubmit(event) {
     event.preventDefault();
-    axios.post(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.state.hirerId}`, {
+    axios.post(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.state.hirerId}`, {
       text: this.state.text,
       sender: this.state.hirerId
     })
     .then((response) => {
       console.log(response);
-      axios.get(`http://192.168.0.41:8080/api/messages/reservation/${this.state.reservationId}`)
+      axios.get(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}`)
       .then((response) => {
         const messages = response.data;
         this.setState({ messages });

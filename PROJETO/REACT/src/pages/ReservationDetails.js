@@ -1,6 +1,7 @@
 import React, {
   Component
 } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {
@@ -13,6 +14,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import './css/Details.css'
 
 const styles = theme => ({
   mycol: {
@@ -44,6 +46,7 @@ class ReservationDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      redirect: null,
       text: '',
       adId: null,
       hirerId: null,
@@ -97,7 +100,7 @@ class ReservationDetails extends Component {
       endDate,
       totalPrice
     });
-    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`)
+    axios.get(`http://locax.herokuapp.com/api/ads/${this.props.match.params.id}`)
       .then((response) => {
         const {
           ownerId,
@@ -130,7 +133,7 @@ class ReservationDetails extends Component {
       ownerId,
       hirerId
     } = this.state;
-    axios.post(`http://192.168.0.41:8080/api/reservation/ads/${adId}/users/${ownerId}/${hirerId}`, this.state)
+    axios.post(`http://locax.herokuapp.com/api/reservation/ads/${adId}/users/${ownerId}/${hirerId}`, this.state)
       .then(response => {
         console.log('API REQUEST CRIAÇÃO NOVA RESERVA', response);
         const reservationId = response.data._id;
@@ -138,12 +141,13 @@ class ReservationDetails extends Component {
           reservationId: response.data._id
         });
         // console.log('RES RESPONSE>>>>', response.data._id);
-        axios.post(`http://192.168.0.41:8080/api/messages/reservation/${reservationId}/users/${this.state.ownerId}/${this.props.loggedInUser._id}`, {
-            text: this.state.text,
-            sender: this.state.sender
-          })
+        axios.post(`http://locax.herokuapp.com/api/messages/reservation/${reservationId}/users/${this.state.ownerId}/${this.props.loggedInUser._id}`, {
+          text: this.state.text,
+          sender: this.state.sender
+        })
           .then((response) => {
             console.log(response);
+            this.setState({ redirect: <Redirect to="/" /> });
           });
       });
   }
@@ -162,71 +166,70 @@ class ReservationDetails extends Component {
     }
     console.log(this.props.loggedInUser._id);
     console.log(this.state);
+    const r = this.state.redirect !== null ? this.state.redirect : false;
+    
+    return (
+      <div >
+      {r}
+        <Container>
+          <Row className='mt-5'>
+            <Col xs={12} md={6}>
+              <Card className='margin-bottom-5 align-item padding-5 border-shadow'>
+                <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} />
+                <Card.Body>
+                  <Card.Title>{this.state.name}</Card.Title>
+                  <Card.Text>{this.state.description}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
 
+            <Col xs={12} md={4}>
+              <Card >
+                <Card.Body > {}
+                  <Card.Text>
+                    <strong>{this.state.title}</strong>
+                    <br />
+                    <hr />
+                    <div className='display'>
+                      <span>Data de Retirada: </span>
+                      <span>{this.state.startDate}</span>
+                    </div>
+                    <div className='display'>
+                      <span>Data de Devolução: </span>
+                      <span>{this.state.endDate}</span>
+                    </div>
+                    <hr />
+                    <div className='display'>
+                      <span><strong>Total: </strong></span>
+                      <span><strong>R${this.state.totalPrice}</strong></span>
+                    </div>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-    return ( <div className = {
-        classes.myrow
-      } >
+              <Card className='margin-top-5 border-none'>
+                <Form onSubmit={e => this.handleFormSubmit(e)} >
+                  <Form.Group controlId="exampleForm.ControlTextarea1" >
+                    <Card.Header > Envie uma mensagem ao proprietário </Card.Header>
+                    <Form.Control as="textarea"
+                      name="text"
+                      value={
+                        this.state.text
+                      }
+                      rows="5"
+                      onChange={
+                        e => this.handleChange(e)
+                      }
+                    />
+                  </Form.Group>
+                  <Button type="submit" >Enviar</Button>
+                </Form>
+              </Card>
+            </Col>
 
-      <Container>
-      <Row>
-      <div className = {
-        classes.profile
-      }>
-      <Col>
-      <Card >
-      <Card.Img variant = "top"
-      src = {
-        this.state.pathPictures[0]
-      }/> <Card.Body >
-      <Card.Title > {
-        this.state.name
-      } </Card.Title> <Card.Text > {
-        this.state.description
-      } </Card.Text> </Card.Body> </Card> </Col> </div> <div className = {
-        classes.mycol
-      } >
-      <Col >
-      <Card style = {
-        {
-          width: '20rem'
-        }
-      } >
-      <Card.Body > {
-        /* <Card.Title>Card Title</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */
-      } <Card.Text>
-      De: {
-        this.state.startDate
-      } < br/>
-      Até: {
-        this.state.endDate
-      } < br/>
-      Total: R$ {
-        this.state.totalPrice
-      } </Card.Text> </Card.Body> </Card> 
-      <Form onSubmit = {
-        e => this.handleFormSubmit(e)
-      } >
-      <Form.Group controlId = "exampleForm.ControlTextarea1" >
-      <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
-      <Form.Control as = "textarea"
-      name = "text"
-      value = {
-        this.state.text
-      }
-      rows = "5"
-      onChange = {
-        e => this.handleChange(e)
-      }
-      /> </Form.Group> 
-      <Button type = "submit" > <a className={classes.textbutton}href='/'>Enviar</a> </Button> 
-      </Form> </Col> </div> </Row> </Container>
-
-
-
+          </Row>
+        </Container>
       </div>
-
     );
   }
 }
