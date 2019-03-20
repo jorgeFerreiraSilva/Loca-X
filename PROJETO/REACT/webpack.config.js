@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   entry: [
@@ -41,7 +42,14 @@ const config = {
     port: 3000,
     historyApiFallback: true,
     watchContentBase: true
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({  
+      filename: 'index.html',
+      template: 'src/index.html'
+    })
+  ]
 };
 
 module.exports = config;
