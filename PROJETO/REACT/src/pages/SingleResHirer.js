@@ -9,6 +9,9 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import Form from 'react-bootstrap/Form';
+import './css/Product.css';
 
 const styles = theme => ({
   
@@ -21,15 +24,20 @@ const styles = theme => ({
     width: '45%'
   },
 
-  // box: {
-  //   marginBottom: '5%'
-  // }
+  cardSpacing: {
+    marginBottom: '3%'
+  },
+  leftSide: {
+    marginTop: '3%'
+  }
 });
 
 class SingleResHirer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      reservationId: '',
+      text: '',
       title: '',
       description: '',
       pathPictures: '',
@@ -38,94 +46,176 @@ class SingleResHirer extends Component {
       startDate: '',
       endDate: '',
       hirerId: '',
+      hirerName: '',
       ownerId: '',
+      ownerName: '',
+      ownerPic: '',
       status: '',
-      itemId: ''
+      itemId: '',
+      messages: null
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
   }
 
   componentDidMount() {
-    console.log(this.props.location.state);
-    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.location.state.adId}`)
+    axios.get(`http://locax.herokuapp.com/api/ads/${this.props.location.state.adId}`)
       .then((response) => {
         const { title, description, pathPictures, pricePerDay } = response.data;
         this.setState({ title, description, pathPictures, pricePerDay });
         const itemId = response.data._id;
         this.setState({ itemId });
-        console.log('AD RESPONSE', response);
       })
       .catch(err => console.log(err));
-    axios.get(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`)
+    axios.get(`http://locax.herokuapp.com/api/reservation/${this.props.match.params.id}`)
       .then((response) => {
-        const { totalPrice, startDate, endDate, hirerId, ownerId } = response.data[0];
-        this.setState({ totalPrice, startDate, endDate, hirerId, ownerId });
+        const { totalPrice, startDate, endDate, hirerId, ownerId, status } = response.data[0];
+        this.setState({ totalPrice, startDate, endDate, hirerId, ownerId, status });
+        this.setState({ reservationId: this.props.match.params.id});
         console.log('RESERVATION RESPONSE', response);
-        axios.get(`http://192.168.0.41:8080/api/users/${this.state.ownerId}`)
+        axios.get(`http://locax.herokuapp.com/api/users/${this.state.hirerId}`)
           .then((response) => {
-              // const { name, pathPicture } = response.data[0];
-              // this.setState({ totalPrice, startDate, endDate, hirerId, ownerId });
-              console.log('OWNER DATA>>>>>', response);
-            });
+            const hirerName = response.data.name;
+            this.setState({ hirerName });
+          });
+        axios.get(`http://locax.herokuapp.com/api/users/${this.state.ownerId}`)
+          .then((response) => {
+            const ownerName = response.data.name;
+            const ownerPic = response.data.pathPicture;
+            this.setState({ ownerName, ownerPic });
+            axios.get(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}`)
+              .then((response) => {
+                const messages = response.data;
+                this.setState({ messages });
+              });
+          });
       });
   }
 
-  // onItemClick: function(event) {
+  handleChange = e => {
+    const {
+      name,
+      value
+    } = e.target;
+    this.setState({
+      [name]: value
+    });
+  }
 
-  //   event.currentTarget.style.backgroundColor = '#ccc';
-  //   axios.patch(`http://192.168.0.41:8080/api/reservation/${this.props.match.params.id}`, { status: 'Recusado' })
-  //   .then((response) => {
-  //     console.log('reject');
-  //     const { status } = response.data;
-  //     this.setState({ status });
-  //     console.log(status);
-  //   })
-  //   .catch(err => console.log(err));
-  // };
+  handleMessageSubmit(event) {
+    event.preventDefault();
+    axios.post(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}/users/${this.state.ownerId}/${this.state.hirerId}`, {
+      text: this.state.text,
+      sender: this.state.hirerId
+    })
+    .then((response) => {
+      console.log(response);
+      axios.get(`http://locax.herokuapp.com/api/messages/reservation/${this.state.reservationId}`)
+      .then((response) => {
+        const messages = response.data;
+        this.setState({ messages });
+        this.setState({ text: ''});
+      });
+    });
+  }
+
 
   render() {
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 6b2ee216f07bbcd6f52cd592baa27e6722837ee1
     const { classes } = this.props;
+    const { messages, hirerId, ownerId, ownerName } = this.state;
+    let reverseMsg = null;
+    if (messages !== null) {
+      reverseMsg = messages.slice().reverse();
+    }
     return (
-      <div>
-        <h1>AQUI</h1>
+      <div className='app'>
       <Container>
-        <Row>
-          <Col>
-          <h1>Infos do anuncio</h1>
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={this.state.pathPictures[0]} />
+        <Row className="justify-content">
+          <Col xs={12} md={6} className="margin-bottom-5">
+            <Card className='margin-bottom-5 align-item padding-5 border-shadow'>
+              <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} alt="product" />
+            </Card>
+            <Card>
+              <Card.Header><b>{this.state.title}</b></Card.Header>
               <Card.Body>
-                <Card.Title>{this.state.title}</Card.Title>
                 <Card.Text>
-                {this.state.description}
+                  {this.state.description}
                 </Card.Text>
-                <Link to={{
-                  pathname: `/produto/${this.state.itemId}`
-                }}
-                >
-                <Button variant="primary">Ver página do produto</Button>
-                </Link>
               </Card.Body>
             </Card>
+
+            <Card className={classes.leftSide}>
+              <Card.Header><b>Informações da reserva</b></Card.Header>
+              <Card.Body>
+                <div className="margin-bottom-5 padding-bottom-5 border-bottom">
+                  <Card.Text>
+                  <span style={{ "font-size": '16px' }}> Status: </span> <strong>{this.state.status}</strong><hr/>
+                    <span style={{ "font-size": '16px' }}> Início: </span> <strong>{this.state.startDate}</strong><br/>
+                    <span style={{ "font-size": '16px' }}> Término: </span> <strong>{this.state.endDate}</strong><hr/>
+                    <span style={{ "font-size": '16px' }}> Total: </span> <strong>R$ {this.state.totalPrice}</strong> </Card.Text>
+                </div>
+              </Card.Body>
+            </Card>
+
           </Col>
-          <Col>
-            <Card style={{ width: '20rem' }}>
-              <Card.Body>
-                <Card.Text>
-                    De: {this.state.startDate}<br/>
-                    Até: {this.state.endDate}<br/>
-                    Total: R${this.state.totalPrice}
+
+          
+
+          <Col xs={12} md={4}>
+
+            <Card className="text-center margin-top-bottom-5 padding-5" >
+              <div> 
+                <Link to={{
+                  pathname: `/perfil/${this.state.ownerId}`
+                }}>
+                  <Image style={{ width: "130px" }} src={this.state.ownerPic} roundedCircle />
+                </Link>
+              </div>
+              <div>
+                <Card.Text>Anunciado por:
+                {' '} {this.state.ownerName}
                 </Card.Text>
-              </Card.Body>
+              </div>
             </Card>
+
+                        {/* FORM DE MENSAGEM */}
+                        <Form className={classes.cardSpacing} onSubmit = { e => this.handleMessageSubmit(e) }>
+          <Form.Group controlId = "exampleForm.ControlTextarea1" >
+          <Form.Label > Envie uma mensagem ao proprietário </Form.Label> 
+          <Form.Control as = "textarea"
+          name = "text"
+          value = {
+            this.state.text
+          }
+          rows = "5"
+          onChange = {  e => this.handleChange(e) }/> 
+          </Form.Group> 
+          <Button type = "submit" > Enviar </Button> 
+          </Form>
+
+            { (reverseMsg !== null) ?      
+              (reverseMsg.map((item, index) => (
+                <div key={index}>
+
+                  <Card className={classes.cardSpacing}>
+                    {(item.sender == this.state.hirerId) ? 
+                    (<Card.Header><b>{this.state.hirerName}</b></Card.Header>) : (<Card.Header><b>{this.state.ownerName}</b></Card.Header>)}
+                    <Card.Body>
+                      <Card.Text>
+                        {item.text}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              )))
+              : false
+            }
+
           </Col>
         </Row>
       </Container>
-    </div>
+    </div >
     );
   }
 }

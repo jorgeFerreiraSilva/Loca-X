@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Button from 'react-bootstrap/Button';
+import '../pages/css/Geral.css'
 
 class ListReservationsHirer extends Component {
   constructor(props) {
@@ -19,8 +20,8 @@ class ListReservationsHirer extends Component {
   }
 
   componentDidMount() {
-    this.setState({ userId: this.props.loggedInUser._id});
-    axios.get(`http://192.168.0.41:8080/api/reservation/hirer/${this.props.loggedInUser._id}`)
+    this.setState({ userId: this.props.loggedInUser._id });
+    axios.get(`http://locax.herokuapp.com/api/reservation/hirer/${this.props.loggedInUser._id}`)
       .then((response) => {
         const userReservations = response.data;
         this.setState({ userReservations });
@@ -29,13 +30,15 @@ class ListReservationsHirer extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
+        <h1 className='text-center fs-30'>Minhas Reservas</h1>
+        <hr className="underTitulo" />
         <Container>
           <Row>
-            <CardDeck>              
-              { (this.state.userReservations !== null) ?      
-                (this.state.userReservations.map((item, index) => (              
+            <CardDeck>
+              {(this.state.userReservations !== null) ?
+                (this.state.userReservations.map((item, index) => (
                   <Col>
                     <div key={index}>
                       <Card style={{ width: '18rem' }}>
@@ -43,8 +46,8 @@ class ListReservationsHirer extends Component {
                         <Card.Body>
                           <Card.Title>{item.title}</Card.Title>
                           <Card.Text>
-                          Datas: {item.startDate} => {item.endDate}<hr></hr>
-                          Preço total: R${item.totalPrice}
+                            Datas: {item.startDate} => {item.endDate}<hr></hr>
+                            Preço total: R${item.totalPrice}
                           </Card.Text>
 
                           <Link to={{
@@ -62,7 +65,7 @@ class ListReservationsHirer extends Component {
                   </Col>
                 )))
                 : false
-          }
+              }
             </CardDeck>
           </Row>
         </Container>

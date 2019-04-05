@@ -15,7 +15,7 @@ import {
   Grid
 } from '@material-ui/core';
 import MyButton from '../MyButton';
-import Button from '../CustomButtons/Button';
+import Button from 'react-bootstrap/Button';
 import '../../pages/css/Details.css';
 
 const styles = theme => ({
@@ -32,7 +32,7 @@ const styles = theme => ({
     // border: '1px solid #e2e2e2'
   },
   boxContent: {
-    padding: '10% 20%'
+    // padding: '10% 20%'
   }
 });
 
@@ -46,6 +46,7 @@ function daysBetween(date1, date2) {
 
   const difference = Math.abs(date1MS - date2MS);
   console.log(Math.round(difference / oneDay));
+  // this.setState({ difference });
   return Math.round(difference / oneDay);
 }
 
@@ -60,7 +61,8 @@ class Details extends Component {
       priceperDay: null,
       totalPrice: null,
       formatedStartDate: '',
-      formatedEndDate: ''
+      formatedEndDate: '',
+      difference: null
     };
     moment.locale('pt-BR');
     this.updateState = this.updateState.bind(this);
@@ -86,22 +88,49 @@ class Details extends Component {
   }
 
   render() {
-    console.log('asjvasdjasvdjasvdavdas');
-    if (this.state.startDate) {
-      console.log(`${this.state.startDate._d.getDate()}/${this.state.startDate._d.getMonth() + 1}/${this.state.startDate._d.getFullYear()}`);
-    }
-    if (this.state.endDate) {
-      console.log(`${this.state.endDate._d.getDate()}/${this.state.endDate._d.getMonth() + 1}/${this.state.endDate._d.getFullYear()}`);
-    }
-
-
     const { classes, productID } = this.props;
+    const { totalPrice } = this.state;
+    const button = totalPrice !== null ?
+      <Link to={{
+        pathname: `/novareserva/${productID}`,
+        state: {
+          startDate: this.state.formatedStartDate,
+          endDate: this.state.formatedEndDate,
+          totalPrice: this.state.totalPrice
+        }
+      }}
+      >
+        <Button block color="primary" round>
+          CONFIRMAR
+      </Button>
+      </Link> :
+      <Link to={{
+        pathname: `/novareserva/${productID}`,
+        state: {
+          startDate: this.state.formatedStartDate,
+          endDate: this.state.formatedEndDate,
+          totalPrice: this.state.totalPrice
+        }
+      }}
+      >
+        <Button className="margin-top-5" block color="primary" round>
+          CONFIRMAR
+      </Button>
+      </Link>
+      ;
+
+    const priceTotal = totalPrice !== null ?
+      <div className='margin-top-bottom-5' style={{ display: 'flex', 'justify-content': 'space-between' }}>
+        <span style={{ 'font-size': '15px' }}><strong>Total</strong></span>
+        <span>R${totalPrice}</span>
+      </div> : false
+
     return (
       <MuiThemeProvider>
         <div>
           <div>
             <DateRangePicker
-              className='font-size center'
+              className='size center'
               displayFormat="DD/MM/YYYY"
               displayFormat={() => moment.localeData('fr').longDateFormat('LL')}
               startDatePlaceholderText='Quando?'
@@ -114,26 +143,12 @@ class Details extends Component {
               focusedInput={this.state.focusedInput}
               onFocusChange={focusedInput => this.setState({ focusedInput })}
             />
+            {console.log(this.state)}
+
+            {priceTotal}
+            {button}
 
           </div>
-          {console.log(this.state)}
-          <Typography variant="h6" component="h2">
-            Total: R$
-            {this.state.totalPrice}
-          </Typography>
-          <Link to={{
-            pathname: `/novareserva/${productID}`,
-            state: {
-              startDate: this.state.formatedStartDate,
-              endDate: this.state.formatedEndDate,
-              totalPrice: this.state.totalPrice
-            }
-          }}
-          >
-            <Button color="primary" round>
-              CONFIRMAR
-            </Button>
-          </Link>
         </div>
       </MuiThemeProvider>
     );

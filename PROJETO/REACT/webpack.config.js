@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   entry: [
@@ -14,14 +15,19 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/, 
+        test: /\.(js|jsx)$/,
         use: 'babel-loader',
         exclude: /node_modules/
       },
       {
         test: /\.(css|less)$/,
         use: ['style-loader', 'css-loader']
-      }
+      },
+
+      {
+        test: /\.(gif|svg|jpg|png)$/,
+        loader: "file-loader",
+      }      
     ]
   },
   resolve: {
@@ -36,7 +42,14 @@ const config = {
     port: 3000,
     historyApiFallback: true,
     watchContentBase: true
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({  
+      filename: 'index.html',
+      template: 'src/index.html'
+    })
+  ]
 };
 
 module.exports = config;

@@ -111,9 +111,9 @@ authRoutes.get('/logout', (req, res) => {
   res.status(200).json({ message: 'O usuário foi deslogado!' });
 });
 
-
 authRoutes.get('/loggedin', (req, res) => {
   if (req.isAuthenticated()) {
+    console.log(req.user);
     res.status(200).json(req.user);
     return;
   }

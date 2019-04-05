@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
+import { Button, Form, Card, Container, Row, Col, Image } from 'react-bootstrap';
 import './css/Product.css';
 import Details from '../components/Product/Details';
 
@@ -67,11 +68,11 @@ class Product extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://192.168.0.41:8080/api/ads/${this.props.match.params.id}`, this.state)
+    axios.get(`http://locax.herokuapp.com/api/ads/${this.props.match.params.id}`, this.state)
       .then((response) => {
         const { ownerId, title, description, pathPictures, pricePerDay, category } = response.data;
         this.setState({ ownerId, title, description, pathPictures, pricePerDay, category });
-        axios.get(`http://192.168.0.41:8080/api/users/${ownerId}`)
+        axios.get(`http://locax.herokuapp.com/api/users/${ownerId}`)
           .then((user) => {
             const ownerName = user.data.name;
             const ownerPicture = user.data.pathPicture;
@@ -85,37 +86,53 @@ class Product extends Component {
   render() {
     const { classes, theme } = this.props;
     return (
-      <div className='app'>
+      <div className='app mt-5'>
         <Container>
-          <Row  className="justify-content">
-              <Col xs={12} md={6}>
-                <Card className='margin-bottom-5 padding-bottom-5 border-shadow'>
-                  <Card.Img variant="top" src={this.state.pathPictures[0]} alt="product" />
-                </Card>
+          <Row className="justify-content">
 
-                <Card>
-                  <Card.Header>Descrição</Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      {this.state.description}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            <Col xs={6} md={4}>
+            <Col xs={12} md={6} className="margin-bottom-5">
+              <Card className='margin-bottom-5 align-item padding-5 border-shadow'>
+                <Card.Img className="w-50" variant="top" src={this.state.pathPictures[0]} alt="product" />
+              </Card>
+              <Card>
+                <Card.Header>Descrição</Card.Header>
+                <Card.Body>
+                  <Card.Text>
+                    {this.state.description}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col xs={12} md={4}>
               <Card>
                 <Card.Header><b>{this.state.title}</b></Card.Header>
                 <Card.Body>
                   <div className="margin-bottom-5 padding-bottom-5 border-bottom">
-                    <Card.Text>Diária R$ {this.state.pricePerDay}</Card.Text>
+                    <Card.Text><strong>R$ {this.state.pricePerDay}</strong>  <span style={{ "font-size": '12px' }}> por dia</span></Card.Text>
                   </div>
                   <Details priceperDay={this.state.pricePerDay} productID={this.props.match.params.id} />
                 </Card.Body>
               </Card>
+
+              <Card className="text-center margin-top-bottom-5 padding-5" >
+                <div> 
+                  <Link to={{
+                    pathname: `/perfil/${this.state.ownerId}`
+                  }}>
+                    <Image style={{ width: "130px" }} src={this.state.ownerPicture} roundedCircle />
+                  </Link>
+                </div>
+                <div>
+                  <Card.Text>Anunciado por:{' '} {this.state.ownerName}
+                  </Card.Text>
+                </div>
+              </Card>
             </Col>
+
           </Row>
         </Container>
-      </div>
+      </div >
     );
   }
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 class AuthService {
   constructor() {
     let service = axios.create({
-      baseURL: 'http://192.168.0.41:8080/api',
+      baseURL: 'http://locax.herokuapp.com/api',
       withCredentials: true
     });
     this.service = service;

@@ -39,9 +39,8 @@ class Login extends Component {
     const password = this.state.password;
     this.service.login(username, password)
       .then(response => {
-        this.setState({ username: "", password: "" });
+        this.setState({ username: "", password: "", redirect: <Redirect to='/' /> });
         this.props.getUser(response);
-        this.setState({ redirect: <Redirect to='/' /> })
       })
       .catch(error => console.log(error))
   }
@@ -76,17 +75,6 @@ class Login extends Component {
             </Col>
           </Row>
         </Container>
-
-        <Link to="/adicionar">
-          <Button>buscar</Button>
-        </Link>
-        <Link to="/reservas/dono">
-          <Button> reservas dono</Button>
-        </Link>
-        <Link to="/reservas/inq">
-          <Button>reservas inquilino</Button>
-        </Link>
-
       </div >
     );
   }

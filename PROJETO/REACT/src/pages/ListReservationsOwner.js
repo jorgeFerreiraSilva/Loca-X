@@ -32,9 +32,9 @@ class ListReservationsOwner extends Component {
   }
 
   componentDidMount() {
-    this.setState({ userId: this.props.loggedInUser._id});
+    this.setState({ userId: this.props.loggedInUser._id });
 
-    axios.get(`http://192.168.0.41:8080/api/reservation/owner/${this.props.loggedInUser._id}`)
+    axios.get(`http://locax.herokuapp.com/api/reservation/owner/${this.props.loggedInUser._id}`)
       .then((response) => {
         const userReservations = response.data;
         this.setState({ userReservations });
@@ -47,15 +47,17 @@ class ListReservationsOwner extends Component {
     const { classes } = this.props;
     return (
       <div>
+        <h1 className='text-center fs-30'>Negociações</h1>
+        <hr className="underTitulo" />
         <Container>
           <Row>
             <div className={classes.mycol}>
               <Col>
-              <Link to="/adicionar">
-                <Button>Criar novo anúncio</Button>
-              </Link>
+                <Link to="/adicionar">
+                  <Button className="mb-5">Criar novo anúncio</Button>
+                </Link>
                 <CardDeck>
-                  { (this.state.userReservations !== null) ?      
+                  {(this.state.userReservations !== null) ?
                     (this.state.userReservations.map((item, index) => (
                       <div className={classes.box} key={index}>
                         <Card style={{ width: '15rem' }}>
@@ -63,8 +65,8 @@ class ListReservationsOwner extends Component {
                           <Card.Body>
                             <Card.Title>{item.title}</Card.Title>
                             <Card.Text>
-                            Datas: {item.startDate} => {item.endDate}<hr></hr>
-                            Preço total: R${item.totalPrice}
+                              Datas: {item.startDate} => {item.endDate}<hr></hr>
+                              Preço total: R${item.totalPrice}
                             </Card.Text>
 
                             <Link to={{

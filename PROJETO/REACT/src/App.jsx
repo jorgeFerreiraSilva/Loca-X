@@ -20,7 +20,8 @@ import SingleResOwner from './pages/SingleResOwner';
 import SingleResHirer from './pages/SingleResHirer';
 import NavLogged from '../src/components/Navbars/Loggedin.js';
 import NavLoggedOut from '../src/components/Navbars/Loggedout.js';
-
+// import Confirmation from './pages/Telaconfirmacao.js/index.js.js.js'; 
+import Telaconfirmacao from '../src/pages/Telaconfirmacao';
 
 
 const styles = theme => ({
@@ -87,7 +88,7 @@ class App extends Component {
   }
 
   searchAdsByState(state) {
-    axios.get(`http://192.168.0.41:8080/api/ads?state=${state}`)
+    axios.get(`http://locax.herokuapp.com/api/ads?state=${state}`)
       .then((response) => {
         console.log('app');
         console.log(response);
@@ -110,6 +111,7 @@ class App extends Component {
         <MuiThemeProvider>
           <div>
             {myNav}
+            {/* <hr></hr> */}
             <Switch>
               <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
               <Route path="/entrar" render={() => <Login getUser={this.getTheUser} />} />
@@ -124,8 +126,10 @@ class App extends Component {
               <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} />
               <Route path="/cadastrar" render={() => <Signup getUser={this.getTheUser} />} />
               <Route path="/produto/:id" render={(props) => <Product {...props} />} />
-              <Route path="/novareserva/:id" render={(props) => <ReservationDetails {...props} />} />
-              <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} />           
+{/* <Route path="/novareserva/:id" render={(props) => <ReservationDetails {...props} />} /> */}
+              <Route path="/perfil/:id" render={(props) => <UserProfile {...props} />} /> 
+              <Route path="/confirmacao" component={Telaconfirmacao} /> 
+
             </Switch>
           </div>
         </MuiThemeProvider>
@@ -135,6 +139,7 @@ class App extends Component {
         <MuiThemeProvider>
           <div>
             {myNav}
+            {/* <hr></hr> */}
             <Switch>
               <Route exact path="/" render={(props) => <Home updateState={this.updateState} updateAds={this.updateAds} {...props} />} />
 

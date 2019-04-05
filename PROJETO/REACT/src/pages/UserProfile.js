@@ -26,7 +26,6 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'space-around',
-    border: '2px solid red',
     margin: '1% auto'
   },
 
@@ -50,13 +49,13 @@ class UserProfile extends Component {
 
   componentDidMount() {
     console.log(this.props.match.params.id)
-    axios.get(`http://192.168.0.41:8080/api/users/${this.props.match.params.id}`)
+    axios.get(`http://locax.herokuapp.com/api/users/${this.props.match.params.id}`)
       .then((response) => {
         const { _id, name, description, pathPicture, state } = response.data;
         this.setState({ _id, name, description, pathPicture, state });
       })
       .catch(err => console.log(err));
-    axios.get(`http://192.168.0.41:8080/api/ads/users/${this.props.match.params.id}`)
+    axios.get(`http://locax.herokuapp.com/api/ads/users/${this.props.match.params.id}`)
       .then((response) => {
         const ads = response.data;
         console.log('-------------------');
@@ -72,7 +71,6 @@ class UserProfile extends Component {
     const { ads } = this.state;
 
     console.log('aqui', ads);
-    // const { _id, name, description, pathPicture, state } = this.state;
     return (
     // eslint-disable-next-line react/jsx-filename-extension
       <div className={classes.myrow}>
